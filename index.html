@@ -7,17 +7,56 @@
 <title>MECARIEGO – Escuela de Riego Inteligente</title>
 <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&amp;display=swap" rel="stylesheet"/>
 <link href="styles.css" rel="stylesheet"/>
+
+<!-- AUTO: sticky header and scroll offset -->
+<style>
+:root { --header-height: 80px; --primary-color: #0b6b3a; --accent-color: #fbfff9; }
+header, .navbar, nav { position: fixed; top: 0; left: 0; right: 0; z-index:9999; }
+body { padding-top: calc(var(--header-height) + 8px); }
+html { scroll-behavior: smooth; }
+section { scroll-margin-top: calc(var(--header-height) + 12px); }
+</style>
+
+
+<!-- AUTO: enhanced header/nav styles -->
+<style>
+/* Keep original structure but enhance visuals */
+header .header-content { display:flex; align-items:center; gap:1rem; padding:10px 16px; }
+header .logo { z-index: 10001; }
+header .logo img { height:56px; display:block; }
+.nav { margin-left:auto; }
+.nav ul { display:flex; align-items:center; gap:10px; list-style:none; margin:0; padding:0; }
+.nav ul li a { display:inline-block; padding:8px 14px; border-radius:8px; text-decoration:none; font-weight:600; transition:transform .12s ease, background .12s; }
+.nav ul li a:hover { transform:translateY(-2px); box-shadow:0 6px 18px rgba(10,20,40,0.08); }
+.nav ul li a.cta { background:var(--accent-color, #ffd166); color:#073b4c; padding:10px 16px; }
+.nav ul li a:not(.cta) { background: rgba(255,255,255,0.04); color: #fff; }
+header { position:fixed; top:0; left:0; right:0; z-index:9999; background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); backdrop-filter: blur(6px); }
+body { padding-top: calc(var(--header-height, 80px) + 12px); }
+
+/* Module media layout (text left, video right) */
+.module-media { display:flex; gap:20px; align-items:flex-start; margin-top:18px; }
+.module-media .text { flex:1; min-width:220px; }
+.module-media .video { width:360px; max-width:40%; }
+@media(max-width:900px){
+  .module-media{flex-direction:column;}
+  .module-media .video{width:100%; max-width:100%;}
+}
+
+/* Tweak for nav-toggle on mobile */
+.nav-toggle { background:transparent; border:none; cursor:pointer; }
+</style>
+
 </head>
 <body>
 <header>
 <div class="container header-content">
 <a class="logo" href="#"><img alt="MECARIEGO logo" src="assets/logo.png" style="height:48px;"/></a>
-<button aria-label="Abrir menú" class="nav-toggle"><span></span><span></span><span></span></button>
+
 <nav aria-label="Menú principal" class="nav">
 <ul>
 <li><a href="#propuesta">Propuesta</a></li>
 <li><a href="#app">App</a></li>
-<li><a href="#alianzas">Alianzas</a></li>
+<li><a href="#aliados">Alianzas</a></li>
 <li><a href="#curso">Curso</a></li>
 <li><a href="#testimonios">Testimonios</a></li>
 <li><a href="#faq">FAQ</a></li>
@@ -27,14 +66,14 @@
 </div>
 </header>
 <section aria-label="Hero" class="hero" id="hero" role="region">
-<div class="hero-overlay"></div>
+
 <div class="container">
 <h1>DEBMAGRO — MECARIEGO: La Escuela de Riego Inteligente</h1>
 <p class="lead">Programa técnico-práctico para optimizar el uso del agua en fincas, con formación certificada, pilotos in situ y beneficios comerciales. Capacítate con contenidos aplicables, apps de campo y acompañamiento post-instalación.</p>
 <a class="btn-primary" href="#inscripcion">Inscríbete a la Escuela de Riego</a>
 <!-- Fuente: sintetizado de contenido público de DEBMAGRO (ver sources.txt) -->
 <!-- Reemplazar HERO con video oficial si se obtiene: https://www.facebook.com/debmagrosa/videos/2271567149652588/ -->
-<div class="micro"><span class="pulse"></span>Aprende con prácticas en campo • Certificación • Acceso a insumos</div></div>
+<div class="micro">Aprende con prácticas en campo • Certificación • Acceso a insumos</div></div>
 </section>
 <!-- Propuesta -->
 <section class="seccion propuesta reveal" id="propuesta">
@@ -82,6 +121,21 @@
 <section class="seccion curso reveal" id="curso">
 <div class="container">
 <h2>Programa del Curso</h2>
+<div class="tab-content module-media">
+  <div class="text">
+    <h3></h3>
+    <p>Video que complementa el contenido del módulo. Mira el video y luego desarrolla los ejercicios propuestos en el PDF.</p>
+    <div class="module-actions">
+      <a class="btn-ref-video">Ver video de referencia</a>
+      <a class="btn-pdf" href="assets/module_M0.pdf" download>Descargar PDF</a>
+      
+    </div>
+  </div>
+  <div class="media">
+    <iframe src="https://www.youtube.com/embed/gyzfqYsmYHg" title="Video módulo M0" style="position:absolute;left:0;top:0;width:100%;height:100%;" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+  </div>
+</div>
+
 <div class="tabs">
 <ul class="tab-buttons" role="tablist">
 <li aria-selected="true" class="active" data-tab="M0" role="tab" tabindex="0">Módulo 0</li>
@@ -92,19 +146,109 @@
 <li aria-selected="false" class="" data-tab="M5" role="tab" tabindex="-1">Módulo 5</li>
 </ul>
 
-<div aria-hidden="false" class="active tab-content" id="M0" role="tabpanel">
+<div id="M0" class="tab-content" role="tabpanel" aria-hidden="true">
+
+<div class="module-media">
+  <div class="text">
+    <h4>Video de referencia</h4>
+    <p>Video que complementa el contenido del módulo. Mira el video y luego desarrolla los ejercicios propuestos en el PDF.</p>
+    <ul>
+      <li>Duración: aprox. ver en YouTube</li>
+      <li>Objetivo: ilustrar conceptos prácticos</li>
+      <li>Recomendación: toma notas y descarga el material</li>
+    </ul>
+  </div>
+  <div class="video">
+    <div style="position:relative;padding-top:56.25%;">
+      <iframe src="https://www.youtube.com/embed/gyzfqYsmYHg" title="Video módulo M0" style="position:absolute;left:0;top:0;width:100%;height:100%;" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+    </div>
+  </div>
+</div>
+
 <h3>Introducción a MECARIEGO y DEBMAGRO</h3>
 <p>En este módulo conocerás el origen de MECARIEGO, su alineación con la estrategia de DEBMAGRO y casos de implementación regional. Revisaremos cómo la escuela sirve como puente entre conocimiento técnico y oportunidades comerciales para los productores y empresas. Se mostrará un mapa de cobertura y criterios para seleccionar parcelas piloto.</p>
 <p><strong>Objetivos de aprendizaje:</strong> Comprender y aplicar los conceptos básicos y prácticos relacionados con este módulo.</p><p><strong>Contenidos clave:</strong> En este módulo conocerás el origen de MECARIEGO y DEBMAGRO. Se explica la visión, misión y los elementos clave del programa de riego inteligente. También se presentan criterios para seleccionar parcelas piloto y una guía rápida de recursos.</p><p><strong>Actividades:</strong> Lecturas dirigidas, ejercicios prácticos en campo, cuestionario de evaluación y discusión de casos.</p><p><strong>Duración estimada:</strong> 3-5 horas (modalidad autoguiada).</p><p>En este módulo conocerás el origen de MECARIEGO y DEBMAGRO. Se explica la visión, misión y los elementos clave del programa de riego inteligente. También se presentan criterios para seleccionar parcelas piloto y una guía rápida de recursos.</p><p><em>Recursos:</em> Presentación institucional (ver sources.txt).</p><p><a class="btn-secondary" href="assets/module_M0.pdf" rel="noopener" target="_blank">Material de apoyo (PDF)</a></p></div><div aria-hidden="true" class="tab-content" id="M1" role="tabpanel">
+
+<div class="module-media">
+  <div class="text">
+    <h4>Video de referencia</h4>
+    <p>Video que complementa el contenido del módulo. Mira el video y luego desarrolla los ejercicios propuestos en el PDF.</p>
+    <ul>
+      <li>Duración: aprox. ver en YouTube</li>
+      <li>Objetivo: ilustrar conceptos prácticos</li>
+      <li>Recomendación: toma notas y descarga el material</li>
+    </ul>
+  </div>
+  <div class="video">
+    <div style="position:relative;padding-top:56.25%;">
+      <iframe src="https://www.youtube.com/embed/GpMFuMDOkYY" title="Video módulo M1" style="position:absolute;left:0;top:0;width:100%;height:100%;" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+    </div>
+  </div>
+</div>
+
 <h3>Principios del riego</h3>
 <p>Se abordan los fundamentos: balance hídrico, tipos de riego (goteo, microaspersión, aspersión), diseño de emisores y criterios de eficiencia. Incluye ejercicios prácticos de cálculo de dosis hídrica para cultivos representativos y un video de referencia.</p>
 <p><strong>Objetivos de aprendizaje:</strong> Comprender y aplicar los conceptos básicos y prácticos relacionados con este módulo.</p><p><strong>Contenidos clave:</strong> Fundamentos técnicos: balance hídrico, evotranspiración, capacidades de campo y cómo estos parámetros influyen en la programación de riego. Incluye ejemplos prácticos con cultivos representativos y ejercicios.</p><p><strong>Actividades:</strong> Lecturas dirigidas, ejercicios prácticos en campo, cuestionario de evaluación y discusión de casos.</p><p><strong>Duración estimada:</strong> 3-5 horas (modalidad autoguiada).</p><p>Fundamentos técnicos: balance hídrico, evotranspiración, capacidades de campo y cómo estos parámetros influyen en la programación de riego. Incluye ejemplos prácticos con cultivos representativos y ejercicios.</p><p><button class="btn-link js-video-btn" data-video-url="https://www.youtube.com/watch?v=WceQJIgA-6U">Ver video de referencia</button></p><p><a class="btn-secondary" href="assets/module_M1.pdf" rel="noopener" target="_blank">Material de apoyo (PDF)</a></p></div><div aria-hidden="true" class="tab-content" id="M2" role="tabpanel">
+
+<div class="module-media">
+  <div class="text">
+    <h4>Video de referencia</h4>
+    <p>Video que complementa el contenido del módulo. Mira el video y luego desarrolla los ejercicios propuestos en el PDF.</p>
+    <ul>
+      <li>Duración: aprox. ver en YouTube</li>
+      <li>Objetivo: ilustrar conceptos prácticos</li>
+      <li>Recomendación: toma notas y descarga el material</li>
+    </ul>
+  </div>
+  <div class="video">
+    <div style="position:relative;padding-top:56.25%;">
+      <iframe src="https://www.youtube.com/embed/0f5PMuLHzbE" title="Video módulo M2" style="position:absolute;left:0;top:0;width:100%;height:100%;" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+    </div>
+  </div>
+</div>
+
 <h3>Sensores y monitoreo automático</h3>
 <p>Descripción y comparación de sensores (capacitivos, tensiométricos, sensores FDR). Configuración de thresholds, telemetría básica, integración con la app para alertas y ejemplos de dashboards con lecturas en tiempo real.</p>
 <p><strong>Objetivos de aprendizaje:</strong> Comprender y aplicar los conceptos básicos y prácticos relacionados con este módulo.</p><p><strong>Contenidos clave:</strong> Elementos de un sistema de riego: bombas, tuberías, emisores, sensores y telemetría. Selección de equipos según caudal y presión. Casos de éxito y errores comunes al dimensionar un sistema.</p><p><strong>Actividades:</strong> Lecturas dirigidas, ejercicios prácticos en campo, cuestionario de evaluación y discusión de casos.</p><p><strong>Duración estimada:</strong> 3-5 horas (modalidad autoguiada).</p><p>Elementos de un sistema de riego: bombas, tuberías, emisores, sensores y telemetría. Selección de equipos según caudal y presión. Casos de éxito y errores comunes al dimensionar un sistema.</p><p><a class="btn-secondary" href="assets/module_M2.pdf" rel="noopener" target="_blank">Material de apoyo (PDF)</a></p></div><div aria-hidden="true" class="tab-content" id="M3" role="tabpanel">
+
+<div class="module-media">
+  <div class="text">
+    <h4>Video de referencia</h4>
+    <p>Video que complementa el contenido del módulo. Mira el video y luego desarrolla los ejercicios propuestos en el PDF.</p>
+    <ul>
+      <li>Duración: aprox. ver en YouTube</li>
+      <li>Objetivo: ilustrar conceptos prácticos</li>
+      <li>Recomendación: toma notas y descarga el material</li>
+    </ul>
+  </div>
+  <div class="video">
+    <div style="position:relative;padding-top:56.25%;">
+      <iframe src="https://www.youtube.com/embed/3lxoRb21n34" title="Video módulo M3" style="position:absolute;left:0;top:0;width:100%;height:100%;" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+    </div>
+  </div>
+</div>
+
 <h3>Instalación y mantenimiento del piloto</h3>
 <p>Protocolo paso a paso: selección de sitio, alineación de tuberías, instalación de filtro y válvulas, puesta en marcha, mediciones iniciales y programa de mantenimiento preventivo. Incluye checklist descargable y plan de verificación de rendimiento.</p>
 <p><strong>Objetivos de aprendizaje:</strong> Comprender y aplicar los conceptos básicos y prácticos relacionados con este módulo.</p><p><strong>Contenidos clave:</strong> Buenas prácticas de operación diaria, rutinas de mantenimiento preventivo, checklist para estaciones de bombeo y consejos para alargar la vida útil de equipos en condiciones tropicales.</p><p><strong>Actividades:</strong> Lecturas dirigidas, ejercicios prácticos en campo, cuestionario de evaluación y discusión de casos.</p><p><strong>Duración estimada:</strong> 3-5 horas (modalidad autoguiada).</p><p>Buenas prácticas de operación diaria, rutinas de mantenimiento preventivo, checklist para estaciones de bombeo y consejos para alargar la vida útil de equipos en condiciones tropicales.</p><p><a href="assets/checklist.pdf" rel="noopener" target="_blank">Descargar checklist (PDF)</a></p></div><div aria-hidden="true" class="tab-content" id="M4" role="tabpanel">
+
+<div class="module-media">
+  <div class="text">
+    <h4>Video de referencia</h4>
+    <p>Video que complementa el contenido del módulo. Mira el video y luego desarrolla los ejercicios propuestos en el PDF.</p>
+    <ul>
+      <li>Duración: aprox. ver en YouTube</li>
+      <li>Objetivo: ilustrar conceptos prácticos</li>
+      <li>Recomendación: toma notas y descarga el material</li>
+    </ul>
+  </div>
+  <div class="video">
+    <div style="position:relative;padding-top:56.25%;">
+      <iframe src="https://www.youtube.com/embed/pFG8yu7kdAs" title="Video módulo M4" style="position:absolute;left:0;top:0;width:100%;height:100%;" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+    </div>
+  </div>
+</div>
+
 <h3>Casos de éxito y métricas</h3>
 <p>Estudios de caso con KPIs de ahorro de agua, incremento de rendimiento y cálculo de ROI. Incluye un ejercicio práctico para estimar meses de recuperación de inversión y gráficos interactivos que muestran resultados antes/después.</p>
 <p><strong>Objetivos de aprendizaje:</strong> Comprender y aplicar los conceptos básicos y prácticos relacionados con este módulo.</p><p><strong>Contenidos clave:</strong> Conceptos de automatización: controladores, sensores de humedad, válvulas solenoides y lógica de control. Integración con plataformas móviles y cómo interpretar telemetría para tomar decisiones.</p><p><strong>Actividades:</strong> Lecturas dirigidas, ejercicios prácticos en campo, cuestionario de evaluación y discusión de casos.</p><p><strong>Duración estimada:</strong> 3-5 horas (modalidad autoguiada).</p><p>Conceptos de automatización: controladores, sensores de humedad, válvulas solenoides y lógica de control. Integración con plataformas móviles y cómo interpretar telemetría para tomar decisiones.</p><p>Testimonio: <strong>“Reducimos hasta 40% el uso de agua”</strong> (ejemplo).</p><p><a class="btn-secondary" href="assets/module_M3.pdf" rel="noopener" target="_blank">Material de apoyo (PDF)</a></p></div><div aria-hidden="true" class="tab-content" id="M5" role="tabpanel">
@@ -137,11 +281,12 @@
 <label><input name="q3" type="radio" value="d"/> Ser cliente antiguo</label>
 </li>
 </ol>
-<p><button class="btn-secondary submit-quiz" type="submit">Enviar respuestas</button> <span class="quiz-result" style="margin-left:12px;"></span></p>
+<p>
+<p><button class="btn-secondary submit-quiz" type="submit">Enviar respuestas</button> </p>
 </form>
 </div>
 </div>
-<p><strong>Objetivos de aprendizaje:</strong> Comprender y aplicar los conceptos básicos y prácticos relacionados con este módulo.</p><p><strong>Contenidos clave:</strong> Estructura de la evaluación final: preguntas teóricas, prácticas de campo y criterios para emisión del certificado digital. Recomendaciones para documentar un piloto y elaborar informes técnicos.</p><p><strong>Actividades:</strong> Lecturas dirigidas, ejercicios prácticos en campo, cuestionario de evaluación y discusión de casos.</p><p><strong>Duración estimada:</strong> 3-5 horas (modalidad autoguiada).</p><p>Estructura de la evaluación final: preguntas teóricas, prácticas de campo y criterios para emisión del certificado digital. Recomendaciones para documentar un piloto y elaborar informes técnicos.</p><button class="btn-primary">Solicitar Certificado</button><p><a class="btn-secondary" href="assets/module_M4.pdf" rel="noopener" target="_blank">Material de apoyo (PDF)</a></p></div></div>
+<p><strong>Objetivos de aprendizaje:</strong> Comprender y aplicar los conceptos básicos y prácticos relacionados con este módulo.</p><p><strong>Contenidos clave:</strong> Estructura de la evaluación final: preguntas teóricas, prácticas de campo y criterios para emisión del certificado digital. Recomendaciones para documentar un piloto y elaborar informes técnicos.</p><p><strong>Actividades:</strong> Lecturas dirigidas, ejercicios prácticos en campo, cuestionario de evaluación y discusión de casos.</p><p><strong>Duración estimada:</strong> 3-5 horas (modalidad autoguiada).</p><p>Estructura de la evaluación final: preguntas teóricas, prácticas de campo y criterios para emisión del certificado digital. Recomendaciones para documentar un piloto y elaborar informes técnicos.</p><p><a class="btn-secondary" href="assets/module_M4.pdf" rel="noopener" target="_blank">Material de apoyo (PDF)</a></p></div></div>
 
 
 
@@ -315,7 +460,7 @@
 <!-- Certificate modal -->
 <div aria-hidden="true" class="modal cert-modal" id="cert-modal" role="dialog" style="display:none;">
 <div class="modal-content">
-<h3>Solicitar certificado</h3>
+<h3></h3>
 <form id="cert-form">
 <label>Nombre completo:<br/><input id="cert-name" required="" style="width:100%; padding:8px; margin-top:6px;" type="text"/></label>
 <label>Seleccionar módulo:<br/><select id="cert-module" style="width:100%; padding:8px; margin-top:6px;">
@@ -330,377 +475,257 @@
 </div>
 <!-- jsPDF CDN (for certificate generation) -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+
+
 <script>
+// Generate personalized certificate PDF client-side using jsPDF
 document.addEventListener('DOMContentLoaded', function(){
-  // Restore 'Solicitar certificado' buttons for modules passed previously
-  for(var i=0;i<6;i++){
-    var key = 'mecariego_quiz_M' + i;
-    var stored = localStorage.getItem(key);
-    if(stored){
-      try{
-        var obj = JSON.parse(stored);
-        if(obj.pct >= 60){
-          // find module panel and append cert button
-          var panel = document.getElementById('M' + i);
-          if(panel){
-            var resultSpan = panel.querySelector('.quiz-result');
-            // avoid duplicate
-            if(panel.querySelector('.cert-open')) continue;
-            var certBtn = document.createElement('button');
-            certBtn.textContent = 'Solicitar certificado';
-            certBtn.className = 'btn-primary cert-open';
-            certBtn.setAttribute('data-module', 'M' + i);
-            if(resultSpan) resultSpan.parentNode.appendChild(certBtn);
-            else panel.appendChild(certBtn);
-          }
-        }
-      }catch(e){console.log('parse error', e);}
-    }
-  }
-});
-// Enhance certificate generation: after saving and downloading, also persist a record
-document.addEventListener('click', function(e){
-  if(e.target && e.target.classList.contains('cert-open')){
-    var mod = e.target.getAttribute('data-module');
-    document.getElementById('cert-module').value = mod;
-    document.getElementById('cert-modal').style.display = 'block';
-    document.getElementById('cert-modal').setAttribute('aria-hidden','false');
-  }
-});
-document.getElementById && document.getElementById('cert-form') && document.getElementById('cert-form').addEventListener('submit', function(e){
-  e.preventDefault();
-  var name = document.getElementById('cert-name').value.trim();
-  var module = document.getElementById('cert-module').value;
-  if(!name){ alert('Por favor ingrese su nombre.'); return; }
-  const { jsPDF } = window.jspdf;
-  var doc = new jsPDF({orientation: 'landscape', unit: 'pt', format: 'letter'});
-  doc.setFillColor(11,106,58);
-  doc.rect(0,0, doc.internal.pageSize.getWidth(), doc.internal.pageSize.getHeight(), 'F');
-  doc.setFillColor(255,255,255);
-  doc.roundedRect(40,40, doc.internal.pageSize.getWidth()-80, doc.internal.pageSize.getHeight()-80, 10, 10, 'F');
-  doc.setFontSize(28);
-  doc.setTextColor(11,106,58);
-  doc.text('Certificado de finalización', doc.internal.pageSize.getWidth()/2, 120, {align: 'center'});
-  doc.setFontSize(20);
-  doc.setTextColor(0,0,0);
-  doc.text(name, doc.internal.pageSize.getWidth()/2, 200, {align: 'center'});
-  doc.setFontSize(14);
-  doc.text('Por haber completado: ' + module, doc.internal.pageSize.getWidth()/2, 240, {align: 'center'});
-  var fecha = new Date().toLocaleDateString();
-  doc.text('Fecha: ' + fecha, doc.internal.pageSize.getWidth()/2, 270, {align: 'center'});
-  doc.setFontSize(10);
-  doc.text('DEBMAGRO S.A. — ventas@debmagro.com', doc.internal.pageSize.getWidth()/2, doc.internal.pageSize.getHeight()-60, {align: 'center'});
-  var fname = 'Certificado_' + name.replace(/\s+/g,'_') + '.pdf';
-  doc.save(fname);
-  // persist certificate record
-  var certKey = 'mecarigo_cert_' + name.replace(/\s+/g,'_') + '_' + module;
-  localStorage.setItem(certKey, JSON.stringify({name: name, module: module, date: new Date().toISOString()}));
-  // close modal
-  document.getElementById('cert-modal').style.display = 'none';
-  document.getElementById('cert-modal').setAttribute('aria-hidden','true');
-  alert('Certificado generado y descargado. Registro guardado en su navegador.');
-});
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script>
-document.addEventListener('DOMContentLoaded', function(){
-  // Toggle quiz visibility only for M5
-  document.addEventListener('click', function(e){
-    if(e.target && e.target.classList.contains('view-quiz')){
-      var cont = document.getElementById('quiz-M5');
-      if(cont){
-        if(cont.style.display === 'none'){ cont.style.display = 'block'; e.target.textContent = 'Ocultar cuestionario'; }
-        else { cont.style.display = 'none'; e.target.textContent = 'Ver cuestionario'; }
-      }
-    }
-  });
-
-  // submit handler for the M5 quiz only
-  document.addEventListener('submit', function(e){
-    if(e.target && e.target.classList.contains('quiz-form')){
-      e.preventDefault();
-      var form = e.target;
-      // correct answers for M5: q1=b, q2=a, q3=a
-      var formData = new FormData(form);
-      var score = 0; var total = 3;
-      if(formData.get('q1') === 'b') score++;
-      if(formData.get('q2') === 'a') score++;
-      if(formData.get('q3') === 'a') score++;
-      var pct = Math.round((score/total)*100);
-      var resultSpan = form.querySelector('.quiz-result');
-      if(resultSpan) resultSpan.textContent = 'Resultado: ' + score + '/' + total + ' (' + pct + '%)';
-      // store result for M5 only
-      localStorage.setItem('mecariego_quiz_M5', JSON.stringify({score: score, total: total, pct: pct, date: new Date().toISOString()}));
-      // show certificate button if pass
-      if(pct >= 60){
-        // avoid duplicates
-        if(!document.querySelector('.cert-open[data-module="M5"]')){
-          var certBtn = document.createElement('button');
-          certBtn.textContent = 'Solicitar certificado';
-          certBtn.className = 'btn-primary cert-open';
-          certBtn.setAttribute('data-module', 'M5');
-          resultSpan.parentNode.appendChild(certBtn);
-        }
-      }
-    }
-  });
-
-  // restore cert button if previously passed
-  try{
-    var stored = localStorage.getItem('mecariego_quiz_M5');
-    if(stored){
-      var obj = JSON.parse(stored);
-      if(obj.pct >= 60){
-        if(!document.querySelector('.cert-open[data-module="M5"]')){
-          var panel = document.getElementById('M5');
-          if(panel){
-            var resultSpan = panel.querySelector('.quiz-result');
-            var certBtn = document.createElement('button');
-            certBtn.textContent = 'Solicitar certificado';
-            certBtn.className = 'btn-primary cert-open';
-            certBtn.setAttribute('data-module', 'M5');
-            if(resultSpan) resultSpan.parentNode.appendChild(certBtn);
-            else panel.appendChild(certBtn);
-          }
-        }
-      }
-    }
-  }catch(e){console.log('restore error', e);}
-
-  // certificate modal open/close
-  document.addEventListener('click', function(e){
-    if(e.target && e.target.classList.contains('cert-open')){
-      document.getElementById('cert-module').value = e.target.getAttribute('data-module') || 'General';
-      document.getElementById('cert-modal').style.display = 'block';
-      document.getElementById('cert-modal').setAttribute('aria-hidden','false');
-    }
-    if(e.target && e.target.id === 'cert-close'){
-      document.getElementById('cert-modal').style.display = 'none';
-      document.getElementById('cert-modal').setAttribute('aria-hidden','true');
-    }
-  });
-
-  // certificate form submit
-  document.getElementById('cert-form').addEventListener('submit', function(e){
+  var certForm = document.getElementById('cert-form');
+  if(!certForm) return;
+  certForm.addEventListener('submit', function(e){
+    // run at capture to prevent other handlers: stop propagation
     e.preventDefault();
-    var name = document.getElementById('cert-name').value.trim();
-    var module = document.getElementById('cert-module').value;
-    if(!name){ alert('Por favor ingrese su nombre.'); return; }
-    const { jsPDF } = window.jspdf;
-    var doc = new jsPDF({orientation: 'landscape', unit: 'pt', format: 'letter'});
-    doc.setFillColor(11,106,58);
-    doc.rect(0,0, doc.internal.pageSize.getWidth(), doc.internal.pageSize.getHeight(), 'F');
-    doc.setFillColor(255,255,255);
-    doc.roundedRect(40,40, doc.internal.pageSize.getWidth()-80, doc.internal.pageSize.getHeight()-80, 10, 10, 'F');
-    doc.setFontSize(28);
-    doc.setTextColor(11,106,58);
-    doc.text('Certificado de finalización', doc.internal.pageSize.getWidth()/2, 120, {align: 'center'});
-    doc.setFontSize(20);
-    doc.setTextColor(0,0,0);
-    doc.text(name, doc.internal.pageSize.getWidth()/2, 200, {align: 'center'});
-    doc.setFontSize(14);
-    doc.text('Por haber completado: ' + module, doc.internal.pageSize.getWidth()/2, 240, {align: 'center'});
-    var fecha = new Date().toLocaleDateString();
-    doc.text('Fecha: ' + fecha, doc.internal.pageSize.getWidth()/2, 270, {align: 'center'});
-    doc.setFontSize(10);
-    doc.text('DEBMAGRO S.A. — ventas@debmagro.com', doc.internal.pageSize.getWidth()/2, doc.internal.pageSize.getHeight()-60, {align: 'center'});
-    var fname = 'Certificado_' + name.replace(/\s+/g,'_') + '.pdf';
-    doc.save(fname);
-    // persist certificate record
-    var certKey = 'mecarigo_cert_' + name.replace(/\s+/g,'_') + '_' + module;
-    localStorage.setItem(certKey, JSON.stringify({name: name, module: module, date: new Date().toISOString()}));
-    document.getElementById('cert-modal').style.display = 'none';
-    document.getElementById('cert-modal').setAttribute('aria-hidden','true');
-    alert('Certificado generado y descargado. Registro guardado en su navegador.');
+    e.stopImmediatePropagation && e.stopImmediatePropagation();
+    e.stopPropagation && e.stopPropagation();
+    // read inputs
+    var name = (document.getElementById('cert-name') && document.getElementById('cert-name').value) || 'NOMBRE DEL PARTICIPANTE';
+    var module = (document.getElementById('cert-module') && document.getElementById('cert-module').value) || 'Curso MECARIEGO';
+    // create PDF with jsPDF (assumes jspdf is loaded)
+    try{
+      var { jsPDF } = window.jspdf;
+      var pdf = new jsPDF({orientation:'landscape', unit:'pt', format:'a4'});
+      var w = pdf.internal.pageSize.getWidth();
+      var h = pdf.internal.pageSize.getHeight();
+      // background
+      pdf.setFillColor(7,59,76);
+      pdf.rect(0,0,w,h,'F');
+      // white panel
+      pdf.setFillColor(255,255,255);
+      pdf.roundedRect(56,56,w-112,h-112,12,12,'F');
+      // Title
+      pdf.setTextColor(7,59,76);
+      pdf.setFontSize(36);
+      pdf.setFont('helvetica','bold');
+      pdf.text('CERTIFICADO DE COMPLECIÓN', w/2, 120, {align:'center'});
+      pdf.setFontSize(14);
+      pdf.setFont('helvetica','normal');
+      pdf.text('DEBMAGRO • MECARIEGO — Escuela de Riego', w/2, 150, {align:'center'});
+      // Participant name
+      pdf.setFontSize(26);
+      pdf.setFont('helvetica','bold');
+      pdf.text(name.toUpperCase(), w/2, 210, {align:'center'});
+      // Course/module
+      pdf.setFontSize(14);
+      pdf.setFont('helvetica','normal');
+      pdf.text('Por haber completado satisfactoriamente: ' + module, w/2, 240, {align:'center'});
+      // footer info
+      pdf.setFontSize(10);
+      pdf.text('Fecha: ____________________    Código: ____________________', w/2, h-80, {align:'center'});
+      // signatures lines
+      pdf.setLineWidth(0.7);
+      pdf.line(w*0.22, h-140, w*0.45, h-140);
+      pdf.line(w*0.55, h-140, w*0.78, h-140);
+      pdf.text('Director - DEBMAGRO', w*0.22, h-125);
+      pdf.text('Coordinador - MECARIEGO', w*0.55, h-125);
+      // save
+      var safeName = name.replace(/[^a-z0-9\-_\.]/gi,'_').toLowerCase();
+      pdf.save('certificate_' + (safeName || 'participant') + '.pdf');
+    }catch(err){
+      console.error('jsPDF error', err);
+      // fallback: download static certificate if exists
+      var a = document.createElement('a');
+      a.href = 'assets/certificate.pdf';
+      
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }
+    // close modal if any
+    var modal = document.querySelector('[role="dialog"][aria-hidden]');
+    if(modal) modal.setAttribute('aria-hidden','true');
+  }, true); // use capture to run before other listeners
+});
+</script>
+
+
+<script>
+<script src="app.js"></script>
+<!-- Certificate modal -->
+<div aria-hidden="true" class="modal cert-modal" id="cert-modal" role="dialog" style="display:none;">
+<div class="modal-content">
+<h3>Solicitar certificado</h3>
+<form id="cert-form">
+<label>Nombre completo:<br/><input id="cert-name" required="" style="width:100%; padding:8px; margin-top:6px;" type="text"/></label>
+<label>Seleccionar módulo:<br/><select id="cert-module" style="width:100%; padding:8px; margin-top:6px;">
+<option value="General">Curso MECARIEGO</option>
+<option value="M0">Módulo M0</option><option value="M1">Módulo M1</option>
+<option value="M2">Módulo M2</option><option value="M3">Módulo M3</option>
+<option value="M4">Módulo M4</option><option value="M5">Módulo M5</option>
+</select></label>
+<p style="margin-top:12px;"><button class="btn-primary" type="submit">Generar certificado (PDF)</button> <button class="btn-secondary" id="cert-close" type="button">Cerrar</button></p>
+</form>
+</div>
+</div>
+<!-- jsPDF CDN (for certificate generation) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script> else {
+      // 
+      
+    }
+  } catch (e) {
+    
+    
+  }
+}
+</script>
+
+
+<script>
+function generateCertificate() {
+  try {
+    // try to find name input
+    var nameInput = document.querySelector('input[name="participant_name"], input#participant_name, input[name="name"], input#name');
+    var name = nameInput ? nameInput.value.trim() : 'Participante';
+    // use jsPDF if available
+    if (typeof window.jspdf !== 'undefined' || typeof window.jsPDF !== 'function') {
+      // UMD build exposes jspdf.jsPDF
+      var jsPDF = window.jspdf && window.jspdf.jsPDF ? window.jspdf.jsPDF : (window.jsPDF ? window.jsPDF : null);
+      if (jsPDF) {
+        var doc = new jsPDF('p','pt','a4');
+        doc.setFillColor(255,255,255);
+        doc.rect(0,0,595,842,'F');
+        doc.setFillColor(11,61,145);
+        doc.rect(0,0,595,90,'F');
+        doc.setTextColor(255,255,255);
+        doc.setFontSize(22);
+        doc.text('Certificado de Finalización', 40, 50);
+        doc.setFontSize(12);
+        doc.text('Se certifica que', 40, 88);
+        doc.setTextColor(0,0,0);
+        doc.setFontSize(20);
+        doc.text(name, 40, 160);
+        doc.setFontSize(11);
+        doc.text('Ha completado satisfactoriamente el curso y las actividades requeridas.', 40, 190);
+        var fecha = new Date().toLocaleDateString();
+        doc.text('Fecha: ' + fecha, 40, 230);
+        doc.save('certificate_' + name.replace(/\s+/g,'_') + '.pdf');
+        return;
+      }
+    }
+    // fallback: download static certificate
+    
+  } catch (e) {
+    
+    
+  }
+}
+</script>
+
+
+
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  var tabButtons = document.querySelectorAll('[data-tab]');
+  var panels = document.querySelectorAll('.tab-content');
+  function showPanel(id){
+    panels.forEach(function(p){
+      p.style.display = (p.id === id) ? 'block' : 'none';
+      p.setAttribute('aria-hidden', p.id === id ? 'false' : 'true');
+      p.classList.toggle('active', p.id === id);
+    });
+    tabButtons.forEach(function(b){
+      b.classList.toggle('active', b.getAttribute('data-tab') === id);
+    });
+  }
+  // Estado inicial: mostrar M0 solamente
+  if(document.getElementById('M0')){
+    showPanel('M0');
+  }
+  // Click handlers
+  tabButtons.forEach(function(btn){
+    btn.addEventListener('click', function(e){
+      e.preventDefault();
+      var id = this.getAttribute('data-tab');
+      if(id) showPanel(id);
+    });
   });
 });
 </script>
-<script>
-// Tabs: show one panel at a time. Works with elements that have data-tab attributes.
-(function(){
-  function activateTabButton(btn){
-    var buttons = document.querySelectorAll('[data-tab]');
-    buttons.forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    var tabId = btn.getAttribute('data-tab');
-    var panels = document.querySelectorAll('.tab-content');
-    panels.forEach(p => { p.classList.remove('active'); p.setAttribute('aria-hidden','true'); });
-    var panel = document.getElementById(tabId);
-    if(panel){ panel.classList.add('active'); panel.setAttribute('aria-hidden','false'); panel
-    if(panel){ panel.style.display = 'block'; panel.classList.add('active'); panel.setAttribute('aria-hidden','false'); panel }); }
-  }
-  document.addEventListener('click', function(e){
-    var tb = e.target.closest('[data-tab]');
-    if(tb){
-      e.preventDefault();
-      activateTabButton(tb);
-    }
-  });
-  // Initialize: if no active set, set first data-tab button active
-  document.addEventListener('DOMContentLoaded', function(){
-    var activeBtn = document.querySelector('[data-tab].active') || document.querySelector('[data-tab]');
-    if(activeBtn) activateTabButton(activeBtn);
-  });
-})();
 
-// FAQ toggle: make robust for different markup inside .faq-item
-(function(){
-  function toggleItem(item){
-    if(!item) return;
-    item.classList.toggle('open');
-  }
-  document.addEventListener('click', function(e){
-    var header = e.target.closest('.faq-item h4, .faq-item .faq-toggle, .faq-item strong, .faq-item .question');
-    if(header){
-      var item = header.closest('.faq-item');
-      toggleItem(item);
-    }
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  // Mostrar/ocultar cuestionario
+  document.querySelectorAll('.view-quiz').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var mid = this.getAttribute('data-module') || 'M5';
+      var box = document.getElementById('quiz-' + mid);
+      if(box){ box.style.display = (box.style.display === 'none' || !box.style.display) ? 'block' : 'none'; }
+    });
   });
-  // enhance each FAQ item to include a toggle icon if not present
-  document.addEventListener('DOMContentLoaded', function(){
-    document.querySelectorAll('.faq-item').forEach(function(item){
-      if(!item.querySelector('.faq-toggle')){
-        var h4 = item.querySelector('h4') || item.querySelector('strong') || item.querySelector('.question');
-        if(h4){
-          var span = document.createElement('span');
-          span.className = 'faq-toggle';
-          span.style.cssText = 'float:right;background:#0b6b3a;color:#fff;width:28px;height:28px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:bold';
-          span.textContent = '+';
-          h4.appendChild(span);
-        }
+  // Handler de envío del quiz
+  document.querySelectorAll('.quiz-form').forEach(function(form){
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      var moduleId = this.getAttribute('data-module') || 'M5';
+      // Respuestas correctas DEMO para M5 (ajusta si tu cuestionario cambia)
+      var answers = { q1:'b', q2:'a', q3:'a' };
+      var correct = 0, total = 3;
+      Object.keys(answers).forEach(function(q){
+        var sel = form.querySelector('input[name="'+q+'"]:checked');
+        if(sel && sel.value === answers[q]) correct++;
+      });
+      var pct = Math.round((correct/total)*100);
+      // Guardar resultado demo
+      try { localStorage.setItem('mecariego_quiz_' + moduleId, JSON.stringify({correct:correct, total:total, pct:pct, ts:Date.now()})); } catch(e){}
+      // Mostrar resultado
+      var container = form.closest('.quiz-container') || form.parentElement;
+      var res = container.querySelector('#quiz-result');
+      if(!res){
+        res = document.createElement('div');
+        res.id = 'quiz-result';
+        res.style.marginTop = '10px';
+        res.style.padding = '10px';
+        res.style.background = '#f0f6f1';
+        res.style.border = '1px solid #c8dacc';
+        res.style.borderLeft = '4px solid #0b6b3a';
+        container.appendChild(res);
+      }
+      res.textContent = 'Resultado: ' + correct + ' de ' + total + ' (' + pct + '%)';
+      // Crear botón SOLO al 3/3
+      if(correct === total){
+        createCertButtonForQuiz(moduleId);
+      }else{
+        var old = res.querySelector('.cert-open'); if(old) old.remove();
       }
     });
   });
-})();
+});
 </script>
+
+
 <script>
-// Robust tab panel controller: ensures only one module panel is visible at a time.
-// Works even if CSS rules are overridden. Uses style.display to force show/hide.
-(function(){
-  function hideAllPanels(){
-    document.querySelectorAll('.tab-content').forEach(function(p){
-      p.style.display = 'none';
-      p.classList.remove('active');
-      p.setAttribute('aria-hidden', 'true');
-    });
+document.addEventListener('DOMContentLoaded', function(){
+  var modal = document.getElementById('cert-modal');
+  if(!modal) return;
+  function closeModal(){
+    modal.style.display = 'none';
+    modal.setAttribute('aria-hidden','true');
   }
-  function showPanelById(id){
-    var panel = document.getElementById(id);
-    if(panel){
-      panel.style.display = 'block';
-      panel.classList.add('active');
-      panel.setAttribute('aria-hidden', 'false');
-      // scroll into view a bit for better UX
-      setTimeout(function(){ panel }, 50);
-    }
-  }
-  document.addEventListener('DOMContentLoaded', function(){
-    // Hide all panels and show only the one that has .active or fallback to first panel
-    var panels = Array.from(document.querySelectorAll('.tab-content'));
-    if(panels.length === 0) return;
-    hideAllPanels();
-    var active = panels.find(p => p.classList.contains('active')) || panels[0];
-    showPanelById(active.id);
-    // wire up tab buttons (elements with [data-tab])
-    document.querySelectorAll('[data-tab]').forEach(function(btn){
-      btn.addEventListener('click', function(e){
-        e.preventDefault();
-        var target = btn.getAttribute('data-tab');
-        // update active class on buttons
-        document.querySelectorAll('[data-tab]').forEach(function(b){ b.classList.remove('active'); b.setAttribute('aria-selected','false'); b.setAttribute('tabindex','-1'); });
-        btn.classList.add('active');
-        btn.setAttribute('aria-selected','true');
-        btn.setAttribute('tabindex','0');
-        // show correct panel
-        hideAllPanels();
-        showPanelById(target);
-      });
-      // keyboard navigation (Enter/Space)
-      btn.addEventListener('keydown', function(ev){
-        if(ev.key === 'Enter' || ev.key === ' '){
-          ev.preventDefault();
-          btn.click();
-        }
-      });
-    });
-  });
-})();
+  // Close on overlay click
+  modal.addEventListener('click', function(e){ if(e.target === modal){ closeModal(); } });
+  // Close on close button
+  var closeBtn = modal.querySelector('#cert-close');
+  if(closeBtn){ closeBtn.removeEventListener && closeBtn.removeEventListener('click', closeModal); closeBtn.addEventListener('click', function(e){ e.preventDefault(); closeModal(); }); }
+  // Close on Escape key
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape' || e.key === 'Esc'){ if(modal && modal.getAttribute('aria-hidden') !== 'true'){ closeModal(); } } });
+  // Ensure modal content is centered (fallback)
+  var mc = modal.querySelector('.modal-content');
+  if(mc){ mc.style.maxWidth = mc.style.maxWidth || '520px'; mc.style.margin = '0 auto'; }
+});
 </script>
-<script>
-// FAQ toggle - robust handler
-(function(){
-  function toggle(item){
-    if(!item) return;
-    var isOpen = item.classList.toggle('open');
-    // update toggle icon inside header if exists
-    var icon = item.querySelector('.faq-toggle');
-    if(icon) icon.textContent = isOpen ? '−' : '+';
-  }
-  document.addEventListener('click', function(e){
-    var header = e.target.closest('.faq-item h4, .faq-item .question, .faq-toggle');
-    if(header){
-      var item = header.closest('.faq-item');
-      toggle(item);
-    }
-  });
-  // Ensure FAQ items have a .faq-toggle span for visual affordance
-  document.addEventListener('DOMContentLoaded', function(){
-    document.querySelectorAll('.faq-item').forEach(function(item){
-      var h4 = item.querySelector('h4') || item.querySelector('strong') || item.querySelector('.question');
-      if(h4 && !h4.querySelector('.faq-toggle')){
-        var span = document.createElement('span');
-        span.className = 'faq-toggle';
-        span.textContent = '+';
-        span.style.cssText = 'float:right;background:#0b6b3a;color:#fff;width:28px;height:28px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:bold';
-        h4.appendChild(span);
-      }
-    });
-  });
-})();
-</script>
-<script>
-// Tab controller (no auto-scroll, no auto-focus). Shows only the selected module panel.
-(function(){
-  function hideAllPanels(){
-    document.querySelectorAll('.tab-content').forEach(function(p){
-      p.style.display = 'none';
-      p.classList.remove('active');
-      p.setAttribute('aria-hidden', 'true');
-    });
-  }
-  function showPanelById(id){
-    var panel = document.getElementById(id);
-    if(panel){
-      panel.style.display = 'block';
-      panel.classList.add('active');
-      panel.setAttribute('aria-hidden', 'false');
-    }
-  }
-  document.addEventListener('DOMContentLoaded', function(){
-    // Hide all panels and show only the one that is marked active, or the first
-    var panels = Array.from(document.querySelectorAll('.tab-content'));
-    if(panels.length === 0) return;
-    hideAllPanels();
-    var active = panels.find(p => p.classList.contains('active')) || panels[0];
-    if(active) showPanelById(active.id);
-    // wire up tab buttons
-    document.querySelectorAll('[data-tab]').forEach(function(btn){
-      btn.addEventListener('click', function(e){
-        e.preventDefault();
-        var target = btn.getAttribute('data-tab');
-        // update active class on buttons
-        document.querySelectorAll('[data-tab]').forEach(function(b){ b.classList.remove('active'); b.setAttribute('aria-selected','false'); b.setAttribute('tabindex','-1'); });
-        btn.classList.add('active');
-        btn.setAttribute('aria-selected','true');
-        btn.setAttribute('tabindex','0');
-        // show correct panel without scrolling
-        hideAllPanels();
-        showPanelById(target);
-      });
-      btn.addEventListener('keydown', function(ev){ if(ev.key === 'Enter' || ev.key === ' '){ ev.preventDefault(); btn.click(); } });
-    });
-  });
-})();
-</script>
+
 </body>
 </html>

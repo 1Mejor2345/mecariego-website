@@ -209,15 +209,82 @@ function initTabs() {
   });
   // Ensure initial state
   let anyActive = tabPanels.some(p => p.classList.contains('active'));
-  if(!anyActive){
-    tabButtons[0].classList.add('active');
-    tabButtons[0].setAttribute('aria-selected','true');
-    tabButtons[0].setAttribute('tabindex','0');
-    const id0 = tabButtons[0].getAttribute('data-tab');
-    const p0 = document.getElementById(id0);
-    if(p0){ p0.classList.add('active'); p0.setAttribute('aria-hidden','false'); }
-  }
+  /* initial activation removed to keep page top on load */
 }
 document.addEventListener('DOMContentLoaded', initTabs);
 
 
+
+
+
+// --- FIX: tabs show only selected panel (no M0 stuck visible) ---
+function initTabsFixed(){
+  const tabButtons = document.querySelectorAll('.tab-buttons li');
+  const tabPanels = document.querySelectorAll('.tab-content');
+  function hideAll(){
+    tabPanels.forEach(p => { p.style.display = 'none'; p.classList.remove('active'); p.setAttribute('aria-hidden','true'); });
+    tabButtons.forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected','false'); b.setAttribute('tabindex','-1'); });
+  }
+  function show(id){
+    hideAll();
+    const panel = document.getElementById(id);
+    if(panel){ panel.style.display = 'block'; panel.classList.add('active'); panel.setAttribute('aria-hidden','false'); }
+    const btn = Array.from(tabButtons).find(b => b.getAttribute('data-tab') === id);
+    if(btn){ btn.classList.add('active'); btn.setAttribute('aria-selected','true'); btn.setAttribute('tabindex','0'); btn.focus(); }
+  }
+  tabButtons.forEach(btn => {
+    btn.addEventListener('click', function(e){
+      e.preventDefault();
+      const id = this.getAttribute('data-tab');
+      if(id) show(id);
+    });
+  });
+  // initial state: show only M0 if exists
+  
+}
+// Attach safer init after DOM loaded
+document.addEventListener('DOMContentLoaded', function(){ try{ initTabsFixed(); }catch(e){ console.warn('initTabsFixed error', e); } });
+
+
+
+// --- createCertButtonForQuiz: crea botón de solicitar certificado en el área de resultado del quiz ---
+function createCertButtonForQuiz(moduleId){
+  try{
+    var container = document.getElementById('quiz-' + (moduleId || 'M5'));
+    // Buscar un contenedor de resultado preferido dentro del quiz container
+    var resultBox = null;
+    if(container){
+      resultBox = container.querySelector('#quiz-result') || container.querySelector('.quiz-result') || container;
+    }
+    if(!resultBox){
+      // fallback: buscar anywhere
+      resultBox = document.getElementById('quiz-result') || document.createElement('div');
+      if(!document.getElementById('quiz-result')){
+        resultBox.id = 'quiz-result';
+        if(container) container.appendChild(resultBox);
+      }
+    }
+    // Evitar duplicados
+    var old = resultBox.querySelector('.cert-open');
+    if(old) return;
+    var btn = document.createElement('button');
+    btn.className = 'cert-open';
+    btn.textContent = 'Solicitar certificado';
+    btn.setAttribute('data-module', moduleId || 'M5');
+    btn.style.marginLeft = '8px';
+    btn.addEventListener('click', function(e){
+      e.preventDefault();
+      var modal = document.getElementById('cert-modal');
+      if(modal){
+        var sel = modal.querySelector('#cert-module');
+        if(sel) sel.value = this.getAttribute('data-module');
+        modal.style.display = 'block';
+        modal.setAttribute('aria-hidden','false');
+        var nm = document.getElementById('cert-name'); if(nm) nm.focus();
+      } else {
+        alert('Formulario de certificado no disponible.');
+      }
+    });
+    resultBox.appendChild(btn);
+  }catch(err){ console.warn('createCertButtonForQuiz error', err); }
+}

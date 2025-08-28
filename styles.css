@@ -303,3 +303,224 @@ input:invalid, textarea:invalid {box-shadow:0 0 0 3px rgba(255,95,95,0.06)}
 /* Force tab content hidden by default; script will show the active one */
 .tab-content { display: none !important; }
 .tab-content.active { display: block !important; }
+
+
+/* ==== Assistant round2: stronger header fixes appended ==== */
+
+/* ==== Assistant round2: stronger header fixes to avoid overlap and improve layout ==== */
+/* Ensure fixed or absolute headers don't overlap content: add safe top padding to body */
+:root{
+  --site-header-height: 72px;
+  --brand-deep: #0b3d91;
+  --brand-mid: #6b7280;
+}
+header, .site-header, .topbar, .header {
+  position: relative !important;
+  z-index: 9999 !important;
+}
+body { padding-top: var(--site-header-height) !important; scroll-behavior: smooth; }
+@media (max-width:600px){ body { --site-header-height: 88px; padding-top: var(--site-header-height) !important; } }
+header nav, .site-nav, .topbar nav { position: relative !important; z-index: 10001 !important; }
+section { scroll-margin-top: calc(var(--site-header-height) + 8px); }
+
+/* Course / modules layout improvements */
+.course-section, .curso, .course-wrapper, .modules {
+  max-width: 1100px;
+  margin: 26px auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 18px;
+  align-items: start;
+  padding: 18px;
+}
+.module-card, .module, .module-item, .card-module {
+  background: linear-gradient(180deg, #ffffff, #fbfbfd);
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 6px 18px rgba(15,23,42,0.06);
+  border: 1px solid rgba(11,61,145,0.04);
+  overflow: visible !important;
+}
+.module-card h3, .module h3 { margin-top:0; font-size:18px; color:var(--brand-deep); }
+.module-card p, .module p { color: #334155; line-height:1.45; margin:8px 0; }
+.module-actions { display:flex; gap:8px; align-items:center; margin-top:8px; }
+.module-actions a.btn-pdf { padding:8px 12px; border-radius:8px; background:transparent; border:1px solid rgba(11,61,145,0.09); text-decoration:none; font-weight:600; color:var(--brand-deep); box-shadow: 0 2px 6px rgba(11,61,145,0.04); }
+.module-actions a.btn-pdf:hover { background:var(--brand-deep); color:#fff; transform:translateY(-2px); }
+
+/* Success case images: avoid cutting borders, preserve aspect ratio and show full image */
+.case-image, .caso img, .success-case img, .case img, .testimonial img, .card img {
+  display:block;
+  width:100% !important;
+  height:180px !important;
+  object-fit: contain !important;
+  background: linear-gradient(180deg, #ffffff, #f4f6fb);
+  border-radius:10px;
+  padding:8px;
+  box-shadow: 0 6px 18px rgba(2,6,23,0.06);
+  border:1px solid rgba(16,24,40,0.04);
+}
+img { max-width:100%; height:auto; }
+
+.course-header { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:12px; }
+.course-header h2 { margin:0; font-size:22px; color:var(--brand-deep); }
+.course-intro { color:var(--brand-mid); margin-bottom:6px; }
+.module-preview { min-height: 140px; display:flex; align-items:center; justify-content:center; color: #6b7280; font-size:14px; }
+
+
+/* ==== Assistant round3 appended ==== */
+
+/* ==== Assistant round3: fixed white header and spacing fixes ==== */
+:root { --header-height: 72px; --brand-deep: #0b3d91; --accent: #ffb03b; --nav-text: #0b3d91; --nav-bg: #ffffff; --nav-text-contrast: #0b3d91; }
+
+/* Make header fixed and always visible */
+header, .site-header, .topbar, .header {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--header-height);
+  background: var(--nav-bg) !important; /* white background to match logo */
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 8px 18px !important;
+  box-shadow: 0 2px 8px rgba(2,6,23,0.06);
+  z-index: 12000 !important;
+}
+
+/* Ensure logo sits left and smaller if needed */
+header .logo, .site-header .logo, .brand-logo { max-height:48px; display:block; margin-right:12px; }
+
+/* Nav buttons visible and high z-index */
+header nav, .site-nav, .topbar nav { position: relative !important; z-index: 12100 !important; display:flex; gap:10px; align-items:center; }
+
+/* Button styling */
+header nav a, .nav-button, .btn-nav {
+  color: var(--nav-text) !important;
+  background: transparent;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 2px solid transparent;
+  font-weight:600;
+  text-decoration:none;
+}
+header nav a:hover, .nav-button:hover { background: var(--brand-deep); color: #fff !important; transform: translateY(-2px); }
+
+/* Avoid extra space caused by default margin on first child */
+body { padding-top: calc(var(--header-height) + 8px) !important; margin:0; }
+/* If main or .main has top margin, reduce it */
+main, .main, #main { margin-top: 0 !important; padding-top: 0 !important; }
+
+/* Make sure anchor scrolls account for fixed header */
+section, h1, h2, .section { scroll-margin-top: calc(var(--header-height) + 12px); }
+
+/* Responsive: reduce header height on small screens */
+@media (max-width:700px){
+  :root { --header-height: 88px; }
+  header, .site-header { height: var(--header-height); padding:10px; }
+  header .logo { max-height:40px; }
+}
+
+
+/* ==== Assistant v4 appended ==== */
+
+/* Assistant v4: hover highlight color and prominent Inscribete button */
+header nav a:hover, .nav-button:hover {
+  background: #ffb03b !important; /* warm accent */
+  color: #07213a !important;
+}
+/* Make inscribete standout */
+.btn-inscribete, a.btn-inscribete {
+  background: #ff6b21 !important;
+  color: #fff !important;
+  padding: 10px 16px !important;
+  border-radius: 999px !important;
+  font-weight: 700 !important;
+  box-shadow: 0 6px 20px rgba(255,107,33,0.18);
+  border: 0 !important;
+}
+.btn-inscribete:hover { transform: translateY(-2px); filter: brightness(1.03); }
+
+
+/* ==== Assistant v6: improved module presentation ==== */
+
+/* Assistant v6: improved module presentation - video + text integration */
+.module-media { display:flex; gap:18px; align-items:flex-start; }
+.module-media .text { flex:1 1 420px; }
+.module-media iframe, .module-media video { flex: 0 0 420px; width:420px; height:236px; border-radius:10px; box-shadow:0 6px 18px rgba(2,6,23,0.06); border:1px solid rgba(16,24,40,0.04); }
+.tab-content { background: linear-gradient(180deg,#fff,#fbfff9); border-radius:12px; padding:18px; box-shadow:0 6px 18px rgba(15,23,42,0.04); margin-bottom:18px; }
+.module-media ul { margin-top:8px; }
+.module-actions { display:flex; gap:10px; margin-top:12px; align-items:center; }
+.module-actions a.btn-pdf { background:transparent; border:1px solid rgba(11,61,145,0.08); padding:8px 12px; border-radius:8px; font-weight:600; text-decoration:none; }
+.module-actions a.btn-pdf:hover { background:#0b6b3a; color:#fff; }
+.module-preview { border-radius:8px; background:#fff; padding:12px; box-shadow:0 4px 12px rgba(2,6,23,0.04); min-height:120px; }
+
+
+/* ==== v8: module-media spacing and PDF button hover ==== */
+
+/* v8: module-media spacing and PDF button hover */
+.module-actions { margin-top: 14px; display:flex; gap:12px; align-items:center; }
+.btn-pdf { padding:8px 12px; border-radius:8px; border:1px solid rgba(11,61,145,0.08); text-decoration:none; color:var(--brand-deep); background:transparent; transition:all .18s ease; }
+.btn-pdf:hover { background:var(--brand-deep); color:#fff; transform:translateY(-2px); }
+.btn-solicitar-certificado { background:#16a34a; color:#fff; padding:8px 12px; border-radius:8px; border:0; font-weight:700; }
+.module-media { display:flex; gap:18px; align-items:flex-start; margin-bottom:18px; }
+.module-media .text { flex:1 1 420px; }
+.module-media .media { flex:0 0 440px; }
+.module-preview { min-height:220px; display:flex; align-items:center; justify-content:center; background:#fff; border-radius:10px; box-shadow:0 6px 18px rgba(2,6,23,0.06); padding:8px; }
+@media (max-width:900px){ .module-media { flex-direction:column; } .module-media .media { width:100%; } }
+
+/* Centrar el modal del certificado */
+.cert-modal { position: fixed; inset: 0; display:flex; align-items:center; justify-content:center; background: rgba(0,0,0,0.35); z-index:9999; }
+.cert-modal[aria-hidden="true"] { display:none; }
+.cert-modal .modal-content { max-width:560px; width:92%; background:#fff; padding:18px; border-radius:10px; box-shadow:0 12px 28px rgba(0,0,0,0.18); }
+#cert-name { width:100%; padding:8px; box-sizing:border-box; margin-top:8px; }
+
+
+/* --- Mejora de presentación para módulos: grid profesional, tarjetas y responsivo --- */
+.module-media, .module-content {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  align-items: start;
+  margin-bottom: 18px;
+}
+@media(min-width: 880px){
+  .module-media, .module-content {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.module-media .text, .module-content .text {
+  padding: 18px;
+}
+.module-media .video, .module-content .media {
+  padding: 18px;
+}
+.module-card {
+  background: #fbfff9;
+  border-left: 6px solid var(--primary-color, #0b6b3a);
+  border-radius: 10px;
+  box-shadow: 0 10px 24px rgba(12,12,12,0.08);
+  padding: 14px;
+}
+.module-actions { margin-top: 12px; display:flex; gap:10px; flex-wrap:wrap; }
+.btn-solicitar-certificado { display:none; } /* inline static buttons removed; dynamic button will be created by JS when corresponde */
+.cert-open, .btn-primary.cert-open { background: var(--primary-color,#0b6b3a); color: #fff; border: none; padding: 10px 14px; border-radius: 8px; cursor:pointer; }
+.btn-secondary { background: #eee; border: none; padding: 8px 12px; border-radius: 8px; cursor:pointer; }
+.quiz-container { margin-top: 12px; }
+.quiz-form ol { padding-left: 20px; }
+.card-title { font-size:1.15rem; font-weight:700; color:var(--primary-color,#0b6b3a); margin-bottom:6px; }
+
+
+
+/* Center the certificate modal (specific) */
+.cert-modal {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.35);
+  z-index: 99999;
+}
+.cert-modal[aria-hidden="true"] { display: none; }
+.cert-modal .modal-content { max-width: 520px; width: 92%; padding: 18px; border-radius: 10px; background: #fff; box-shadow: 0 12px 28px rgba(0,0,0,0.18); }
