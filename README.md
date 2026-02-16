@@ -2,6 +2,8 @@
 
 **Mecariego** es una landing page moderna y responsiva diseñada para promocionar un programa educativo técnico. El proyecto sirve como punto central para que los usuarios accedan a módulos de aprendizaje, conozcan los beneficios de la certificación y descarguen la aplicación móvil asociada.
 
+🔗 **[Ver Sitio Web Oficial](https://1mejor2345.github.io/mecariego-website/)**
+
 ---
 
 ## ✨ Características Principales
