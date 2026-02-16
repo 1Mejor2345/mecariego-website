@@ -1,25 +1,88 @@
-MECARIEGO - Prototipo (Demo)
-
-Archivos incluidos:
-- index.html            (Versión en español)
-- index_en.html         (Versión en inglés - parcial)
-- styles.css            (Estilos principales)
-- app.js                (Interacciones JS)
-- assets/               (Imágenes placeholders y checklist.pdf)
-- sources.txt           (URLs públicas consultadas)
-- README.md             (este archivo)
-
-Cómo abrir:
-1. Extrae el ZIP 'mecariego_prototipo.zip'.
-2. Abre 'index.html' en tu navegador (Chrome/Firefox/Edge).
-3. El formulario usa mailto:ventas@debmagro.com para enviar los datos mediante el cliente de correo local (simulación). Puedes reemplazar el atributo 'action' del form por tu endpoint si deseas integración real.
-
-Notas:
-- Los assets dentro de /assets/ son marcadores de posición generados. Reemplaza por imágenes y videos oficiales descargados de las fuentes listadas en 'sources.txt'.
-- Hay comentarios en el HTML indicando dónde reemplazar recursos por las versiones reales.
+\# Mecariego - Plataforma de Capacitación y Certificación 🛠️📱
 
 
-Cambios aplicados: Corrección del comportamiento de pestañas (tabs) en la sección Curso, estilos ajustados para ocultar paneles no activos y mejoras visuales en transición.
+
+\*\*Mecariego\*\* es una landing page moderna y responsiva diseñada para promocionar un programa educativo técnico. El proyecto sirve como punto central para que los usuarios accedan a módulos de aprendizaje, conozcan los beneficios de la certificación y descarguen la aplicación móvil asociada.
 
 
-Se aplicaron mejoras de contenido y estilo en v2.
+
+---
+
+
+
+\## ✨ Características Principales
+
+
+
+\* \*\*🎨 Diseño Responsivo:\*\* Adaptado completamente a dispositivos móviles, tablets y escritorio utilizando CSS moderno y Media Queries.
+
+\* \*\*📚 Gestión de Recursos Educativos:\*\* Integración directa para la visualización y descarga de módulos en PDF (M0 a M5) y checklists de verificación.
+
+\* \*\*📱 Showcase de Aplicación:\*\* Sección dedicada a la presentación de la app móvil con mockups de alta calidad.
+
+\* \*\*🤝 Sección de Aliados y Testimonios:\*\* Carrusel o grid para mostrar partners estratégicos y casos de éxito reales para generar confianza.
+
+\* \*\*⚡ Interactividad:\*\* JavaScript nativo (`app.js`) para manejar la navegación, animaciones de scroll y lógica de interacción del usuario.
+
+
+
+---
+
+
+
+\## 🛠️ Tecnologías Utilizadas
+
+
+
+\* \*\*Estructura:\*\* HTML5 Semántico.
+
+\* \*\*Estilos:\*\* CSS3 (Diseño Flexbox/Grid, variables CSS personalizadas).
+
+\* \*\*Lógica:\*\* JavaScript (Vanilla JS).
+
+\* \*\*Recursos:\*\* Integración de documentos PDF y optimización de imágenes (WebP/PNG).
+
+
+
+---
+
+
+
+\## 📂 Estructura del Proyecto
+
+
+
+El repositorio está organizado de la siguiente manera para facilitar el mantenimiento:
+
+
+
+```text
+
+mecariego-website/
+
+│
+
+├── index.html          # Estructura principal de la Landing Page
+
+├── styles.css          # Hoja de estilos principal
+
+├── app.js              # Lógica de interacción y efectos
+
+├── sources.txt         # Referencias y fuentes utilizadas
+
+├── README.md           # Documentación del proyecto
+
+│
+
+└── assets/             # Recursos multimedia y documentos
+
+&nbsp;   ├── module\_M0...M5.pdf  # Material educativo descargable
+
+&nbsp;   ├── certificate.pdf     # Modelo de certificación
+
+&nbsp;   ├── app\_mockup.png      # Vistas previas de la aplicación
+
+&nbsp;   ├── ally\_\*.png          # Logos de empresas aliadas
+
+&nbsp;   └── testimonial\*.jpg    # Imágenes de casos de éxito
+
