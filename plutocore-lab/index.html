@@ -1,254 +1,226 @@
 <!doctype html>
 <html lang="es">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#050a14">
-<title>PlutoCore — Simulador Lunar</title>
-<meta name="description" content="Dirige una base lunar. Ajusta los sistemas, observa la simulación y mantén a salvo a la tripulación.">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#101c42"><meta name="description" content="¡Salva la base lunar! Un minisimulador espacial interactivo para niños.">
+<title>PlutoCore — ¡Rescata la Luna!</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap');
-:root{--bg:#080e19;--glass:#111d30;--glass2:#1b2a41;--line:#30415e;--text:#ecf7ff;--muted:#9bb0c8;--gold:#ffd46b;--aqua:#63f1d2;--red:#fa8a99;--blue:#82bafe}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:'DM Sans',system-ui,sans-serif;font-size:14px;line-height:1.4}button,input{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible,a:focus-visible,[role=button]:focus-visible{outline:3px solid var(--gold);outline-offset:3px}button:disabled{opacity:.5;cursor:not-allowed}.app{min-height:100vh;max-width:1560px;margin:auto;padding:0 20px 22px;display:flex;flex-direction:column;gap:15px}.header{height:72px;display:flex;align-items:center;justify-content:space-between;gap:15px;border-bottom:1px solid #203047}.logo{display:flex;align-items:center;gap:10px;font:700 23px 'Space Grotesk',sans-serif;letter-spacing:-.9px;white-space:nowrap}.symbol{width:34px;height:34px;border:2px solid var(--gold);border-radius:50%;display:grid;place-items:center;color:var(--gold);position:relative}.symbol:after{content:'';width:43px;height:13px;border:2px solid var(--gold);position:absolute;transform:rotate(-32deg);border-radius:100%}.logo span{color:var(--gold)}.mini{font-size:10px;text-transform:uppercase;letter-spacing:1.35px;font-weight:800;color:var(--muted)}.header-center{display:flex;gap:9px;align-items:center;min-width:0}.mission-tag{background:#192841;border:1px solid #30415b;border-radius:99px;padding:8px 12px;font-size:11px;color:#d7e7fa}.time-pill{background:#182e39;border:1px solid #315a58;border-radius:12px;padding:8px 15px;color:#c2fff2;font-size:12px;white-space:nowrap}.top-help{color:var(--muted);font-size:11px;max-width:140px;text-align:right}.layout{display:grid;grid-template-columns:minmax(0,1fr) 324px;gap:15px;align-items:start}.maincol{min-width:0}.mission{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 12px}.headline h1{font:700 clamp(21px,2.45vw,31px)/1.15 'Space Grotesk',sans-serif;letter-spacing:-1px;margin:3px 0}.headline p{margin:0;color:#b5c8dd;font-size:12px}.count{background:#1b2b42;border:1px solid #344663;border-radius:12px;padding:9px 13px;text-align:center;white-space:nowrap}.count strong{display:block;color:#fff;font:700 23px 'Space Grotesk',sans-serif}.count small{color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:1px}.scene-wrap{position:relative;overflow:hidden;border:1px solid #33496b;border-radius:23px;background:linear-gradient(#122544 0%,#263c5a 48%,#5f6b7f 100%);box-shadow:inset 0 0 65px #0a162b66;isolation:isolate}.scene-wrap:after{content:'';position:absolute;inset:0;pointer-events:none;box-shadow:inset 0 0 75px #0006;border-radius:23px}.scene-wrap.storm{background:linear-gradient(#1f2739,#5a4549 50%,#977759 100%)}.stars{position:absolute;inset:0;pointer-events:none;background-image:radial-gradient(#fff 1px,transparent 1.5px),radial-gradient(#c5e4ff 1px,transparent 1.7px);background-size:97px 67px,157px 129px;background-position:12px 9px,72px 48px;opacity:.38}.planet{position:absolute;top:6%;right:10%;width:92px;height:92px;border-radius:100%;background:radial-gradient(circle at 32% 26%,#8ff6f1,#2a639b 45%,#1b345d 70%,#102444);box-shadow:0 0 35px #76d7eb33,inset -12px -6px 18px #081c39}.planet:after{content:'';position:absolute;top:31%;left:10%;width:60%;height:18px;border-radius:40%;background:#d7fafa70;transform:rotate(-20deg)}.orb{position:absolute;top:18%;left:10%;height:35px;width:35px;border-radius:100%;background:#fff6c5;box-shadow:0 0 30px #f8daa8aa,0 0 85px #ffd19d55}.scene-wrap.storm .orb{opacity:.24}.scene{display:block;width:100%;height:auto;min-height:420px}.horizon{fill:#74869e}.ridge{fill:#4d637e}.ground{fill:#8995a4}.dune{fill:#a9adb3}.crater{fill:#5d7087;opacity:.45}.cable{fill:none;stroke:#203955;stroke-width:9;stroke-linecap:round}.cable-glow{fill:none;stroke:#65ead0;stroke-width:3;stroke-linecap:round;stroke-dasharray:8 18;animation:powerflow 2s linear infinite}.module{cursor:pointer;outline:none;transition:filter .2s}.module:hover,.module:focus-visible{filter:drop-shadow(0 0 17px #9defff66)}.module .outer{fill:#253954;stroke:#bcd0de;stroke-width:3}.module .windows{fill:#91f6f2;filter:drop-shadow(0 0 8px #5af6d2a0)}.module.off .windows{fill:#455269;filter:none}.module.low .windows{fill:#e2b773;filter:none}.module.selected .outer{stroke:#ffe19a;stroke-width:5}.module-ring{fill:none;stroke:#ffe4a2;stroke-width:2;stroke-dasharray:9 9;opacity:0;animation:spin 32s linear infinite;transform-origin:center}.module.selected .module-ring{opacity:.95}.module-tag{font-size:14px;font-weight:800;fill:#f4f9ff;paint-order:stroke;stroke:#17283d;stroke-width:5}.module-score{font-size:12px;font-weight:800;fill:#baf8e7;paint-order:stroke;stroke:#17283d;stroke-width:4}.scene-info{position:absolute;left:17px;top:17px;display:flex;gap:7px;flex-wrap:wrap;pointer-events:none}.scene-badge{background:#0b2034ce;backdrop-filter:blur(7px);border:1px solid #4d6783;color:#e2f2ff;border-radius:10px;padding:7px 10px;font-size:11px;font-weight:700}.scene-badge.critical{border-color:#ef9d74;background:#53352fdb;color:#ffd7b1}.dust{position:absolute;inset:-40px;pointer-events:none;opacity:0;background:repeating-linear-gradient(154deg,transparent 0 45px,#f3d09c16 49px 54px,transparent 58px 97px);animation:dustmove 3s linear infinite}.scene-wrap.storm .dust{opacity:1}.scene-wrap.storm .scene{filter:sepia(.25) saturate(.7)}.hint{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);background:#0b1d31de;border:1px solid #60728c;padding:8px 15px;border-radius:99px;color:#e2f2ff;font-size:12px;white-space:nowrap;box-shadow:0 4px 20px #0008}.controls-bottom{display:flex;justify-content:space-between;align-items:center;gap:13px;margin-top:12px}.tip{display:flex;align-items:center;gap:10px;color:#c7d8e8;font-size:12px;min-width:0}.tip .round{width:33px;height:33px;border-radius:50%;background:#243957;display:grid;place-items:center;font-size:17px;flex:none}.next{color:#151b27;border:none;background:var(--gold);padding:15px 23px;border-radius:13px;font-weight:800;white-space:nowrap;box-shadow:0 8px 27px #ffd46b2c}.next:hover{background:#ffe49e}.next.secondary{background:#2b4564;color:#e8f4ff}.end-banner{margin-top:12px;border:1px solid #5d6c8e;border-radius:15px;padding:13px 16px;background:#1c2b43;color:#edf6ff;display:none}.end-banner.show{display:block}.status-row{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin-top:12px}.stat{background:#15243b;border:1px solid #2d4162;border-radius:16px;padding:12px 12px 11px;min-width:0}.stat-name{font-size:11px;color:#abc0dc;white-space:nowrap}.stat b{display:block;font:700 25px 'Space Grotesk',sans-serif;margin:5px 0}.stat b.low{color:var(--red)}.bar{height:5px;background:#304660;border-radius:99px;overflow:hidden}.bar div{height:100%;background:var(--aqua);transition:width .3s}.bar div.warning{background:var(--gold)}.bar div.bad{background:var(--red)}.rail{border:1px solid #31435f;border-radius:23px;background:#121e31;padding:19px;box-shadow:0 15px 42px #0003}.rail-title{display:flex;gap:8px;justify-content:space-between;align-items:center;margin-bottom:13px}.rail-title h2{font:700 21px 'Space Grotesk',sans-serif;letter-spacing:-.6px;margin:0}.generation{display:flex;align-items:center;justify-content:space-between;background:#1d3248;border-radius:13px;padding:11px 12px;margin:0 0 16px}.generation strong{color:#f7d477;font:700 22px 'Space Grotesk',sans-serif}.generation small{display:block;color:#b3c6d8;font-size:10px}.module-control{padding:12px 12px 9px;border:1px solid #344762;border-radius:15px;background:#17273f;margin-bottom:10px;transition:border .2s,background .2s}.module-control.selected{background:#233752;border-color:#e2c270}.mod-row{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:3px}.mod-name{font-weight:800;font-size:14px}.mod-power{font:800 14px 'Space Grotesk',sans-serif;color:#b3f5e3}.mod-desc{color:#a6bad0;font-size:11px;min-height:18px;margin-bottom:8px}.slider-row{display:flex;align-items:center;gap:9px}.slider-row>span{font-size:9px;color:#89a2bb;min-width:15px}.slider{width:100%;accent-color:#71efd5;cursor:pointer;height:16px}.rail-footer{margin-top:10px;padding:12px;background:#233247;border:1px solid #3a526f;border-radius:12px;font-size:11px;color:#c5d4e4;display:flex;align-items:center;justify-content:space-between;gap:8px}.pill{font-weight:800;padding:5px 8px;border-radius:8px;background:#315547;color:#aaf9d9;white-space:nowrap}.pill.negative{background:#61323d;color:#ffc4c4}.generator{margin-top:15px;background:#1a2b42;border:1px solid #364d66;border-radius:14px;padding:11px;display:flex;align-items:center;gap:9px}.generator strong{font-size:12px}.generator small{display:block;color:#9caec4;font-size:11px}.switch{margin-left:auto;border:none;background:#344861;color:#d7e7f8;padding:9px 11px;border-radius:9px;font-weight:800;font-size:11px}.switch.on{background:#c5a359;color:#172035}.fuel-track{height:5px;background:#3a4c60;border-radius:99px;overflow:hidden;margin-top:7px}.fuel-track div{height:100%;background:#ffc66b}.alerts{padding:14px 16px;background:#24354c;border:1px solid #3d5775;border-radius:16px;margin-top:13px}.alerts p{margin:5px 0 0;font-size:12px;color:#d5e2ef}.alerts strong{font-size:12px;color:#ffe1a3}.alerts .secondary-btn{margin-top:9px;border:1px solid #6aa4a1;background:#235459;color:#d4fff4;padding:10px 11px;border-radius:9px;font-size:12px;font-weight:800;width:100%}.legend{color:#8397b2;font-size:11px;margin:13px 0 0}.legend a{color:#8ddedc}.overlay{position:fixed;inset:0;z-index:20;display:none;align-items:center;justify-content:center;background:#030917ca;backdrop-filter:blur(7px);padding:17px}.overlay.show{display:flex}.modal{background:#1a2a43;border:1px solid #4c698c;border-radius:24px;padding:28px;max-width:430px;width:100%;box-shadow:0 35px 90px #0009;text-align:center}.modal .big{font-size:60px;line-height:1.3}.modal h2{font:700 34px 'Space Grotesk',sans-serif;margin:8px 0}.modal p{color:#d1dfed;max-width:320px;margin:12px auto 20px}.modal .next{width:100%}.foot{display:flex;justify-content:space-between;gap:9px;font-size:10px;color:#8296ae;padding:3px 1px}.foot a{color:#a4c5de}.visually-hidden{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap} @keyframes powerflow{to{stroke-dashoffset:-52}}@keyframes spin{to{transform:rotate(360deg)}}@keyframes dustmove{to{transform:translate(90px,30px)}}
-@media(max-width:1000px){.layout{grid-template-columns:minmax(0,1fr) 295px}.scene{min-height:330px}.app{padding:0 12px 18px}.stat{padding:11px 8px}.stat b{font-size:22px}.mission-tag{display:none}}
-@media(max-width:780px){.header{height:60px}.top-help{display:none}.layout{grid-template-columns:1fr}.rail{order:1}.status-row{order:2}.controls-bottom{flex-wrap:wrap}.scene{min-height:0}.rail-title{margin-bottom:9px}.rail-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}.module-control{margin-bottom:0}.rail-footer{margin-top:10px}.generation{margin-bottom:12px}.mission{margin-top:6px}.stat b{font-size:21px}}
-@media(max-width:480px){.app{gap:9px}.header{height:57px}.logo{font-size:20px}.symbol{width:29px;height:29px}.time-pill{font-size:11px;padding:7px 9px}.count{padding:7px 9px}.headline h1{font-size:21px}.headline p{font-size:11px}.scene-wrap{border-radius:14px}.scene-info{top:8px;left:8px}.scene-badge{font-size:9px;padding:5px 7px}.hint{font-size:9px;padding:6px 9px;bottom:7px}.controls-bottom{margin-top:8px}.next{padding:12px 17px;width:100%}.tip{font-size:11px}.status-row{gap:5px}.stat{padding:8px 5px;border-radius:10px}.stat-name{font-size:9px}.stat b{font-size:18px}.rail{padding:13px;border-radius:17px}.rail-grid{gap:7px}.module-control{padding:9px 8px}.mod-name{font-size:12px}.mod-desc{font-size:10px;line-height:1.2}.mod-power{font-size:12px}.slider-row{gap:3px}.generation strong{font-size:18px}.foot{flex-direction:column}}
-@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;scroll-behavior:auto!important}}
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800;900&display=swap');
+:root{--night:#121c40;--night2:#25326e;--ink:#24304e;--cream:#fffefa;--sky:#e0efff;--gold:#ffc94f;--green:#49d9b0;--blue:#68c5fa;--purple:#7468df;--red:#ff8b8e;--line:#e2e5f3}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:Nunito,system-ui,sans-serif}body{background:radial-gradient(circle at 50% -10%,#374e97,transparent 55%),#0f1835;color:#fff}button{font:inherit;cursor:pointer;touch-action:manipulation}button:focus-visible,[role=button]:focus-visible{outline:4px solid #ffce57;outline-offset:3px}button:disabled{cursor:default}.app{max-width:1150px;margin:0 auto;padding:13px 16px 20px}.header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 14px}.brand{font-family:'Baloo 2',sans-serif;font-size:26px;font-weight:800;letter-spacing:-1px;display:flex;gap:9px;align-items:center}.brand .planet{display:inline-grid;place-items:center;width:43px;height:43px;border-radius:50%;background:linear-gradient(135deg,#ffe48c,#ffb75c);box-shadow:0 3px 0 #c87650;color:#584a77;font-size:25px;transform:rotate(-12deg)}.brand .core{color:#ffd46c}.header-right{display:flex;align-items:center;gap:10px}.mute{width:40px;height:40px;border-radius:14px;border:1px solid #6572a6;background:#26345e;color:white;font-size:19px}.level-track{display:flex;gap:7px}.level-track span{display:grid;place-items:center;width:30px;height:30px;border:2px solid #7787bb;border-radius:50%;background:#2c3b74;font-size:14px;color:#9daeda;font-weight:900}.level-track span.active{background:#ffcf5d;color:#413367;border-color:#ffe1a0;box-shadow:0 0 14px #fcd56777}.level-track span.done{background:#5ddbb8;color:#173853;border-color:#9dffe8}.playcard{position:relative;background:#f3f6ff;padding:10px;border:5px solid #fff;border-radius:28px;box-shadow:0 16px 0 #10172f,0 30px 70px #0007;overflow:hidden}.speechbar{background:#fff;border-radius:22px;display:flex;align-items:center;gap:14px;padding:10px 16px;margin-bottom:9px;min-height:85px;color:var(--ink);border:2px solid #e6e6f2}.bot{position:relative;width:66px;height:62px;flex:none}.bothead{position:absolute;left:11px;top:8px;width:49px;height:43px;border:4px solid #4f5b9a;border-radius:19px;background:#f5fcff;box-shadow:inset 0 -7px #c5e5f7,0 3px 0 #b6c9e1}.bothead:before{content:'';position:absolute;left:13px;top:-14px;width:4px;height:12px;background:#5365a0}.bothead:after{content:'';position:absolute;left:11px;top:-21px;background:#ffc660;border:2px solid #52609d;width:11px;height:11px;border-radius:50%}.eyes{position:absolute;left:14px;top:15px;display:flex;gap:13px}.eye{display:block;width:6px;height:11px;border-radius:5px;background:#384773;animation:blink 5s infinite}.bothead .smile{position:absolute;left:20px;top:27px;width:13px;height:7px;border-bottom:3px solid #556396;border-radius:50%}.bot .ear{position:absolute;left:2px;top:26px;width:11px;height:19px;border-radius:7px;background:#ffcb63;border:3px solid #56659f}.bot .ear.right{left:57px}.bubble-copy{flex:1;min-width:0}.bubble-copy .tiny{display:block;text-transform:uppercase;letter-spacing:1px;font-weight:900;font-size:10px;color:#8870c6}.bubble-copy strong{display:block;font:800 clamp(18px,2.6vw,27px)/1.11 'Baloo 2',sans-serif;color:#25325c}.bubble-copy p{margin:0;font-size:14px;color:#64718f;font-weight:800}.mission-counter{border-radius:14px;background:#eaf6fc;color:#344c7c;padding:10px 14px;white-space:nowrap;text-align:center;font-weight:1000;font-size:23px;font-family:'Baloo 2',sans-serif;line-height:1}.mission-counter small{display:block;font:900 10px Nunito,sans-serif;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px}.world{position:relative;overflow:hidden;border-radius:20px;background:linear-gradient(#192b66 0%,#384a9b 49%,#b2a4c7 90%);aspect-ratio:1000/510;min-height:350px;border:3px solid #c5d4f7}.world.storm{background:linear-gradient(#382e66,#9e6a8c 56%,#c7a2b2)}.world.storm .stormwash{opacity:.52}.scene{display:block;width:100%;height:100%}.stars circle{fill:#fff5c8;animation:twinkle 3s ease-in-out infinite}.stars circle:nth-child(2n){animation-delay:1.2s}.moonhill{fill:#8086be}.moonplain{fill:#b9b6d5}.ground{fill:#d7d4e8}.crater{fill:#a29ec9;opacity:.75}.earth{fill:#75c5f7;stroke:#d1f5ff;stroke-width:5}.earthland{fill:#78ceae}.sun{fill:#ffde81;filter:drop-shadow(0 0 22px #ffe4a966)}.powerwire{fill:none;stroke:#7ecdf8;stroke-width:9;stroke-linecap:round;stroke-dasharray:15 14;animation:flow 2s linear infinite}.module{cursor:pointer;outline:none;transform-box:fill-box;transform-origin:center;transition:filter .18s}.module:focus-visible,.module:hover{filter:drop-shadow(0 0 18px #eaffffb8)}.module .shell{fill:#e7f7ff;stroke:#596da7;stroke-width:6}.module .roof{fill:#fffefa;stroke:#6a79b2;stroke-width:5}.module .window{fill:#425987}.module.active .window{fill:#59f5ce;filter:drop-shadow(0 0 10px #62efc4)}.module .glowcircle{opacity:0;fill:none;stroke:#fcdb80;stroke-width:5;stroke-dasharray:9 8;animation:rotate 8s linear infinite}.module.highlight .glowcircle{opacity:1}.module .module-name{fill:#fff;stroke:#273357;stroke-width:5;paint-order:stroke;font:900 23px 'Baloo 2',sans-serif;letter-spacing:.3px}.module .off-symbol{fill:#ffe0a5;opacity:1}.module.active .off-symbol{opacity:0}.module .on-symbol{opacity:0}.module.active .on-symbol{opacity:1}.solar .panel{fill:#4267a5;stroke:#a5d6ff;stroke-width:6}.solar .panel-line{stroke:#bce8ff;stroke-width:4}.waterstream{stroke:#65d5ff;stroke-width:13;fill:none;stroke-linecap:round;stroke-dasharray:14 22;animation:flow 1.4s linear infinite;opacity:.18}.waterstream.running{opacity:1}.leaknode{cursor:pointer;opacity:0;pointer-events:none}.leaknode.visible{opacity:1;pointer-events:auto}.leaknode .repair{fill:#fff4c4;stroke:#ff7866;stroke-width:5}.leaknode .crack{stroke:#ee6357;stroke-width:8;stroke-linecap:round;fill:none}.leaknode .drop{fill:#64d7ff;animation:drip 1s ease-in infinite}.leaknode.fixed{pointer-events:none}.leaknode.fixed .repair{fill:#59e3b8;stroke:#2a9c90}.leaknode.fixed .crack,.leaknode.fixed .drop{opacity:0}.leaknode .check{opacity:0}.leaknode.fixed .check{opacity:1}.astronaut{cursor:pointer;transition:opacity .45s;outline:none}.astronaut .suit{fill:#f8ffff;stroke:#6576a5;stroke-width:4}.astronaut .visor{fill:#344873}.astronaut .helmet{fill:#e8f5ff;stroke:#6576a5;stroke-width:5}.astronaut .hand{fill:#fefeff;stroke:#6375a2;stroke-width:4}.astronaut .cheek{fill:#ffb89f}.astronaut .halo{fill:none;stroke:#ffe179;stroke-width:5;stroke-dasharray:8 9;animation:rotate 9s linear infinite;opacity:0}.astronaut.active .halo{opacity:1}.astronaut.rescued{opacity:0;pointer-events:none}.aura{fill:#ffdc77;animation:pulse 1.1s ease-in-out infinite;transform-origin:center}.stormwash{position:absolute;inset:0;background:repeating-linear-gradient(142deg,transparent 0 38px,#ffe7aa28 39px 43px,transparent 44px 84px);opacity:0;pointer-events:none;animation:wind 3s linear infinite}.touch{position:absolute;pointer-events:none;border:3px solid white;border-radius:99px;background:#6754be;color:#fff;padding:9px 15px;font-weight:900;box-shadow:0 6px 0 #41337a;font-size:13px;animation:bob 1.4s ease-in-out infinite}.touch:after{content:'👇';position:absolute;right:-19px;bottom:-25px;font-size:27px;transform:rotate(-20deg)}.touch.energy{left:26%;top:24%}.touch.water{left:57%;top:24%}.touch.storm{left:56%;top:18%}.touch.hidden{display:none}.progress-strip{display:flex;align-items:center;justify-content:center;gap:12px;min-height:70px;padding:10px;color:#34456a}.strip-title{font-weight:900;font-size:15px}.energydots{display:flex;align-items:center;gap:7px}.energydots span{display:grid;place-items:center;font-size:21px;border-radius:13px;background:#f7d76d;border:3px solid #e8b853;width:43px;height:43px;box-shadow:0 4px 0 #caa34d}.energydots span.empty{background:#e2e8f5;border-color:#cad3e5;box-shadow:0 4px 0 #bbc8db;color:#9aa7c4}.control-dock{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;min-height:77px;align-items:center}.device{display:flex;align-items:center;gap:10px;background:#fff;color:#26395e;border:3px solid #ccd6ed;border-radius:17px;padding:10px 17px;min-width:162px;box-shadow:0 5px 0 #c2cce0;transition:.16s transform,.16s border}.device:hover{transform:translateY(-3px)}.device:active{transform:translateY(2px);box-shadow:0 2px 0 #c2cce0}.device.on{border-color:#35bf97;background:#e6fff3;box-shadow:0 5px 0 #a4e5d2}.device .device-emoji{font-size:27px}.device .device-name{font-weight:900;text-align:left;line-height:1.1}.device small{display:block;font-size:11px;color:#6d7e95}.device.on small{color:#20956a}.device.highlight{border-color:#ffd46b;box-shadow:0 0 0 4px #ffdf8b77,0 6px 0 #e1b95b}.dock-message{color:#556582;font-size:14px;font-weight:900;text-align:center}.main-foot{display:flex;justify-content:center;gap:9px;align-items:center;color:#a6bcdf;margin-top:17px;font-size:11px;text-align:center;flex-wrap:wrap}.main-foot a{color:#bdeee2}.intro,.celebrate{position:fixed;inset:0;z-index:30;background:#101735c9;backdrop-filter:blur(7px);display:grid;place-items:center;padding:14px}.intro[hidden],.celebrate[hidden]{display:none}.dialog{max-width:440px;width:100%;border-radius:31px;border:6px solid #fff;padding:26px 26px 25px;background:#fff9e8;color:#24345a;text-align:center;box-shadow:0 14px 0 #f6b759,0 30px 100px #0008}.dialog .illustration{font-size:75px;line-height:1.2;margin-bottom:5px;animation:bob 1.7s ease-in-out infinite}.dialog .kicker{font-weight:1000;letter-spacing:2px;font-size:11px;color:#8672b6;text-transform:uppercase}.dialog h1,.dialog h2{font:800 38px/1.08 'Baloo 2',sans-serif;margin:7px 0 10px;letter-spacing:-1px}.dialog h2{font-size:35px}.dialog p{font-size:17px;font-weight:800;line-height:1.35;color:#586680;margin:7px 0 18px}.cta{display:block;width:100%;border:0;border-radius:17px;background:#f9c850;color:#503d49;padding:15px;font-weight:1000;font-size:19px;box-shadow:0 6px 0 #dfa74f}.cta:active{transform:translateY(4px);box-shadow:0 2px 0 #dfa74f}.dialog .shapes{font-size:13px;color:#7e8caf;margin-top:17px;font-weight:800}.celebrate .dialog{background:#eafff7;box-shadow:0 14px 0 #79d7bb,0 30px 100px #0008}.celebrate .cta{background:#79e8c2;box-shadow:0 6px 0 #4bbda3}.stars-reward{display:flex;justify-content:center;gap:10px;font-size:43px;margin:4px 0 8px;animation:pop .5s ease both}.fact{border-radius:15px;background:#d8f8ef;color:#2a7e72;padding:12px;font-size:15px;font-weight:900;line-height:1.35;margin:13px 0 23px}.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:20;background:#ffeed1;border:3px solid #f3c668;color:#6c4e39;border-radius:16px;padding:11px 18px;font-weight:900;box-shadow:0 8px 25px #0006;max-width:min(92vw,440px);text-align:center;animation:pop .2s}.toast[hidden]{display:none}.finished .world{filter:brightness(1.1)}
+@keyframes blink{0%,43%,45%,100%{transform:scaleY(1)}44%{transform:scaleY(.18)}}@keyframes twinkle{50%{opacity:.3}}@keyframes bob{50%{transform:translateY(-8px)}}@keyframes drip{0%{transform:translateY(0);opacity:1}85%{transform:translateY(25px);opacity:.5}100%{transform:translateY(35px);opacity:0}}@keyframes flow{to{stroke-dashoffset:-100}}@keyframes wind{to{background-position:95px 25px}}@keyframes rotate{to{transform:rotate(360deg)}}@keyframes pulse{50%{opacity:.45}}@keyframes pop{0%{transform:scale(.8);opacity:.5}100%{transform:scale(1);opacity:1}}
+@media(max-width:700px){.app{padding:8px 8px 15px}.header{margin-bottom:8px}.brand{font-size:21px}.brand .planet{width:35px;height:35px}.playcard{padding:6px;border-width:3px;border-radius:22px}.speechbar{min-height:78px;padding:6px 9px;gap:8px;border-radius:17px}.bot{transform:scale(.79);width:54px;margin-left:-5px}.bubble-copy strong{font-size:20px}.bubble-copy p{font-size:12px}.mission-counter{font-size:21px;padding:7px}.world{min-height:330px;aspect-ratio:auto}.scene{position:absolute;height:100%;width:650px;left:50%;transform:translateX(-50%)}.world .touch.energy{left:11%;top:23%}.world .touch.water{left:62%;top:23%}.world .touch.storm{left:65%;top:23%}.touch{font-size:11px}.progress-strip{min-height:62px}.control-dock{gap:7px}.device{min-width:0;flex:1;gap:4px;padding:10px 8px;justify-content:center;border-radius:13px}.device .device-emoji{font-size:22px}.device .device-name{font-size:12px}.device small{font-size:10px}.dialog{max-width:370px;padding:19px 17px}.dialog h1{font-size:34px}.dialog h2{font-size:30px}}
+@media(max-width:360px){.bubble-copy strong{font-size:17px}.bot{transform:scale(.7);margin-left:-7px;width:44px}.level-track span{width:25px;height:25px}.world{min-height:290px}.scene{width:590px}.mission-counter{font-size:17px}.device{padding:9px 5px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
 <div class="app">
 <header class="header">
- <div class="logo"><div class="symbol">✦</div>Pluto<span>Core</span></div>
- <div class="header-center"><span class="mission-tag">● CONTROL LUNAR · LAB</span><span class="time-pill" id="clock">⏱ 06:00</span></div>
- <div class="top-help">Simulador educativo<br>sin registro</div>
+  <div class="brand"><span class="planet" aria-hidden="true">🪐</span>Pluto<span class="core">Core</span></div>
+  <div class="header-right"><div class="level-track" id="track" aria-label="Tres misiones"><span class="active">1</span><span>2</span><span>3</span></div><button class="mute" id="sound" aria-label="Activar o desactivar efectos de sonido" title="Sonido">🔊</button></div>
 </header>
-<div class="layout">
-<main class="maincol">
- <div class="mission">
-  <div class="headline"><div class="mini">MISIÓN PLUTO-01 · 4 ASTRONAUTAS</div><h1>Mantén viva la base lunar 🌕</h1><p>Reparte energía. Haz que la tripulación sobreviva 12 horas.</p></div>
-  <div class="count"><strong id="hourcount">0/12</strong><small>horas</small></div>
+<main class="playcard">
+ <div class="speechbar" aria-live="polite">
+  <div class="bot" aria-hidden="true"><div class="ear"></div><div class="ear right"></div><div class="bothead"><div class="eyes"><i class="eye"></i><i class="eye"></i></div><div class="smile"></div></div></div>
+  <div class="bubble-copy"><span class="tiny" id="phaseName">MISIÓN 1 · ENERGÍA</span><strong id="goal">¡Enciende el aire y el agua!</strong><p id="instruction">Toca sus edificios o los botones de abajo.</p></div>
+  <div class="mission-counter" id="counter"><small>LISTOS</small>0/2</div>
  </div>
- <div class="scene-wrap" id="sceneWrap">
-  <div class="stars"></div><div class="planet"></div><div class="orb"></div><div class="dust"></div>
-  <div class="scene-info"><span class="scene-badge" id="weather">☀️ Luz solar</span><span class="scene-badge" id="powerLabel">⚡ 12 unidades disponibles</span></div>
-  <svg class="scene" viewBox="0 0 1000 575" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Base lunar interactiva: selecciona un módulo para controlar su energía.">
-   <defs>
-    <linearGradient id="hill" x1="0" y1="0" x2="0.7" y2="1"><stop stop-color="#9caabc"/><stop offset="1" stop-color="#51657e"/></linearGradient>
-    <linearGradient id="metal" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#d5e4ea"/><stop offset=".55" stop-color="#718a9c"/><stop offset="1" stop-color="#3c526a"/></linearGradient>
-    <linearGradient id="glass" x1="0" x2="1"><stop stop-color="#73f0df"/><stop offset="1" stop-color="#3577a4"/></linearGradient>
-    <filter id="softGlow"><feGaussianBlur stdDeviation="5"/></filter>
-   </defs>
-   <path d="M0 370L96 313L155 339L256 264L350 317L480 251L584 308L690 259L808 325L921 272L1000 309V575H0Z" fill="#304965" opacity=".75"/>
-   <path d="M0 428L120 354L223 400L320 332L427 390L517 336L652 393L745 346L854 399L950 328L1000 353V575H0Z" fill="url(#hill)"/>
-   <path d="M0 476Q185 414 337 454T669 438Q839 410 1000 466V575H0Z" class="ground"/>
-   <path d="M0 517Q214 476 358 507Q536 536 693 494Q835 466 1000 508V575H0Z" class="dune"/>
-   <ellipse cx="113" cy="478" rx="56" ry="16" class="crater"/><ellipse cx="890" cy="494" rx="81" ry="21" class="crater"/><ellipse cx="528" cy="528" rx="43" ry="11" class="crater"/>
-   <path d="M490 427L313 464M490 427L660 433M490 427L830 452M490 427L149 430" class="cable"/>
-   <path d="M490 427L313 464M490 427L660 433M490 427L830 452M490 427L149 430" class="cable-glow" id="powerCables"/>
-   <g transform="translate(45 360)" aria-label="Paneles solares" id="solarVisual">
-    <path d="M58 85V45M10 75H142" stroke="#25394e" stroke-width="8"/>
-    <path d="M0 28L123 9L151 65L27 85Z" fill="#153653" stroke="#c6d8e7" stroke-width="5"/>
-    <path d="M31 22L58 78M60 18L88 73M90 14L116 68M121 10L145 63M9 51L137 39" stroke="#a0c4d4" stroke-width="3"/>
-    <path d="M6 25L125 8" stroke="#b9edff" stroke-width="3"/>
-    <text x="74" y="121" text-anchor="middle" class="module-tag">☀ SOLAR</text>
-   </g>
-   <g id="life" class="module selected" data-mod="life" role="button" tabindex="0" aria-label="Oxígeno, ajustar energía" transform="translate(325 290)">
-    <ellipse cx="109" cy="111" rx="142" ry="100" class="module-ring"/>
-    <path class="outer" d="M5 145V102Q10 18 108 9Q203 17 211 102V145Z" fill="url(#metal)"/>
-    <path d="M15 108Q25 26 108 18Q185 25 197 108Z" fill="url(#metal)"/>
-    <rect class="windows" x="48" y="77" width="116" height="38" rx="16"/>
-    <path d="M45 145V118H172V145" fill="#456078"/>
-    <rect x="91" y="113" width="39" height="32" rx="7" fill="#15263b" stroke="#ffc66b" stroke-width="4"/>
-    <rect x="24" y="122" width="20" height="23" rx="4" fill="#c9d9e2"/>
-    <rect x="175" y="122" width="18" height="23" rx="4" fill="#c9d9e2"/>
-    <text x="108" y="175" text-anchor="middle" class="module-tag">🫧 OXÍGENO</text><text id="lifeVal" x="108" y="192" text-anchor="middle" class="module-score">● 3/4</text>
-   </g>
-   <g id="water" class="module" data-mod="water" role="button" tabindex="0" aria-label="Reciclador de agua, ajustar energía" transform="translate(555 323)">
-    <ellipse cx="103" cy="99" rx="125" ry="99" class="module-ring"/>
-    <path class="outer" d="M8 128V48Q12 24 37 24H174Q197 26 199 48V128Z"/>
-    <path d="M23 20L44 1H157L179 20" fill="#b6cada" stroke="#5e7795" stroke-width="5"/>
-    <rect x="36" y="44" width="135" height="67" rx="13" fill="#b6cdd9"/>
-    <rect class="windows" x="54" y="53" width="100" height="49" rx="10"/>
-    <path d="M107 54C92 73 83 80 87 89Q93 109 110 106Q127 105 129 86C125 76 117 67 107 54" fill="#256485" opacity=".65"/>
-    <rect x="19" y="113" width="166" height="15" rx="4" fill="#516982"/>
-    <text x="104" y="156" text-anchor="middle" class="module-tag">💧 AGUA</text><text id="waterVal" x="104" y="174" text-anchor="middle" class="module-score">● 3/4</text>
-   </g>
-   <g id="grow" class="module" data-mod="grow" role="button" tabindex="0" aria-label="Cultivos, ajustar energía" transform="translate(757 300)">
-    <ellipse cx="102" cy="113" rx="122" ry="97" class="module-ring"/>
-    <path class="outer" d="M4 141V107Q12 22 100 15Q188 22 196 107V141Z"/>
-    <path d="M17 107Q20 33 100 27Q178 33 184 107Z" fill="#2b5e73" stroke="#8dbdcb" stroke-width="5"/>
-    <path d="M49 107V58M100 108V30M151 107V58" stroke="#b7d0db" stroke-width="4"/>
-    <path d="M35 111H166" stroke="#b7d0db" stroke-width="5"/>
-    <g class="windows"><ellipse cx="55" cy="96" rx="13" ry="25"/><ellipse cx="79" cy="93" rx="10" ry="30"/><ellipse cx="121" cy="92" rx="11" ry="30"/><ellipse cx="148" cy="98" rx="11" ry="24"/></g>
-    <path d="M20 138H180" stroke="#b3d0df" stroke-width="9"/>
-    <text x="102" y="169" text-anchor="middle" class="module-tag">🌱 CULTIVOS</text><text id="growVal" x="102" y="186" text-anchor="middle" class="module-score">● 2/4</text>
-   </g>
-   <g id="shield" class="module" data-mod="shield" role="button" tabindex="0" aria-label="Refugio, ajustar energía" transform="translate(144 327)">
-    <ellipse cx="80" cy="103" rx="110" ry="89" class="module-ring"/>
-    <path class="outer" d="M5 121V66Q13 12 79 14Q143 12 152 66V121Z"/>
-    <path d="M14 65Q28 29 81 26Q133 27 145 65" fill="none" stroke="#e4d7b0" stroke-width="17" opacity=".85"/>
-    <path d="M26 66L137 66" stroke="#8d8e9b" stroke-width="5"/>
-    <rect x="50" y="62" width="63" height="59" rx="24" fill="#394c64" stroke="#cad3df" stroke-width="6"/>
-    <path d="M65 87L81 75L98 87V108L81 117L65 108Z" fill="#f8cb79" opacity=".8"/>
-    <text x="78" y="150" text-anchor="middle" class="module-tag">🛡 REFUGIO</text><text id="shieldVal" x="78" y="169" text-anchor="middle" class="module-score">● 2/4</text>
-   </g>
-   <g transform="translate(495 474)">
-    <ellipse cx="8" cy="32" rx="24" ry="8" fill="#233b55" opacity=".4"/>
-    <path d="M0 10L-8 28M17 12L22 27M-5 -6L-18 10M17 -6L26 8" fill="none" stroke="#f2f5fa" stroke-width="10" stroke-linecap="round"/>
-    <rect x="-5" y="-10" width="22" height="29" rx="9" fill="#f3f7fb" stroke="#8fa8bc" stroke-width="3"/>
-    <circle cx="6" cy="-25" r="16" fill="#f1f7ff" stroke="#b1c6d9" stroke-width="4"/>
-    <path d="M-5 -30Q6 -39 19 -27V-19Q10 -11 -5 -19Z" fill="#153854"/>
-    <rect x="14" y="-4" width="14" height="18" rx="4" fill="#d0dce3"/>
-   </g>
+ <div class="world" id="world">
+  <div class="stormwash"></div>
+  <svg class="scene" id="scene" viewBox="0 0 1000 510" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Base lunar interactiva; toca los edificios, las fugas y los astronautas para jugar.">
+    <defs><linearGradient id="groundGrad" x1="0" x2="0" y1="0" y2="1"><stop stop-color="#dedbed"/><stop offset="1" stop-color="#a9a5d4"/></linearGradient><linearGradient id="domeGrad" x1="0" x2=".7" y1="0" y2="1"><stop stop-color="#fff"/><stop offset="1" stop-color="#afd7eb"/></linearGradient><filter id="glow"><feGaussianBlur stdDeviation="10"/></filter></defs>
+    <g class="stars"><circle cx="60" cy="34" r="2"/><circle cx="125" cy="95" r="2"/><circle cx="206" cy="42" r="2.5"/><circle cx="305" cy="113" r="2"/><circle cx="445" cy="48" r="2"/><circle cx="530" cy="85" r="2.5"/><circle cx="659" cy="45" r="2"/><circle cx="735" cy="129" r="2"/><circle cx="873" cy="51" r="2"/><circle cx="951" cy="135" r="2"/></g>
+    <circle class="sun" id="sun" cx="110" cy="145" r="45"/>
+    <g transform="translate(810 35)"><circle class="earth" cx="75" cy="75" r="58"/><path class="earthland" d="M54 33Q72 42 86 35L96 54Q81 61 89 75L68 88L52 76Q42 62 30 61Z"/><path class="earthland" d="M104 83Q132 96 113 118L90 127L79 110Z"/><ellipse cx="74" cy="75" rx="70" ry="17" fill="#dbf6ff" opacity=".15" transform="rotate(-27 74 75)"/></g>
+    <path class="moonhill" d="M0 325L130 267L230 326L350 262L480 320L615 245L780 309L875 265L1000 323V510H0Z"/>
+    <path class="moonplain" d="M0 358Q143 307 290 366T602 344Q812 300 1000 367V510H0Z"/>
+    <path fill="url(#groundGrad)" d="M0 388Q224 342 420 387Q590 412 754 363Q862 350 1000 389V510H0Z"/>
+    <path class="ground" d="M0 438Q190 407 352 436T670 438Q823 408 1000 450V510H0Z"/>
+    <ellipse class="crater" cx="100" cy="440" rx="66" ry="17"/><ellipse class="crater" cx="420" cy="467" rx="58" ry="11"/><ellipse class="crater" cx="927" cy="455" rx="50" ry="14"/>
+    <path d="M237 374L372 392L550 382L743 388" class="powerwire" id="cable"/>
+    <g class="solar" transform="translate(60 277)">
+      <rect x="60" y="71" width="13" height="61" rx="5" fill="#52628f"/><path class="panel" d="M0 18L133 9L151 71L20 81Z"/><path class="panel-line" d="M38 16L56 76M78 14L96 73M116 11L135 71M9 48L141 40"/><circle cx="65" cy="137" r="12" fill="#ffd46d"/><text x="75" y="164" font-family="Baloo 2" font-size="20" font-weight="800" fill="#fff" stroke="#364678" stroke-width="4" paint-order="stroke" text-anchor="middle">ENERGÍA</text>
+    </g>
+    <g class="module" id="air" data-system="air" role="button" tabindex="0" aria-label="Encender o apagar el oxígeno" transform="translate(250 245)">
+      <ellipse class="glowcircle" cx="120" cy="120" rx="126" ry="113"/>
+      <path class="shell" d="M12 161V102Q21 20 118 22Q215 20 225 102V161Z"/>
+      <path class="roof" d="M24 99Q40 34 119 32Q196 34 213 99Z"/>
+      <rect class="window" x="62" y="95" width="117" height="40" rx="20"/>
+      <path d="M90 93Q122 55 155 93" fill="none" stroke="#a7c6e7" stroke-width="8"/>
+      <rect x="95" y="134" width="53" height="27" rx="9" fill="#6c88ac"/>
+      <circle class="off-symbol" cx="196" cy="52" r="9"/><circle class="on-symbol" cx="196" cy="52" r="9" fill="#3de7a8"/>
+      <text class="module-name" x="120" y="198" text-anchor="middle">🫧 AIRE</text>
+    </g>
+    <g class="module" id="water" data-system="water" role="button" tabindex="0" aria-label="Encender o apagar el reciclador de agua" transform="translate(505 275)">
+      <ellipse class="glowcircle" cx="95" cy="100" rx="111" ry="105"/>
+      <rect class="shell" x="3" y="29" width="189" height="125" rx="29"/>
+      <rect class="roof" x="24" y="13" width="150" height="34" rx="17"/>
+      <rect class="window" x="35" y="59" width="125" height="68" rx="17"/>
+      <path d="M96 70Q71 104 80 112Q96 130 112 113Q121 98 96 70Z" fill="#81d6ff"/>
+      <circle class="off-symbol" cx="167" cy="69" r="9"/><circle class="on-symbol" cx="167" cy="69" r="9" fill="#3de7a8"/>
+      <text class="module-name" x="96" y="187" text-anchor="middle">💧 AGUA</text>
+    </g>
+    <g class="module" id="garden" data-system="garden" role="button" tabindex="0" aria-label="Encender o apagar el huerto" transform="translate(728 282)">
+      <ellipse class="glowcircle" cx="112" cy="102" rx="110" ry="110"/>
+      <path class="shell" d="M12 145V102Q18 16 110 18Q203 16 211 102V145Z"/>
+      <path d="M26 102Q40 27 111 27Q180 27 198 102Z" fill="#a7dce5" stroke="#6a81ac" stroke-width="5"/>
+      <path d="M61 102V50M111 102V27M162 102V50" stroke="#c6e5eb" stroke-width="5"/>
+      <g fill="#53ca9e"><path d="M62 115Q27 79 47 74Q65 74 67 103Q69 72 90 82Q103 102 62 115Z"/><path d="M120 113Q93 77 101 73Q119 71 121 97Q125 73 145 79Q161 96 120 113Z"/><path d="M172 115Q145 87 158 79Q183 71 176 102Q193 78 205 89Q208 104 172 115Z"/></g>
+      <rect x="23" y="111" width="175" height="34" rx="10" fill="#9f77a8"/>
+      <circle class="off-symbol" cx="181" cy="44" r="9"/><circle class="on-symbol" cx="181" cy="44" r="9" fill="#3de7a8"/>
+      <text class="module-name" x="111" y="180" text-anchor="middle">🌱 HUERTO</text>
+    </g>
+    <g id="pipes">
+      <path d="M562 404Q554 450 478 458H283" fill="none" stroke="#5a79a7" stroke-width="32" stroke-linecap="round"/>
+      <path class="waterstream" id="stream" d="M562 404Q554 450 478 458H283"/>
+      <g class="leaknode" id="leak0" data-leak="0" role="button" tabindex="0" aria-label="Reparar la primera fuga" transform="translate(548 427)">
+        <circle class="repair" r="30"/><path class="crack" d="M-13 -15L-3 -5L-10 5L9 16"/><path class="drop" d="M4 23Q-3 39 4 41Q11 39 4 23"/><path class="check" d="M-12 0L-2 9L15 -12" fill="none" stroke="#1c8069" stroke-width="7" stroke-linecap="round"/></g>
+      <g class="leaknode" id="leak1" data-leak="1" role="button" tabindex="0" aria-label="Reparar la segunda fuga" transform="translate(433 458)">
+        <circle class="repair" r="30"/><path class="crack" d="M-14 -12L0 3L-8 11L11 16"/><path class="drop" d="M4 21Q-4 38 4 41Q12 38 4 21"/><path class="check" d="M-12 0L-2 9L15 -12" fill="none" stroke="#1c8069" stroke-width="7" stroke-linecap="round"/></g>
+      <g class="leaknode" id="leak2" data-leak="2" role="button" tabindex="0" aria-label="Reparar la tercera fuga" transform="translate(332 458)">
+        <circle class="repair" r="30"/><path class="crack" d="M-14 -12L0 3L-8 11L11 16"/><path class="drop" d="M4 21Q-4 38 4 41Q12 38 4 21"/><path class="check" d="M-12 0L-2 9L15 -12" fill="none" stroke="#1c8069" stroke-width="7" stroke-linecap="round"/></g>
+    </g>
+    <g id="bunker" transform="translate(73 300)">
+      <path d="M9 121V85Q9 5 95 4Q179 5 180 85V121Z" fill="#e3ddce" stroke="#8b91ad" stroke-width="8"/>
+      <path d="M23 82Q43 17 94 19Q151 17 168 82" stroke="#c5ac91" stroke-width="19" fill="none"/>
+      <rect x="68" y="61" width="57" height="60" rx="19" fill="#617397" stroke="#eae7d0" stroke-width="6"/>
+      <path d="M85 86L95 76L106 86V102L95 111L85 103Z" fill="#ffe59a"/>
+      <text class="module-name" x="96" y="157" text-anchor="middle" style="font-size:19px">🛡 REFUGIO</text>
+      <circle class="aura" id="bunkerGlow" cx="96" cy="64" r="56" opacity="0"/>
+    </g>
+    <g class="astronaut" id="astro0" data-astro="0" role="button" tabindex="0" aria-label="Llevar a astronauta uno al refugio" transform="translate(250 426)">
+      <circle class="halo" cx="0" cy="-23" r="45"/><path class="suit" d="M-16 4L-22 39M15 4L21 39M-20 -2L-37 13M20 -2L37 10" fill="none" stroke-width="11" stroke-linecap="round"/><rect class="suit" x="-21" y="-12" width="42" height="42" rx="14"/><circle class="helmet" cx="0" cy="-35" r="28"/><path class="visor" d="M-20 -41Q0 -56 20 -41V-29Q0 -12 -20 -29Z"/><circle class="cheek" cx="-10" cy="-28" r="3"/><circle class="cheek" cx="10" cy="-28" r="3"/><circle fill="#ffc766" cx="0" cy="4" r="8"/></g>
+    <g class="astronaut" id="astro1" data-astro="1" role="button" tabindex="0" aria-label="Llevar a astronauta dos al refugio" transform="translate(630 421)">
+      <circle class="halo" cx="0" cy="-23" r="45"/><path class="suit" d="M-16 4L-22 39M15 4L21 39M-20 -2L-37 13M20 -2L37 10" fill="none" stroke-width="11" stroke-linecap="round"/><rect class="suit" x="-21" y="-12" width="42" height="42" rx="14"/><circle class="helmet" cx="0" cy="-35" r="28"/><path class="visor" d="M-20 -41Q0 -56 20 -41V-29Q0 -12 -20 -29Z"/><circle class="cheek" cx="-10" cy="-28" r="3"/><circle class="cheek" cx="10" cy="-28" r="3"/><circle fill="#88d3f9" cx="0" cy="4" r="8"/></g>
+    <g class="astronaut" id="astro2" data-astro="2" role="button" tabindex="0" aria-label="Llevar a astronauta tres al refugio" transform="translate(896 439)">
+      <circle class="halo" cx="0" cy="-23" r="45"/><path class="suit" d="M-16 4L-22 39M15 4L21 39M-20 -2L-37 13M20 -2L37 10" fill="none" stroke-width="11" stroke-linecap="round"/><rect class="suit" x="-21" y="-12" width="42" height="42" rx="14"/><circle class="helmet" cx="0" cy="-35" r="28"/><path class="visor" d="M-20 -41Q0 -56 20 -41V-29Q0 -12 -20 -29Z"/><circle class="cheek" cx="-10" cy="-28" r="3"/><circle class="cheek" cx="10" cy="-28" r="3"/><circle fill="#de98e8" cx="0" cy="4" r="8"/></g>
   </svg>
-  <div class="hint" id="sceneHint">👆 Toca un edificio para controlarlo</div>
+  <div class="touch energy" id="pointerEnergy">¡Toca aquí!</div>
+  <div class="touch water hidden" id="pointerWater">¡Repara!</div>
+  <div class="touch storm hidden" id="pointerStorm">¡Al refugio!</div>
  </div>
- <div class="controls-bottom">
-  <div class="tip"><span class="round" id="tipIcon">💡</span><span id="tipText">Ajusta energía y pulsa <b>Avanzar 1 hora</b> para ver qué sucede.</span></div>
-  <button class="next" id="advance">▶ Avanzar 1 hora</button>
+ <div class="progress-strip" id="strip"><div class="strip-title">⚡ Solo tienes 2 baterías:</div><div class="energydots" id="battery"><span>⚡</span><span>⚡</span></div></div>
+ <div class="control-dock" id="dock">
+  <button class="device highlight" data-system="air" id="btnAir"><span class="device-emoji">🫧</span><span class="device-name">Aire<small>APAGADO</small></span></button>
+  <button class="device" data-system="water" id="btnWater"><span class="device-emoji">💧</span><span class="device-name">Agua<small>APAGADO</small></span></button>
+  <button class="device" data-system="garden" id="btnGarden"><span class="device-emoji">🌱</span><span class="device-name">Huerto<small>APAGADO</small></span></button>
  </div>
- <div class="end-banner" id="endBanner" role="status"></div>
- <div class="status-row" id="stats"></div>
 </main>
-<aside class="rail">
- <div class="rail-title"><h2>⚡ Panel de control</h2><span class="mini">0–4 por sistema</span></div>
- <div class="generation"><span>☀️ <b>Producción solar</b><small id="solarText">La luz bajará con el tiempo</small></span><strong id="solarNum">12 ⚡</strong></div>
- <div class="rail-grid">
-  <div class="module-control selected" data-control="life"><div class="mod-row"><span class="mod-name">🫧 Oxígeno</span><span class="mod-power" id="lifeNum">3/4</span></div><div class="mod-desc">Produce aire respirable</div><div class="slider-row"><span>0</span><input class="slider" type="range" min="0" max="4" value="3" id="lifeRange" aria-label="Energía para oxígeno"><span>4</span></div></div>
-  <div class="module-control" data-control="water"><div class="mod-row"><span class="mod-name">💧 Agua</span><span class="mod-power" id="waterNum">3/4</span></div><div class="mod-desc">Recicla agua usada</div><div class="slider-row"><span>0</span><input class="slider" type="range" min="0" max="4" value="3" id="waterRange" aria-label="Energía para reciclar agua"><span>4</span></div></div>
-  <div class="module-control" data-control="grow"><div class="mod-row"><span class="mod-name">🌱 Cultivos</span><span class="mod-power" id="growNum">2/4</span></div><div class="mod-desc">Alimenta las plantas</div><div class="slider-row"><span>0</span><input class="slider" type="range" min="0" max="4" value="2" id="growRange" aria-label="Energía para cultivos"><span>4</span></div></div>
-  <div class="module-control" data-control="shield"><div class="mod-row"><span class="mod-name">🛡 Refugio</span><span class="mod-power" id="shieldNum">2/4</span></div><div class="mod-desc">Reduce riesgo por radiación</div><div class="slider-row"><span>0</span><input class="slider" type="range" min="0" max="4" value="2" id="shieldRange" aria-label="Energía para protección"><span>4</span></div></div>
- </div>
- <div class="rail-footer"><span id="demandText">Consumo: 10 ⚡ / Producción: 12 ⚡</span><span class="pill" id="balance">+2 ⚡</span></div>
- <div class="generator"><span style="font-size:24px">🔋</span><span style="flex:1"><strong>Generador auxiliar</strong><small>+5 ⚡ / hora · usa combustible</small><div class="fuel-track"><div id="fuelFill" style="width:100%"></div></div><small id="fuelLabel">Combustible: 100%</small></span><button class="switch" id="generator" aria-pressed="false">Apagado</button></div>
- <div class="alerts" id="alerts" aria-live="polite"><strong>📡 Todo funciona</strong><p>Las luces indican qué edificios están activos.</p></div>
- <p class="legend">Modelo simplificado para aprender. Valores simulados, no mediciones de NASA. <a href="https://www.spaceappschallenge.org/2026/challenges/junior-astronaut-mission-trainer/" target="_blank" rel="noopener">Reto oficial ↗</a></p>
-</aside>
+<div class="main-foot"><span>🎮 Juego educativo de prueba · No es un modelo científico exacto</span><span>Basado en conceptos de <a href="https://www.nasa.gov/reference/environmental-control-and-life-support-systems-eclss/" target="_blank" rel="noopener noreferrer">NASA ↗</a></span></div>
 </div>
-<footer class="foot"><span>PlutoCore Lab · Experimento visual educativo, no entregable de competición</span><span>Inspirado en sistemas de soporte vital de <a href="https://www.nasa.gov/reference/environmental-control-and-life-support-systems-eclss/" target="_blank" rel="noopener">NASA ↗</a></span></footer>
-</div>
-<div class="overlay show" id="intro" role="dialog" aria-modal="true" aria-labelledby="introTitle">
- <div class="modal">
-  <div class="big">🌕</div><div class="mini">PLUTOCORE · CONTROL LUNAR</div>
-  <h2 id="introTitle">Tú diriges la base.</h2><p>4 astronautas dependen de ti.<br><b>Da energía a los edificios y supera 12 horas.</b></p>
-  <div style="display:flex;gap:17px;justify-content:center;font-size:12px;color:#bde0ea;margin-bottom:20px"><span>👆 Toca</span><span>🎚️ Ajusta</span><span>▶ Avanza</span></div>
-  <button class="next" id="begin">Empezar simulación →</button>
- </div>
-</div>
-<div class="overlay" id="finish" role="dialog" aria-modal="true" aria-labelledby="finishTitle">
- <div class="modal"><div class="big" id="finishEmoji">🏆</div><div class="mini">RESULTADO DE LA MISIÓN</div><h2 id="finishTitle">¡Sobreviviste!</h2><p id="finishBody"></p><button class="next" id="restart">↻ Volver a simular</button><div style="font-size:11px;color:#aec0d5;margin-top:14px">Prueba otra distribución de energía.</div></div>
-</div>
+<div class="intro" id="intro" role="dialog" aria-modal="true" aria-labelledby="introTitle"><div class="dialog">
+  <div class="illustration">🌕🚀</div><div class="kicker">UN JUEGO DE PLUTOCORE</div><h1 id="introTitle">¡La Luna te necesita!</h1><p>¡Hola, cadete! Ayúdame a cuidar nuestra base espacial.</p><button class="cta" id="start">🚀 ¡Vamos a jugar!</button><div class="shapes">🫧 Aire &nbsp; 💧 Agua &nbsp; 🛡️ Protección</div>
+</div></div>
+<div class="celebrate" id="celebrate" role="dialog" aria-modal="true" aria-labelledby="successTitle" hidden><div class="dialog">
+  <div class="stars-reward">⭐ ⭐ ⭐</div><div class="illustration" id="celebrateIcon">🎉</div><div class="kicker">¡MUY BIEN, CADETE!</div><h2 id="successTitle">¡Lo lograste!</h2><div class="fact" id="fact"></div><button class="cta" id="continue">¡Siguiente aventura! →</button>
+</div></div>
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
 <script>
 (function(){
-"use strict";
+'use strict';
 const $=id=>document.getElementById(id);
-const ids=['life','water','grow','shield'];
-const labels={life:'Oxígeno',water:'Agua',grow:'Cultivos',shield:'Refugio'};
-let hour=0,power={life:3,water:3,grow:2,shield:2},r={air:80,water:77,food:72,battery:72,crew:100},generator=false,fuel=100,repair=false,selected='life',finished=false;
-const clamp=(n,a=0,b=100)=>Math.max(a,Math.min(b,n));
-const sun=()=>Math.max(2,12-Math.floor(hour*.85)-(hour>=8?2:0));
-const output=()=>sun()+((generator&&fuel>0)?5:0);
-const demand=()=>ids.reduce((s,k)=>s+power[k],0);
-function select(id){
- selected=id;
- ids.forEach(k=>{$(k).classList.toggle('selected',k===id); document.querySelector('[data-control="'+k+'"]').classList.toggle('selected',k===id);});
- $('sceneHint').textContent='⚙ '+labels[id]+' · Mueve su control →';
+const phases=[
+ {name:'MISIÓN 1 · ENERGÍA',goal:'¡Enciende el aire y el agua!',sub:'Toca los edificios o los botones de abajo.',max:2},
+ {name:'MISIÓN 2 · RECICLAJE',goal:'¡Oh, no! ¡Se escapa el agua!',sub:'Toca las 3 fugas brillantes para repararlas.',max:3},
+ {name:'MISIÓN 3 · TORMENTA',goal:'¡Una tormenta solar! ¡A cubierto!',sub:'Toca a los 3 astronautas para salvarlos.',max:3}
+];
+let phase=0,systems={air:false,water:false,garden:false},fixed=[false,false,false],safe=[false,false,false],muted=false,toastTimer=null,lock=false,started=false;
+let audio=null;
+function playSound(freq=440,duration=.13,type='sine'){
+ if(muted||!started)return;
+ try{const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;audio=audio||new AC();const o=audio.createOscillator(),g=audio.createGain();o.type=type;o.frequency.value=freq;g.gain.setValueAtTime(.035,audio.currentTime);g.gain.exponentialRampToValueAtTime(.001,audio.currentTime+duration);o.connect(g);g.connect(audio.destination);o.start();o.stop(audio.currentTime+duration);}catch(e){}
 }
+function toast(msg){$('toast').textContent=msg;$('toast').hidden=false;clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').hidden=true,1700);}
+function nDone(){return phase===0?Number(systems.air)+Number(systems.water):phase===1?fixed.filter(Boolean).length:safe.filter(Boolean).length;}
 function update(){
- let storm=hour>=4&&hour<=6,leak=hour>=8&&!repair;
- $('sceneWrap').classList.toggle('storm',storm);
- $('weather').textContent=storm?'🌪️ Tormenta solar':hour>=8?'🌘 Poca luz solar':'☀️ Luz solar';
- $('weather').classList.toggle('critical',storm||leak);
- $('hourcount').textContent=hour+'/12'; $('clock').textContent='⏱ '+String(6+hour).padStart(2,'0')+':00';
- $('solarNum').textContent=sun()+' ⚡';
- $('solarText').textContent=hour>=8?'Casi sin luz':hour>=4?'La luz está bajando':'La luz bajará con el tiempo';
- $('powerLabel').textContent='⚡ '+output()+' unidades disponibles';
- ids.forEach(k=>{
-  $(k+'Num').textContent=power[k]+'/4';
-  $(k+'Val').textContent=power[k]===0?'○ APAGADO':'● '+power[k]+'/4';
-  $(k+'Range').value=power[k];
-  $(k).classList.toggle('off',power[k]===0);
-  $(k).classList.toggle('low',power[k]===1);
- });
- $('powerCables').style.opacity=demand()===0?'.1':Math.max(.2,demand()/16);
- const diff=output()-demand();
- $('demandText').textContent='Consumo: '+demand()+' ⚡ / Disponible: '+output()+' ⚡';
- $('balance').textContent=(diff>=0?'+':'')+diff+' ⚡';
- $('balance').classList.toggle('negative',diff<0);
- $('fuelFill').style.width=fuel+'%';$('fuelLabel').textContent='Combustible: '+fuel+'%';
- $('generator').classList.toggle('on',generator);
- $('generator').textContent=generator?'Encendido':'Apagado';
- $('generator').setAttribute('aria-pressed',generator?'true':'false');
- const vals=[['air','🫧 Aire'],['water','💧 Agua'],['food','🌱 Comida'],['battery','🔋 Batería'],['crew','🧑‍🚀 Salud']];
- $('stats').innerHTML=vals.map(([k,l])=>'<div class="stat"><div class="stat-name">'+l+'</div><b class="'+(r[k]<=30?'low':'')+'">'+Math.round(r[k])+'%</b><div class="bar"><div class="'+(r[k]<30?'bad':r[k]<55?'warning':'')+'" style="width:'+r[k]+'%"></div></div></div>').join('');
- $('advance').disabled=finished;
- const alert=$('alerts');
- let title='📡 Todo funciona',body='Los edificios están conectados.',action='';
- if(storm){title='🌪️ ¡Tormenta solar!';body='Sube el REFUGIO a 3 o más para proteger a la tripulación.';}
- else if(leak){title='💧 Fuga en el reciclador';body='El reciclaje pierde eficiencia. Puedes repararlo gastando batería.';action='<button class="secondary-btn" id="fix">🔧 Reparar (−12% batería)</button>';}
- else if(r.battery<25){title='🪫 ¡Batería baja!';body='Reduce el consumo o enciende el generador.';}
- else if(hour===0){title='👆 Empieza aquí';body='Mueve los controles y pulsa AVANZAR 1 HORA.';}
- else if(hour>=11){title='🏁 ¡Última hora!';body='Un paso más para completar la misión.';}
- else{title='✅ Base operativa';body='Sigue equilibrando energía y recursos.';}
- alert.innerHTML='<strong>'+title+'</strong><p>'+body+'</p>'+action;
- if(action)$('fix').addEventListener('click',fix);
- if(finished){$('advance').textContent='Misión completada';$('advance').disabled=true;}
-}
-function fix(){
- if(repair||r.battery<12)return;
- repair=true;r.battery=clamp(r.battery-12);$('tipIcon').textContent='🔧';$('tipText').textContent='Reciclador reparado. Ahora el agua puede recuperarse normalmente.';update();
-}
-function tick(){
- if(finished)return;
- const stormNext=(hour+1>=4&&hour+1<=6),leakNext=(hour+1>=8&&!repair);
- const d=demand(),s=output(),shortage=d>s&&r.battery<=Math.max(0,d-s);
- const supply=shortage?Math.max(.5,(s+r.battery)/Math.max(d,1)):1;
- // Simulación didáctica: cada unidad de potencia favorece a un sistema y cuesta electricidad.
- r.battery=clamp(r.battery+s-d);
- if(generator&&fuel>0){fuel=clamp(fuel-17);if(fuel===0)generator=false;}
- let lifePower=power.life*supply,waterPower=power.water*supply,growPower=power.grow*supply;
- r.air=clamp(r.air+lifePower*2-5-(r.water<20?3:0));
- r.water=clamp(r.water+(waterPower*2.25*(leakNext?.32:1))-5-(lifePower>=2?1:0));
- r.food=clamp(r.food+growPower*1.5-4);
- let healthDelta=1;
- if(r.air<35)healthDelta-=9;
- if(r.water<28)healthDelta-=7;
- if(r.food<20)healthDelta-=4;
- if(stormNext)healthDelta-=power.shield>=3?1:power.shield===2?9:power.shield===1?16:25;
- if(shortage)healthDelta-=5;
- r.crew=clamp(r.crew+healthDelta);
- hour++;
- const notes=[];
- if(hour===4){notes.push('🌪️ Llegó una tormenta. ¡Protege a la tripulación!');$('tipIcon').textContent='🌪️';}
- else if(hour===8){notes.push('💧 El reciclador presenta una fuga.');$('tipIcon').textContent='💧';}
- else if(hour===9&&leakNext){notes.push('💧 El agua está bajando más rápido: repara la fuga.');$('tipIcon').textContent='💧';}
- else if(r.battery<20){notes.push('🪫 La batería está casi agotada.');$('tipIcon').textContent='🔋';}
- else if(stormNext&&power.shield<3){notes.push('⚠️ El refugio necesita más potencia.');$('tipIcon').textContent='🛡️';}
- else if(hour===7){notes.push('✨ La tormenta terminó. Puedes reducir energía del refugio.');$('tipIcon').textContent='✨';}
- else if(hour===10){notes.push('🌘 Hay poca luz solar. ¡Administra la batería!');$('tipIcon').textContent='🌘';}
- else{notes.push('🛰️ Avanzaste una hora. Observa cómo cambiaron las reservas.');$('tipIcon').textContent='🛰️';}
- $('tipText').textContent=notes[0];
- if(hour>=12||r.crew<=0){
-   finished=true;const win=r.crew>45&&r.air>15&&r.water>10&&r.battery>0;
-   $('finishEmoji').textContent=win?'🏆':'🚨';
-   $('finishTitle').textContent=win?'¡Misión completada!':'¡La base está en peligro!';
-   $('finishBody').textContent=win?'La tripulación llegó al final con '+Math.round(r.crew)+'% de salud. ¿Puedes mejorar tus reservas?':'La supervivencia depende de equilibrar aire, agua, energía y protección. Prueba otra estrategia.';
-   $('finish').classList.add('show');
+ const p=phases[phase];$('phaseName').textContent=p.name;$('goal').textContent=p.goal;$('instruction').textContent=p.sub;
+ $('counter').innerHTML='<small>'+(['ENCENDIDOS','REPARADAS','A SALVO'][phase])+'</small>'+nDone()+'/'+p.max;
+ $('track').innerHTML=phases.map((x,i)=>'<span class="'+(i<phase?'done':i===phase?'active':'')+'">'+(i<phase?'✓':i+1)+'</span>').join('');
+ $('world').classList.toggle('storm',phase===2);
+ $('pointerEnergy').classList.toggle('hidden',phase!==0||systems.air);
+ $('pointerWater').classList.toggle('hidden',phase!==1);
+ $('pointerStorm').classList.toggle('hidden',phase!==2);
+ $('strip').style.display=phase===0?'flex':'none';
+ $('dock').style.display=phase===0?'flex':'none';
+ $('battery').innerHTML=Array.from({length:2},(_,i)=>'<span class="'+(i<(2-Object.values(systems).filter(Boolean).length)?'':'empty')+'">⚡</span>').join('');
+ for(const k of Object.keys(systems)){
+  $(k).classList.toggle('active',systems[k]);$(k).classList.toggle('highlight',phase===0&&k==='air'&&!systems.air||phase===0&&systems.air&&k==='water'&&!systems.water);
+  const label=k==='air'?'Aire':k==='water'?'Agua':'Huerto';
+  const btn=document.querySelector('.device[data-system="'+k+'"]');
+  btn.classList.toggle('on',systems[k]);btn.classList.toggle('highlight',phase===0&&k==='air'&&!systems.air||phase===0&&systems.air&&k==='water'&&!systems.water);
+  btn.querySelector('small').textContent=systems[k]?'ENCENDIDO':'APAGADO';
+  btn.setAttribute('aria-pressed',String(systems[k]));
  }
- update();
+ $('cable').style.opacity=phase===0?(systems.air||systems.water?1:.2):1;
+ for(let i=0;i<3;i++){$('leak'+i).classList.toggle('visible',phase===1);$('leak'+i).classList.toggle('fixed',fixed[i]);$('astro'+i).classList.toggle('active',phase===2&&!safe[i]);$('astro'+i).classList.toggle('rescued',safe[i]);$('astro'+i).style.pointerEvents=phase===2&&!safe[i]?'auto':'none';}
+ $('stream').classList.toggle('running',phase>=2||fixed.some(Boolean));
+ $('bunkerGlow').style.opacity=phase===2?'.3':'0';
+ if(phase===1){
+ $('strip').style.display='flex';$('strip').innerHTML='<div class="strip-title">💧 ¡Rescata el agua!</div><div class="energydots">'+fixed.map(f=>'<span class="'+(f?'':'empty')+'">'+(f?'✅':'💧')+'</span>').join('')+'</div>';
+ }
+ if(phase===2){
+ $('strip').style.display='flex';$('strip').innerHTML='<div class="strip-title">🧑‍🚀 ¡Llévalos al refugio!</div><div class="energydots">'+safe.map(f=>'<span class="'+(f?'':'empty')+'">'+(f?'✅':'🧑‍🚀')+'</span>').join('')+'</div>';
+ }
 }
-ids.forEach(k=>{
- $(k+'Range').addEventListener('input',e=>{power[k]=Number(e.target.value);select(k);update();});
- $(k).addEventListener('click',()=>select(k));
- $(k).addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();select(k);$(k+'Range').focus();}});
- document.querySelector('[data-control="'+k+'"]').addEventListener('click',e=>{if(e.target.tagName!=='INPUT')select(k);});
-});
-$('generator').addEventListener('click',()=>{if(fuel<=0)return;generator=!generator;update();});
-$('advance').addEventListener('click',tick);
-function reset(){hour=0;power={life:3,water:3,grow:2,shield:2};r={air:80,water:77,food:72,battery:72,crew:100};generator=false;fuel=100;repair=false;finished=false;$('finish').classList.remove('show');$('advance').textContent='▶ Avanzar 1 hora';$('tipIcon').textContent='💡';$('tipText').innerHTML='Ajusta energía y pulsa <b>Avanzar 1 hora</b> para ver qué sucede.';select('life');update();}
-$('restart').addEventListener('click',reset);
-$('begin').addEventListener('click',()=>{$('intro').classList.remove('show');$('advance').focus();});
+function finishPhase(){
+ if(lock)return;lock=true;
+ playSound(660,.12);setTimeout(()=>playSound(880,.18),140);
+ const text=[
+  ['¡Hay energía para vivir!','🫧 El aire y el agua necesitan electricidad. ¡Las plantas pueden esperar!','⚡'],
+  ['¡Agua recuperada!','💧 En el espacio, el agua se recicla. ¡También puede ayudar a producir oxígeno!','💦'],
+  ['¡Tripulación a salvo!','🛡️ La radiación es invisible. ¡Un refugio ayuda a proteger a los astronautas!','🧑‍🚀']
+ ][phase];
+ $('successTitle').textContent=text[0];$('fact').textContent=text[1];$('celebrateIcon').textContent=text[2];
+ $('continue').textContent=phase===2?'🏆 ¡Ver mi medalla!':'🚀 ¡Siguiente misión!';
+ $('celebrate').hidden=false;
+}
+function toggle(k){
+ if(!started||phase!==0||lock)return;
+ if(!systems[k]&&Object.values(systems).filter(Boolean).length>=2){toast('⚡ No queda energía. ¡Apaga otro edificio!');playSound(165,.16,'triangle');return;}
+ systems[k]=!systems[k];playSound(systems[k]?580:240,.12);update();
+ if(systems.air&&systems.water)finishPhase();
+}
+function repair(i){
+ if(!started||phase!==1||lock||fixed[i])return;
+ fixed[i]=true;playSound(530+i*90,.15);update();
+ if(fixed.every(Boolean))finishPhase();
+}
+function rescue(i){
+ if(!started||phase!==2||lock||safe[i])return;
+ safe[i]=true;playSound(590+i*90,.15);update();
+ if(safe.every(Boolean))finishPhase();
+}
+function next(){
+ $('celebrate').hidden=true;
+ if(phase===2){
+  $('successTitle').textContent='¡Eres capitán lunar!';
+  $('fact').textContent='⭐ Aprendiste a cuidar la energía, reciclar agua y proteger astronautas. ¿Puedes hacerlo otra vez?';
+  $('celebrateIcon').textContent='🏆';
+  $('continue').textContent='🔁 ¡Volver a jugar!';
+  $('celebrate').hidden=false;
+  phase=3;return;
+ }
+ if(phase===3){phase=0;systems={air:false,water:false,garden:false};fixed=[false,false,false];safe=[false,false,false];$('strip').innerHTML='<div class="strip-title">⚡ Solo tienes 2 baterías:</div><div class="energydots" id="battery"></div>'; }
+ else phase++;
+ lock=false;update();toast(phase===1?'💧 ¡Encuentra las 3 fugas!':phase===2?'🧑‍🚀 ¡Toca a los astronautas!':'⚡ ¡Enciende aire y agua!');
+}
+$('start').addEventListener('click',()=>{started=true;$('intro').hidden=true;update();playSound(490,.1);});
+$('continue').addEventListener('click',next);
+$('sound').addEventListener('click',()=>{muted=!muted;$('sound').textContent=muted?'🔇':'🔊';$('sound').setAttribute('aria-label',muted?'Activar sonidos':'Silenciar sonidos');});
+for(const k of Object.keys(systems)){
+ $(k).addEventListener('click',()=>toggle(k));
+ $(k).addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();toggle(k);}});
+ document.querySelector('.device[data-system="'+k+'"]').addEventListener('click',()=>toggle(k));
+}
+for(let i=0;i<3;i++){
+ $('leak'+i).addEventListener('click',()=>repair(i));
+ $('leak'+i).addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();repair(i);}});
+ $('astro'+i).addEventListener('click',()=>rescue(i));
+ $('astro'+i).addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();rescue(i);}});
+}
 update();
 })();
 </script>
-</body></html>
+</body>
+</html>
