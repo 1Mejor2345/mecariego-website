@@ -167,16 +167,18 @@ function useBoost(){
  update();
 }
 function preview(){
- let airs=res.air-1+(on.has('air')?2:0);
  let waters=res.water-1+(on.has('water')?2:0);
- let foods=res.food-1+((on.has('farm')&&growth>=1)?4:0);
+ let canGrow=waters>0;
+ let airs=res.air-1+(on.has('air')&&canGrow?2:0);
+ let foods=res.food-1+((on.has('farm')&&growth>=1&&canGrow)?4:0);
  let extras=[];
  extras.push('🫧 '+(airs>res.air?'+':airs<res.air?'−':'=')+(Math.abs(airs-res.air))+' aire');
  extras.push('💧 '+(waters>res.water?'+':waters<res.water?'−':'=')+Math.abs(waters-res.water)+' agua');
  extras.push('🍞 '+(foods>res.food?'+':foods<res.food?'−':'=')+Math.abs(foods-res.food)+' comida');
  let text='Hoy: '+extras.join(' · ');
  if(day===3&&!on.has('shield'))text+=' · ⚠️ Sin refugio';
- if(on.has('farm')&&growth===0)text+=' · 🌱 Siembras';
+ if(on.has('farm')&&growth===0&&waters>0)text+=' · 🌱 Siembras';
+ if(waters<=0&&(on.has('air')||on.has('farm')))text+=' · ⚠️ ¡Falta agua!';
  return text;
 }
 function update(){
@@ -232,17 +234,19 @@ function resolve(){
  let events=[],what=[];
  const powerSpent=boost?1:0;
  // Consumos diarios: la tripulación respira, bebe y come. Las máquinas producen/reponen.
- res.air=cap(res.air-1+(on.has('air')?2:0));
  res.water=cap(res.water-1+(on.has('water')?2:0));
+ const waterAvailable=res.water>0;
+ res.air=cap(res.air-1+(on.has('air')&&waterAvailable?2:0));
  res.food=cap(res.food-1);
- if(on.has('air'))events.push('🫧 El generador de aire mantuvo las cabinas respirables.');
+ if(on.has('air'))events.push(waterAvailable?'🫧 El generador de oxígeno funcionó gracias al agua disponible.':'⚠️ Sin agua, el generador de oxígeno no pudo funcionar.');
  if(on.has('water'))events.push('💧 El reciclador devolvió agua limpia a los depósitos.');
- if(on.has('farm')){
+ if(on.has('farm')&&waterAvailable){
   growth++;
   if(growth>=2){
    growth=0;harvests++;res.food=cap(res.food+4);events.push('🍅 ¡Las plantas dieron una cosecha! Ahora hay comida fresca.');
   }else events.push('🌱 Los cultivos están creciendo. Necesitan otro día de energía.');
- }else if(growth>0)events.push('🌱 El huerto sigue esperando luz para completar la cosecha.');
+ }else if(on.has('farm')&&!waterAvailable){events.push('⚠️ Las plantas no crecieron: necesitaban agua.');}
+ else if(growth>0)events.push('🌱 El huerto sigue esperando luz para completar la cosecha.');
  if(day===3){
   if(on.has('shield'))events.unshift('🛡️ ¡El refugio protegió a la tripulación de la tormenta solar!');
   else{crew=Math.max(0,crew-2);events.unshift('☄️ ¡Radiación! Dos astronautas quedaron incapacitados sin el refugio.');}
@@ -256,7 +260,8 @@ function resolve(){
  $('reportStep').textContent='DÍA '+(day+1)+' COMPLETADO';
  $('reportEmoji').textContent=crew===0?'🚨':day===3?'☄️':harvests>0?'🍅':'🌙';
  $('reportTitle').textContent=crew===0?'¡Emergencia en la base!':day===3?'¡Pasó la tormenta!':harvests>0?'¡Tu base progresa!':'¡Un día menos para el rescate!';
- $('reportStory').textContent=events[0]||'Los astronautas consumieron sus reservas de hoy.';
+ const important=events.filter(e=>/¡|⚠️|cosecha|tormenta|faltó|acabaron|incapacitados/i.test(e));
+ $('reportStory').textContent=(important.length?important:events).slice(0,2).join(' ')||'Los astronautas consumieron sus reservas de hoy.';
  $('reportDeltas').innerHTML=changes.join('')+(crew<4?'<span>🧑‍🚀 '+crew+'/4</span>':'');
  const lesson=lessons[day];
  $('lesson').innerHTML='<strong>💡 ¿Sabías que...?</strong> '+lesson.text+'<div><a href="'+lesson.url+'" target="_blank" rel="noopener noreferrer">Ver explicación de NASA ↗</a></div>';
