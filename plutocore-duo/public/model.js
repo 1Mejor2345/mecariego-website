@@ -69,4 +69,3 @@ function update(s,dt){if(s.status!=='playing')return;dt=clamp(dt,0,.06);s.clock+
 }
 const api={missions,create,reset,command,update,clamp};if(typeof module!=='undefined')module.exports=api;else root.ArchiveGame=api;
 })(typeof window==='undefined'?globalThis:window);
-
