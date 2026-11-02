@@ -1,298 +1,324 @@
-<!DOCTYPE html>
-<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#0d1530"><meta name="description" content="PlutoCore: administra una base lunar, cuida astronautas y consigue la primera cosecha.">
-<title>PlutoCore | Operación Primer Brote</title>
+<!doctype html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#080e20"><meta name="description" content="PlutoCore: experimenta, descubre y construye el futuro de la exploración lunar.">
+<title>PlutoCore — Lo que no se ve</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800;900&display=swap');
-:root{--ink:#172346;--deep:#101a38;--sky:#233b78;--blue:#74cbf9;--green:#42d9a5;--gold:#ffc958;--pink:#ff8b96;--white:#fffefa;--lav:#e4e7f9;--shadow:#0b1230}*{box-sizing:border-box}body{background:radial-gradient(circle at 50% 0%,#293b79,#0d1530 66%);color:#fff;margin:0;font:700 14px/1.4 Nunito,system-ui,sans-serif}button{font:inherit;cursor:pointer;touch-action:manipulation}button:focus-visible,a:focus-visible{outline:4px solid #ffd16e;outline-offset:3px}button:disabled{cursor:not-allowed;opacity:.55}.wrap{max-width:1260px;margin:auto;padding:12px 18px 25px}.head{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:13px}.brand{font:800 27px 'Baloo 2',sans-serif;letter-spacing:-1px;display:flex;align-items:center;gap:9px}.brand em{color:#ffca52;font-style:normal}.logo{width:44px;height:44px;border:3px solid #ffce62;border-radius:50%;background:#19294a;display:grid;place-items:center;color:#ffd25d;position:relative}.logo:before{content:'';width:49px;height:18px;border:3px solid #ffd25d;border-radius:50%;position:absolute;transform:rotate(-27deg)}.head-actions{display:flex;align-items:center;gap:10px}.daydots{display:flex;gap:6px}.daydots span{display:grid;place-items:center;border-radius:50%;width:34px;height:34px;background:#2d3a6b;border:2px solid #596d9f;color:#b3c4e9;font-size:13px;font-weight:900}.daydots span.current{background:#ffd56a;color:#38315f;border-color:#fff0b4}.daydots span.past{background:#63ddb7;color:#183948;border-color:#aeffdc}.iconbtn{background:#29365a;border:2px solid #506594;color:#fff;width:41px;height:41px;border-radius:13px;font-size:18px}.board{background:#f1f6ff;padding:11px;border:5px solid white;border-radius:28px;box-shadow:0 14px 0 #080e25,0 25px 60px #0007;color:var(--ink)}.guide{background:#fff;display:flex;gap:13px;align-items:center;padding:11px 16px;border-radius:19px;border:2px solid #e8eafa;margin-bottom:10px;min-height:89px}.mascot{width:71px;height:63px;flex:none;position:relative}.face{position:absolute;left:9px;top:8px;width:57px;height:47px;background:#fff;border:4px solid #5c65a5;border-radius:21px;box-shadow:inset 0 -7px #dceafd}.face:before{content:'';position:absolute;left:25px;top:-18px;height:14px;width:5px;background:#636caf}.face:after{content:'';position:absolute;left:21px;top:-25px;height:13px;width:13px;border-radius:50%;background:#ffd56f;border:2px solid #6573ad}.eyes{position:absolute;left:11px;top:17px;display:flex;gap:14px}.eyes i{width:8px;height:11px;border-radius:50%;background:#3d4f87;display:block;animation:blink 5s infinite}.smile{position:absolute;left:21px;top:30px;height:7px;width:16px;border-bottom:3px solid #6478ae;border-radius:50%}.ear{position:absolute;top:24px;width:10px;height:19px;background:#ffcf64;border:3px solid #5869a5;border-radius:7px}.ear.left{left:1px}.ear.right{left:61px}.dialogtext{flex:1;min-width:0}.label{color:#8673b5;letter-spacing:1px;text-transform:uppercase;font-size:10px;font-weight:900}.dialogtext strong{display:block;font:800 clamp(20px,2.7vw,30px)/1.05 'Baloo 2',sans-serif;color:#243255;letter-spacing:-.4px}.dialogtext p{font-size:13px;color:#60728d;margin:3px 0 0}.objective{flex:none;display:flex;align-items:center;gap:7px;background:#edf7f7;border-radius:15px;padding:10px 13px}.objective .avatar{font-size:23px}.objective b{font:800 24px 'Baloo 2',sans-serif;color:#1d7d6d}.objective small{display:block;color:#588c86;font-size:9px;letter-spacing:1px;text-transform:uppercase}.stage{display:grid;grid-template-columns:minmax(0,1fr) 292px;gap:10px}.world{position:relative;overflow:hidden;border-radius:19px;background:linear-gradient(#172652,#4b64a2 62%,#d3c3cd);min-height:430px;border:3px solid #c6d8f4}.world.storm{background:linear-gradient(#302654,#845275 60%,#d0a49b)}svg.scene{width:100%;height:100%;min-height:430px;display:block;position:absolute;inset:0}.star{fill:#fff8d5;animation:twinkle 3s infinite}.sun{fill:#fff0a5;filter:drop-shadow(0 0 23px #ffe48baa)}.earth{fill:#83d5ef;stroke:#ddfaff;stroke-width:5}.hill{fill:#627aa7}.ground{fill:#c3c7de}.dune{fill:#ded9e6}.crater{fill:#a7b0cc}.machine{cursor:pointer;outline:none;transition:filter .16s}.machine:hover,.machine:focus-visible{filter:drop-shadow(0 0 14px #fff8c5)}.machine .shell{fill:#edf8ff;stroke:#6377ad;stroke-width:5}.machine .glass{fill:#5a708f;stroke:#c3e3f7;stroke-width:3;transition:fill .2s}.machine.on .glass{fill:#65ebd1;filter:drop-shadow(0 0 8px #52efb4)}.machine.selected .ring{opacity:1}.ring{fill:none;stroke:#fff5ac;stroke-width:5;stroke-dasharray:9 9;opacity:0;animation:rotate 13s linear infinite;transform-origin:center}.mname{font:800 19px 'Baloo 2',sans-serif;fill:#fff;stroke:#283a62;stroke-width:5;paint-order:stroke}.flow{fill:none;stroke:#6de8de;stroke-width:9;stroke-linecap:round;stroke-dasharray:11 12;opacity:.1;animation:runpipe 1.8s linear infinite}.flow.on{opacity:1}.plant{transform-box:fill-box;transform-origin:50% 100%;transition:transform .35s}.plant.g0{transform:scale(.12)}.plant.g1{transform:scale(.48)}.plant.g2{transform:scale(.84)}.plant.g3{transform:scale(1)}.fruit{opacity:0;transition:opacity .2s}.fruit.show{opacity:1}.tank{fill:#a3daee;stroke:#e1f7ff;stroke-width:5}.tankfill{fill:#5dd2f4;transition:height .4s,y .4s}.shieldfield{fill:none;stroke:#c9feff;stroke-width:12;opacity:0;filter:drop-shadow(0 0 10px #5eeffa);transition:opacity .2s}.shieldfield.on{opacity:1}.astro{transition:opacity .2s,filter .2s}.astro.injured{opacity:.23;filter:grayscale(1)}.astro .helmet{fill:#fff;stroke:#6475a5;stroke-width:4}.astro .visor{fill:#294c76}.astro .suit{fill:#e6f7fd;stroke:#6378a5;stroke-width:4}.scene-weather{position:absolute;top:11px;left:13px;background:#172746ca;color:white;border:1px solid #8cb0d9;border-radius:11px;padding:8px 11px;font-size:12px;font-weight:900;z-index:1}.stormrain{position:absolute;inset:0;background:repeating-linear-gradient(140deg,transparent 0 52px,#f6c9a026 53px 57px,transparent 58px 110px);opacity:0;pointer-events:none;animation:rain 3s linear infinite}.world.storm .stormrain{opacity:1}.outcome-float{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font:800 24px 'Baloo 2',sans-serif;color:#fff;background:#142851dc;border:2px solid #d8ebff;border-radius:16px;padding:12px 18px;z-index:3;animation:pop .2s}.outcome-float[hidden]{display:none}.tap-hint{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);background:#243667e6;color:#fff;border:2px solid #9db8e5;border-radius:30px;padding:8px 13px;font-size:11px;white-space:nowrap;pointer-events:none}.rightpanel{display:flex;flex-direction:column;gap:9px}.crew{background:#fff;border:2px solid #e3e6f3;border-radius:17px;padding:10px 12px}.crew-title{display:flex;align-items:center;justify-content:space-between;font-size:13px;font-weight:900;color:#506485}.crew-title b{font-size:15px;color:#21345c}.crew-icons{display:flex;gap:7px;justify-content:space-around;margin-top:8px}.crew-icons span{font-size:27px;transition:filter .25s}.crew-icons span.lost{filter:grayscale(1);opacity:.3}.resources{background:#fff;border:2px solid #e4e8f3;border-radius:17px;padding:12px}.resources .heading{font-weight:1000;color:#2e416b;display:flex;align-items:center;justify-content:space-between;margin-bottom:7px}.resources .heading small{font-size:10px;color:#8493ad}.res{display:flex;justify-content:space-between;align-items:center;gap:5px;margin:9px 0}.res label{font-size:13px;color:#526381;font-weight:900}.tokens{display:flex;gap:3px;justify-content:flex-end;flex-wrap:wrap}.tokens span{font-size:18px;display:grid;place-items:center;width:21px;height:25px;transition:opacity .2s}.tokens span.spent{opacity:.12;filter:grayscale(1)}.future{background:#e9efff;border:2px solid #c4d4fb;border-radius:16px;padding:12px;color:#354a7c;font-size:12px}.future strong{display:block;color:#22365f;font-size:13px;margin-bottom:5px}.forecast{display:flex;align-items:center;gap:7px}.forecast b{font:900 20px 'Baloo 2',sans-serif;color:#a35e87}.food-sticker{background:#efffed;border:2px solid #c1ebcf;color:#417b53;border-radius:14px;padding:10px 12px;font-size:12px;font-weight:900}.farm-track{display:flex;gap:5px;align-items:center;margin-top:6px}.farm-track span{font-size:18px;opacity:.3}.farm-track span.grown{opacity:1}.command{display:flex;gap:10px;align-items:stretch;margin-top:10px;flex-wrap:wrap}.power-pick{flex:1;min-width:310px;background:#fff;border:2px solid #d8ddf0;border-radius:18px;padding:12px}.command-title{display:flex;justify-content:space-between;align-items:center;gap:5px;font-weight:900;color:#2d416d;font-size:13px;margin-bottom:8px}.powerchips{display:inline-flex;gap:4px}.powerchips span{font-size:20px;filter:drop-shadow(0 2px 1px #c09b35)}.buttons{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px}.machinebtn{position:relative;background:#f5f7ff;border:2px solid #cbd4eb;color:#3a4d76;border-radius:12px;padding:9px 3px 8px;display:flex;align-items:center;justify-content:center;flex-direction:column;font-size:12px;font-weight:900;min-height:63px}.machinebtn strong{font-size:22px;line-height:1.2}.machinebtn.on{background:#e2fff4;border-color:#44d3a6;color:#166b54;box-shadow:0 4px 0 #9edcc8}.machinebtn:active{transform:translateY(2px)}.machinebtn.on:after{content:'✓';position:absolute;right:5px;top:3px;border-radius:50%;background:#2dcc94;color:white;width:14px;height:14px;font-size:11px}.spend{background:#fff6de;border:2px solid #f1d492;color:#755627;border-radius:15px;padding:8px 12px;min-width:185px;display:flex;align-items:center;gap:8px}.spend .spend-info{flex:1}.spend b{font-size:13px}.spend small{display:block;font-size:11px}.boost{border:none;background:#ffc958;color:#5b4329;border-radius:10px;padding:9px;font-weight:1000;box-shadow:0 3px 0 #d9a343}.boost.on{background:#76e4ae;color:#205a48;box-shadow:0 3px 0 #52b685}.advance{border:none;border-radius:16px;background:#ffc34f;color:#483650;box-shadow:0 6px 0 #d99e48;padding:13px 24px;min-width:200px;font:800 21px 'Baloo 2',sans-serif;white-space:nowrap}.advance:active{transform:translateY(3px);box-shadow:0 3px 0 #d99e48}.advance:disabled{background:#b2bfd4;box-shadow:none}.preview{color:#4c6482;background:#e4edff;padding:9px 14px;border-radius:12px;display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-top:10px;font-size:12px;font-weight:900}.preview b{color:#214b79}.preview .warn{color:#9c4d58}.foot{font-size:11px;color:#b8c6eb;display:flex;justify-content:space-between;gap:10px;margin-top:20px;flex-wrap:wrap}.foot a{color:#b1eeff}.overlay{position:fixed;inset:0;background:#090e28ce;backdrop-filter:blur(8px);z-index:10;display:flex;align-items:center;justify-content:center;padding:16px}.overlay[hidden]{display:none}.modal{background:#fffcf2;color:#25365c;border:6px solid white;border-radius:30px;max-width:530px;width:100%;padding:25px;box-shadow:0 14px 0 #f2b858,0 28px 65px #000a;text-align:center}.modal.green{background:#ecfff7;box-shadow:0 14px 0 #6ad6af,0 28px 65px #000a}.modal h1,.modal h2{font:800 clamp(29px,4vw,42px)/1.05 'Baloo 2',sans-serif;letter-spacing:-.5px;margin:5px 0 11px}.modal p{font-size:16px;color:#536680;font-weight:800;max-width:445px;margin:9px auto 17px}.comic{display:flex;justify-content:space-around;align-items:center;gap:8px;background:#e6f0ff;border-radius:17px;padding:11px;margin:12px 0 18px}.comic span{font-size:39px}.comic b{color:#2c4784;font:800 22px 'Baloo 2',sans-serif}.cta{display:block;width:100%;border:none;background:#ffd05d;box-shadow:0 6px 0 #dda44a;border-radius:15px;color:#5c432c;padding:13px 17px;font:800 21px 'Baloo 2',sans-serif}.cta:active{transform:translateY(3px);box-shadow:0 3px 0 #dda44a}.mini{font-size:11px;letter-spacing:1.1px;color:#947ca6;text-transform:uppercase;font-weight:900}.report{display:flex;gap:7px;justify-content:center;flex-wrap:wrap;margin:12px 0}.report span{background:#e5f2fe;color:#335278;padding:8px 10px;border-radius:10px;font-size:13px}.lesson{background:#daf8ed;border-radius:14px;padding:12px;color:#245d57;font-size:14px;font-weight:900;margin:13px 0;text-align:left}.lesson a{color:#286397;display:inline-block;font-size:11px;margin-top:4px}.conclusion{background:#e9f7fe;border-radius:13px;padding:12px;color:#3b5474;font-size:13px;font-weight:900;margin:12px 0}.badge{font-size:48px}.badge-result{font-size:17px;color:#44708e;font-weight:900}.hintchip{display:inline-block;background:#e9f4ff;color:#586e97;border-radius:99px;padding:5px 9px;font-size:11px;margin:5px}.smallprint{font-size:10px;color:#8794af}.stateflash{animation:pop .2s}.toast{position:fixed;bottom:17px;left:50%;transform:translateX(-50%);background:#fff3d5;border:3px solid #e6c36f;border-radius:15px;padding:10px 15px;color:#744e26;font-weight:900;z-index:20;box-shadow:0 8px 18px #0007}.toast[hidden]{display:none}
-@keyframes blink{45%{transform:scaleY(1)}46%{transform:scaleY(.2)}47%{transform:scaleY(1)}}@keyframes twinkle{50%{opacity:.4}}@keyframes rotate{to{transform:rotate(360deg)}}@keyframes runpipe{to{stroke-dashoffset:-68}}@keyframes rain{to{background-position:100px 34px}}@keyframes pop{from{opacity:.5;transform:scale(.9)}to{opacity:1;transform:scale(1)}}
-@media(max-width:900px){.stage{grid-template-columns:1fr}.rightpanel{display:grid;grid-template-columns:1fr 1fr;gap:8px}.future,.food-sticker{grid-column:span 1}.world{min-height:405px}.power-pick{min-width:270px}}
-@media(max-width:570px){.wrap{padding:6px 7px 18px}.head{margin-bottom:7px}.brand{font-size:21px}.logo{width:34px;height:34px}.daydots{gap:3px}.daydots span{height:26px;width:26px;font-size:11px}.iconbtn{width:33px;height:33px;border-radius:9px}.board{border-width:3px;border-radius:18px;padding:6px}.guide{gap:5px;min-height:76px;padding:7px 6px;border-radius:12px;margin-bottom:6px}.mascot{transform:scale(.78);margin-left:-8px;width:53px}.dialogtext strong{font-size:20px}.dialogtext p{font-size:11px}.objective{padding:7px}.objective .avatar{font-size:18px}.objective b{font-size:20px}.objective small{font-size:8px}.world{min-height:310px}.scene{width:670px!important;height:100%!important;left:50%!important;transform:translateX(-50%);}.rightpanel{grid-template-columns:1fr 1fr}.crew,.resources{padding:8px}.crew-icons{gap:2px}.crew-icons span{font-size:23px}.res{margin:5px 0}.res label{font-size:10px}.tokens{gap:0}.tokens span{font-size:14px;width:15px;height:19px}.future,.food-sticker{padding:8px}.command{gap:7px}.power-pick{min-width:100%;padding:9px}.buttons{gap:4px}.machinebtn{font-size:10px;padding:6px 1px;min-height:53px}.machinebtn strong{font-size:19px}.spend{min-width:0;flex:1}.advance{min-width:130px;flex:1;padding:11px;font-size:17px}.preview{font-size:11px}.modal{padding:18px 14px}.comic span{font-size:31px}.comic b{font-size:15px}}
-@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;scroll-behavior:auto!important}}
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+:root{--night:#070d1d;--white:#f5fbff;--muted:#b8cae2;--gold:#ffcd71;--mint:#8bffdb;--pink:#ff95aa;--purple:#c8acff}
+*{box-sizing:border-box}html,body{height:100%;margin:0}body{font-family:'DM Sans',system-ui,sans-serif;background:var(--night);color:var(--white);overflow:hidden}button,a{font:inherit}button{cursor:pointer}button:focus-visible,a:focus-visible,[role=button]:focus-visible{outline:3px solid #fff1b6;outline-offset:4px}button:disabled{cursor:default;opacity:.5}.app{height:100dvh;min-height:560px;display:flex;flex-direction:column;background:#091025;position:relative;isolation:isolate}
+header{z-index:5;height:67px;display:flex;justify-content:space-between;align-items:center;padding:0 clamp(17px,3vw,48px);flex:none;background:#070d1bdb;border-bottom:1px solid #ffffff15;gap:12px}.brand{display:flex;align-items:center;gap:10px;font:700 22px 'Space Grotesk',sans-serif;letter-spacing:-.9px;white-space:nowrap}.mark{position:relative;border:2px solid #ffd46f;border-radius:50%;width:33px;height:33px;display:grid;place-items:center;font-size:20px;color:#ffd46f}.mark:before{content:'';width:41px;height:13px;border:2px solid #ffd46f;border-radius:50%;position:absolute;transform:rotate(-28deg)}.brand em{font-style:normal;color:var(--gold)}.timeline{display:flex;align-items:center;gap:9px;min-width:0}.milestone{display:flex;gap:7px;align-items:center;color:#7e91b4;font-size:10px;font-weight:800;letter-spacing:.6px;white-space:nowrap}.milestone .ring{display:grid;place-items:center;border-radius:50%;width:27px;height:27px;border:1.5px solid #53688d;color:#92a8cc;font-size:11px}.milestone.active{color:#e8f4ff}.milestone.active .ring{background:var(--gold);border-color:var(--gold);color:#25283b}.milestone.done .ring{border-color:#67dfbc;background:#1d5049;color:#a6ffe3}.line{width:28px;height:1px;background:#485774}.sound{width:40px;height:40px;border:1px solid #ffffff30;background:#ffffff12;color:white;border-radius:12px;font-size:19px}
+.stage{position:relative;flex:1;min-height:0;overflow:hidden}.space{position:absolute;inset:0;background:radial-gradient(ellipse at 76% 14%,#345080aa 0,transparent 35%),linear-gradient(145deg,#131e3b,#090e22 66%);overflow:hidden}.space:before{content:'';position:absolute;inset:0;background-image:radial-gradient(#fff 1px,transparent 1.5px),radial-gradient(#aad4fd 1px,transparent 1.5px);background-size:127px 97px,173px 143px;background-position:10px 20px,83px 32px;opacity:.34}.scene{position:absolute;inset:0;display:none;overflow:hidden}.scene.active{display:block;animation:sceneIn .45s ease}.illustration{position:absolute;inset:0;width:100%;height:100%;display:block}.svg-hot{cursor:pointer;outline:none}.svg-hot:hover,.svg-hot:focus-visible{filter:drop-shadow(0 0 18px #feefa8bb)}.svg-hot .tap-ring{fill:none;stroke:#fff1a2;stroke-width:4;stroke-dasharray:9 10;opacity:.82;animation:circle 22s linear infinite;transform-origin:center}.svg-hot.disabled-hot{pointer-events:none;opacity:.65}.beam{stroke-dasharray:14 22;animation:beam 1.3s linear infinite}.blueflow{stroke-dasharray:12 21;animation:beam 1.2s linear infinite}.pulse{animation:float 2.4s ease-in-out infinite;transform-box:fill-box;transform-origin:center}.sparkle{animation:sparkle 2s ease-in-out infinite}.co2particle{animation:float 3s ease-in-out infinite}.co2particle:nth-of-type(even){animation-delay:-1.3s}.label-svg{font:700 16px 'Space Grotesk',sans-serif;fill:#e8faff;paint-order:stroke;stroke:#0b1830;stroke-width:6}.small-svg{font:700 12px 'Space Grotesk',sans-serif;fill:#c9e5fb}.glow-text{filter:drop-shadow(0 0 12px #c5fff8)}.floating-card{position:absolute;z-index:2;top:clamp(14px,3vw,41px);left:clamp(18px,5vw,83px);max-width:min(470px,44vw);pointer-events:none}.chapter{font-size:11px;letter-spacing:2.2px;font-weight:800;color:var(--mint);text-transform:uppercase;display:flex;align-items:center;gap:8px}.chapter:before{content:'';height:6px;width:6px;background:#87f7d7;border-radius:50%;box-shadow:0 0 14px #89ffe1}.floating-card h1{margin:12px 0 9px;font:700 clamp(32px,4.2vw,67px)/1.035 'Space Grotesk',sans-serif;letter-spacing:-2.7px;text-shadow:0 7px 28px #00132899}.floating-card p{font-size:clamp(13px,1.25vw,17px);margin:0;color:#deebfa;max-width:420px;line-height:1.5;text-shadow:0 2px 13px #0009}.radar{position:absolute;z-index:3;right:clamp(18px,3vw,43px);top:clamp(13px,2vw,33px);display:flex;align-items:center;gap:9px;background:#0c1b33bf;border:1px solid #c8d6f03c;padding:9px 13px;border-radius:50px;backdrop-filter:blur(8px);font-size:11px;color:#dcf7f9;font-weight:800}.radar .point{height:8px;width:8px;background:#ffb973;border-radius:50%;box-shadow:0 0 12px #ffa56e}.radar.ok .point{background:#7bf7c1;box-shadow:0 0 12px #66f9c8}
+.discovery{position:absolute;bottom:18px;left:clamp(17px,3vw,47px);z-index:4;border:1px solid #ffffff30;background:#081526a9;border-radius:15px;padding:10px 15px;display:flex;gap:10px;align-items:center;backdrop-filter:blur(8px);font-size:12px;color:#d5e8f5}.discovery b{font:700 18px 'Space Grotesk',sans-serif;color:#ffda8d}.discovery .pips{display:flex;gap:6px}.discovery .pips i{display:block;width:8px;height:8px;border-radius:50%;background:#506580}.discovery .pips i.on{background:#81f5cf;box-shadow:0 0 9px #61eac3}.edge-fact{position:absolute;bottom:18px;right:clamp(18px,3vw,47px);z-index:4;color:#97abc7;font-size:11px;letter-spacing:.2px;max-width:300px;text-align:right}
+.bottom{z-index:4;background:linear-gradient(#0c1630ed,#091126);border-top:1px solid #afc8ff27;flex:none;min-height:133px;padding:15px clamp(17px,4vw,64px) 17px;display:flex;align-items:center;gap:26px;justify-content:center;position:relative}.guide{display:flex;align-items:center;gap:13px;width:min(340px,27vw);min-width:205px;flex:none}.guide-avatar{width:58px;height:58px;flex:none;border:3px solid #aac6f3;background:linear-gradient(150deg,#eaffff,#8db4df);border-radius:21px;position:relative;box-shadow:0 5px 22px #7598e74b}.guide-avatar:before{content:'';position:absolute;top:-14px;left:26px;height:12px;width:3px;background:#c4f0ff}.guide-avatar:after{content:'';position:absolute;top:-18px;left:22px;width:12px;height:12px;background:#ffcf65;border-radius:50%}.guide-avatar .visor{position:absolute;inset:14px 8px 8px;border-radius:13px;background:#213a72;display:flex;align-items:center;justify-content:center;gap:9px}.guide-avatar .visor i{display:block;height:8px;width:6px;background:#8affdb;border-radius:4px;animation:sparkle 4s infinite}.guide-copy{min-width:0}.guide-copy small{font-size:9px;letter-spacing:1.5px;color:#95e8d6;font-weight:800}.guide-copy strong{display:block;font-size:13px;line-height:1.4;color:#f4faff}.actions{display:flex;align-items:center;gap:12px;justify-content:center;flex:1;max-width:810px}.action{border:1px solid #6484b2b0;background:#1c3254;color:#f5fbff;border-radius:17px;padding:14px 19px;min-height:70px;display:flex;gap:14px;align-items:center;text-align:left;justify-content:center;transition:.15s transform,.15s border,.15s background;min-width:0;flex:1;max-width:270px;box-shadow:0 5px 0 #070f25}.action:hover{transform:translateY(-2px);border-color:#a0d7ff;background:#284268}.action:active{transform:translateY(2px);box-shadow:none}.action strong{display:block;font-weight:800;font-size:14px}.action small{display:block;color:#bcd1e7;font-size:11px;margin-top:2px}.action .emoji{font-size:28px;flex:none}.action.primary{background:#ffcf78;color:#29314a;border-color:#ffe4aa;box-shadow:0 5px 0 #bd8e4a}.action.primary small{color:#594e40}.action.primary:hover{background:#ffe09d}.action.wide{flex:0 1 350px}.action.soft{background:#253b58}.action.hidden{display:none}
+.statusToast{position:absolute;top:-63px;left:50%;transform:translateX(-50%);background:#fff9dc;color:#554530;z-index:6;padding:12px 19px;border-radius:13px;border:2px solid #ffd275;font-size:13px;font-weight:800;box-shadow:0 9px 34px #0006;max-width:90vw;text-align:center}.statusToast[hidden]{display:none}
+.scrim{position:fixed;inset:0;z-index:15;background:#040918c9;display:flex;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(9px)}.scrim[hidden]{display:none}.modal{border-radius:26px;background:#f6fcff;color:#1c3053;border:1px solid #effbff;box-shadow:0 36px 110px #000a;max-width:555px;width:100%;padding:34px;text-align:center}.modal .eyebrow{font-size:11px;letter-spacing:2px;color:#608a9c;font-weight:800;text-transform:uppercase}.modal h2{font:700 clamp(31px,4.5vw,46px)/1.1 'Space Grotesk',sans-serif;letter-spacing:-1.7px;margin:12px 0}.modal p{font-size:16px;color:#536781;line-height:1.52;margin:12px 0 17px}.modal .giant{font-size:70px;line-height:1.2;display:block}.modal .cta{border:0;background:#173e6b;color:white;padding:15px 26px;border-radius:13px;font-size:15px;font-weight:800;width:100%;max-width:390px}.modal .cta:hover{background:#235687}.modal .real{border-left:4px solid #53d4b1;background:#e5faf2;border-radius:11px;text-align:left;color:#264b57;padding:13px 16px;font-size:15px;margin:18px 0}.modal .source{display:block;font-size:11px;text-align:left;margin-top:6px;color:#28627f}.modal .source a{color:#1c6289}.modal .tiny{font-size:12px;color:#7390a0}.modal .reward{display:flex;align-items:center;justify-content:center;gap:10px;margin:15px 0;color:#206758;font-weight:800;font-size:13px}.modal .reward span{border:1px solid #b2e9d6;border-radius:12px;padding:9px 14px;background:#e6fcf3}
+.hero-home{background:radial-gradient(circle at 68% 51%,#416c95 0,transparent 32%),linear-gradient(145deg,#111a39,#070e22);position:fixed;inset:0;z-index:20;display:flex;align-items:center;justify-content:center;overflow:hidden}.hero-home[hidden]{display:none}.hero-art{position:absolute;inset:0;width:100%;height:100%;opacity:.65;pointer-events:none}.hero-body{position:relative;z-index:2;text-align:center;max-width:680px;padding:28px;color:white}.hero-body .over{font-size:12px;letter-spacing:3px;color:#a0fee6;font-weight:800}.hero-body h1{font:700 clamp(42px,6.9vw,91px)/1.02 'Space Grotesk',sans-serif;letter-spacing:-4px;margin:16px 0}.hero-body h1 em{font-style:normal;color:#ffd47f}.hero-body p{font-size:17px;line-height:1.5;color:#d0e4ff;margin:0 auto 25px;max-width:520px}.hero-body button{border:0;border-radius:16px;background:#ffce70;color:#28324c;padding:17px 32px;font-weight:800;font-size:16px;box-shadow:0 8px 0 #c39648}.hero-body button:hover{background:#ffe0a4}.hero-body .meta{margin-top:20px;font-size:12px;color:#aabedb}.end-icons{display:flex;gap:9px;justify-content:center;margin:16px 0}.end-icons span{display:grid;place-items:center;width:71px;height:71px;border:2px solid #a8e6d8;background:#ebfff7;border-radius:20px;font-size:35px}
+[data-hidden="true"]{display:none!important}
+@keyframes sceneIn{from{opacity:.2;transform:scale(1.02)}to{opacity:1;transform:scale(1)}}@keyframes float{50%{transform:translateY(-12px)}}@keyframes sparkle{50%{opacity:.45}}@keyframes circle{to{transform:rotate(360deg)}}@keyframes beam{to{stroke-dashoffset:-72}}
+@media(max-width:1050px){.timeline .caption{display:none}.line{width:16px}.floating-card{max-width:47vw}.floating-card h1{font-size:clamp(28px,4.2vw,46px)}.guide{width:210px}.bottom{gap:12px;padding:12px 18px}.action{padding:10px 11px;gap:8px}.action .emoji{font-size:24px}}
+@media(max-width:720px){header{height:56px;padding:0 12px}.brand{font-size:19px}.mark{width:28px;height:28px}.timeline{gap:4px}.line{width:9px}.milestone .ring{width:24px;height:24px}.sound{width:33px;height:33px}.app{min-height:530px}.floating-card{top:18px;left:17px;max-width:80vw}.floating-card h1{font-size:clamp(33px,7.6vw,51px);margin:7px 0}.floating-card p{font-size:13px;max-width:305px}.radar{right:11px;top:auto;bottom:52px;padding:6px 9px;font-size:10px}.discovery{bottom:14px;left:13px;padding:7px 9px;font-size:10px}.edge-fact{display:none}.bottom{flex-direction:column;gap:9px;min-height:165px;padding:9px 10px 13px;align-items:stretch}.guide{min-width:0;width:100%;justify-content:center;gap:7px}.guide-avatar{height:38px;width:38px;border-radius:13px;box-shadow:none}.guide-avatar:before{left:17px}.guide-avatar:after{left:13px}.guide-avatar .visor{inset:8px 5px 4px;border-radius:9px}.guide-copy strong{font-size:12px}.guide-copy small{font-size:8px}.actions{width:100%;max-width:none;gap:7px}.action{min-height:56px;padding:9px 10px;border-radius:11px;gap:6px;flex:1}.action strong{font-size:12px}.action small{font-size:10px}.action .emoji{font-size:22px}.illustration{width:950px!important;height:100%!important;left:50%;transform:translateX(-50%)}.hero-body h1{letter-spacing:-2px}.hero-body p{font-size:15px}.modal{padding:23px 18px}.modal p{font-size:14px}}
+@media(max-height:640px) and (min-width:721px){.bottom{min-height:105px;padding:9px 24px}.action{min-height:60px;padding:8px 13px}.floating-card{top:13px}.floating-card h1{font-size:39px}.floating-card p{font-size:13px}.discovery{bottom:7px}.radar{top:12px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
 </style></head>
-<body><div class="wrap">
-<header class="head"><div class="brand"><span class="logo">✦</span>Pluto<em>Core</em></div><div class="head-actions"><div class="daydots" id="daydots" aria-label="Progreso de cinco días"></div><button class="iconbtn" id="helpBtn" aria-label="Ver instrucciones" title="Ayuda">?</button></div></header>
-<main class="board">
-<div class="guide">
- <div class="mascot" aria-hidden="true"><div class="ear left"></div><div class="ear right"></div><div class="face"><div class="eyes"><i></i><i></i></div><div class="smile"></div></div></div>
- <div class="dialogtext"><span class="label" id="eyebrow">BASE PLUTO-01</span><strong id="headline">¡Tenemos que sobrevivir!</strong><p id="subline">Reparte la energía para cuidar a tu tripulación.</p></div>
- <div class="objective"><div class="avatar">🚀</div><div><small>LLEGA EL RESCATE</small><b id="countdown">DÍA 5</b></div></div>
-</div>
+<body>
+<div class="app" id="app">
+<header>
+ <div class="brand"><span class="mark">✦</span>Pluto<em>Core</em></div>
+ <div class="timeline" aria-label="Tres descubrimientos">
+  <span class="milestone active" id="track0"><i class="ring">1</i><span class="caption">APOLLO 13</span></span><i class="line"></i>
+  <span class="milestone" id="track1"><i class="ring">2</i><span class="caption">ESTACIÓN ESPACIAL</span></span><i class="line"></i>
+  <span class="milestone" id="track2"><i class="ring">3</i><span class="caption">BASE LUNAR</span></span>
+ </div>
+ <button class="sound" id="sound" aria-label="Desactivar sonido" title="Activar o desactivar efectos de sonido">🔊</button>
+</header>
 <div class="stage">
- <div class="world" id="world">
-  <div class="stormrain"></div><div class="scene-weather" id="weather">☀️ Día despejado · 2 energías</div>
-  <svg class="scene" viewBox="0 0 900 530" role="img" aria-label="Base lunar interactiva con cuatro sistemas que puedes encender o apagar." xmlns="http://www.w3.org/2000/svg">
-    <defs><linearGradient id="hillGrad" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#dde8ee"/><stop offset="1" stop-color="#8ba6bd"/></linearGradient></defs>
-    <g><circle class="star" cx="73" cy="42" r="2"/><circle class="star" cx="230" cy="80" r="2"/><circle class="star" cx="317" cy="38" r="2"/><circle class="star" cx="460" cy="98" r="2"/><circle class="star" cx="620" cy="50" r="2"/><circle class="star" cx="765" cy="70" r="3"/></g>
-    <circle class="sun" cx="107" cy="130" r="42" id="sun"/>
-    <g transform="translate(725 29)"><circle class="earth" cx="71" cy="68" r="51"/><path d="M43 33L67 23L88 40L88 55L63 74L41 60Z" fill="#68c597"/><path d="M91 80L116 70L120 94L89 111L80 94Z" fill="#68c597"/></g>
-    <path class="hill" d="M0 320L102 272L197 311L285 252L382 328L493 260L607 307L724 247L900 303V530H0Z"/>
-    <path class="ground" d="M0 376Q164 331 301 382Q438 413 563 364Q702 331 900 379V530H0Z"/>
-    <path class="dune" d="M0 461Q170 416 327 448Q520 502 686 439Q799 415 900 457V530H0Z"/>
-    <ellipse class="crater" cx="87" cy="459" rx="52" ry="13"/><ellipse class="crater" cx="769" cy="474" rx="61" ry="12"/>
-    <g transform="translate(34 291)" id="solarScene"><path d="M78 96V46" stroke="#5b6e98" stroke-width="11"/><path d="M0 24L151 10L174 83L22 97Z" fill="#395b93" stroke="#d5eeff" stroke-width="6"/><path d="M40 20L61 89M82 17L103 86M125 12L146 83M11 58L165 47" stroke="#b4ddfa" stroke-width="4"/><text x="90" y="143" class="mname" text-anchor="middle">☀️ SOLAR</text></g>
-    <path d="M187 397H700" stroke="#556d9c" stroke-width="14" fill="none" stroke-linecap="round"/>
-    <path class="flow" id="flowAir" d="M188 397H348"/><path class="flow" id="flowWater" d="M350 397H535"/><path class="flow" id="flowGrow" d="M536 397H702"/>
-    <g class="machine" data-key="air" id="airScene" tabindex="0" role="button" aria-label="Activar o desactivar el sistema de aire" transform="translate(160 260)">
-      <ellipse class="ring" cx="115" cy="111" rx="128" ry="116"/>
-      <path class="shell" d="M10 161V109Q14 26 113 17Q214 26 219 109V161Z"/>
-      <path d="M25 103Q31 44 113 32Q191 40 204 103Z" fill="url(#hillGrad)" stroke="#91b1cd" stroke-width="5"/>
-      <rect class="glass" x="49" y="92" width="123" height="45" rx="22"/>
-      <path d="M104 96C88 80 87 70 97 68M120 96C137 82 136 72 126 66" stroke="#d9eff9" stroke-width="4" fill="none"/>
-      <rect x="98" y="135" width="35" height="26" rx="5" fill="#536994"/>
-      <text x="113" y="194" class="mname" text-anchor="middle">🫧 AIRE</text>
-    </g>
-    <g class="machine" data-key="water" id="waterScene" tabindex="0" role="button" aria-label="Activar o desactivar el reciclaje de agua" transform="translate(387 279)">
-      <ellipse class="ring" cx="100" cy="91" rx="119" ry="107"/>
-      <rect class="shell" x="5" y="36" width="192" height="126" rx="30"/>
-      <rect x="30" y="17" width="143" height="34" rx="18" fill="#d6e8f6" stroke="#829ac0" stroke-width="5"/>
-      <rect class="glass" x="32" y="63" width="140" height="72" rx="16"/>
-      <path d="M99 69C69 103 73 126 99 126C124 124 126 103 99 69Z" fill="#7fcef4"/>
-      <text x="100" y="194" class="mname" text-anchor="middle">💧 AGUA</text>
-    </g>
-    <g class="machine" data-key="farm" id="farmScene" tabindex="0" role="button" aria-label="Activar o desactivar el huerto" transform="translate(602 265)">
-      <ellipse class="ring" cx="119" cy="108" rx="125" ry="118"/>
-      <path class="shell" d="M10 165V116Q15 23 117 20Q220 23 222 116V165Z"/>
-      <path d="M28 111Q34 39 116 36Q202 38 207 111Z" fill="#477b92" stroke="#a1d7dd" stroke-width="6"/>
-      <path d="M55 110V70M119 109V34M181 110V65" stroke="#b6dfe7" stroke-width="5"/>
-      <g class="plant" id="plantVisual">
-        <path d="M116 128V74" stroke="#70d398" stroke-width="8" fill="none" stroke-linecap="round"/>
-        <path d="M116 103Q79 64 72 98Q87 118 116 107M116 87Q137 58 164 73Q160 97 116 97" fill="#69da96"/>
-        <g class="fruit" id="fruitVisual"><circle cx="92" cy="98" r="10" fill="#f37471"/><circle cx="145" cy="80" r="10" fill="#ff9b6b"/><circle cx="125" cy="114" r="9" fill="#fc8370"/></g>
-      </g>
-      <rect x="36" y="131" width="166" height="34" rx="11" fill="#866c9a"/>
-      <text x="118" y="196" class="mname" text-anchor="middle">🌱 HUERTO</text>
-    </g>
-    <g class="machine" data-key="shield" id="shieldScene" tabindex="0" role="button" aria-label="Activar o desactivar el refugio" transform="translate(35 331)">
-      <ellipse class="ring" cx="80" cy="79" rx="104" ry="98"/>
-      <path class="shell" d="M10 120V72Q12 10 80 8Q149 10 153 72V120Z"/>
-      <path d="M21 77Q25 25 79 22Q133 25 145 77" stroke="#d0bda7" stroke-width="14" fill="none"/>
-      <rect x="54" y="60" width="52" height="60" rx="19" fill="#536b97" stroke="#d9edf4" stroke-width="5"/>
-      <path d="M65 83L80 72L93 83V101L80 112L65 103Z" fill="#ffd774"/>
-      <text x="80" y="153" class="mname" text-anchor="middle">🛡️ REFUGIO</text>
-    </g>
-    <path class="shieldfield" id="shieldfield" d="M18 429Q-8 293 111 285Q215 290 198 430"/>
-    <g class="tank" transform="translate(785 340)">
-      <rect x="0" y="2" width="69" height="100" rx="17" fill="#d7f6fc" stroke="#6389b4" stroke-width="6"/>
-      <rect class="tankfill" id="tankFill" x="7" y="32" width="55" height="63" rx="11"/>
-      <rect x="15" y="-8" width="41" height="18" rx="5" fill="#567a9c"/>
-      <text x="32" y="127" class="mname" text-anchor="middle" style="font-size:17px">AGUA</text>
-    </g>
-    <g id="people">
-      <g class="astro" id="person0" transform="translate(210 458)"><path d="M-12 -4L-18 20M12 -4L18 20M-14 -5L-26 9M15 -5L25 9" stroke="#f5fbff" stroke-width="9" stroke-linecap="round"/><rect class="suit" x="-17" y="-20" width="34" height="34" rx="10"/><circle class="helmet" cx="0" cy="-33" r="22"/><path class="visor" d="M-14 -39Q0 -49 14 -38V-26Q0 -19 -14 -27Z"/><circle cx="0" cy="-11" r="6" fill="#ffce63"/></g>
-      <g class="astro" id="person1" transform="translate(310 467)"><path d="M-12 -4L-18 20M12 -4L18 20M-14 -5L-26 9M15 -5L25 9" stroke="#f5fbff" stroke-width="9" stroke-linecap="round"/><rect class="suit" x="-17" y="-20" width="34" height="34" rx="10"/><circle class="helmet" cx="0" cy="-33" r="22"/><path class="visor" d="M-14 -39Q0 -49 14 -38V-26Q0 -19 -14 -27Z"/><circle cx="0" cy="-11" r="6" fill="#9be7df"/></g>
-      <g class="astro" id="person2" transform="translate(590 468)"><path d="M-12 -4L-18 20M12 -4L18 20M-14 -5L-26 9M15 -5L25 9" stroke="#f5fbff" stroke-width="9" stroke-linecap="round"/><rect class="suit" x="-17" y="-20" width="34" height="34" rx="10"/><circle class="helmet" cx="0" cy="-33" r="22"/><path class="visor" d="M-14 -39Q0 -49 14 -38V-26Q0 -19 -14 -27Z"/><circle cx="0" cy="-11" r="6" fill="#deaeed"/></g>
-      <g class="astro" id="person3" transform="translate(691 480)"><path d="M-12 -4L-18 20M12 -4L18 20M-14 -5L-26 9M15 -5L25 9" stroke="#f5fbff" stroke-width="9" stroke-linecap="round"/><rect class="suit" x="-17" y="-20" width="34" height="34" rx="10"/><circle class="helmet" cx="0" cy="-33" r="22"/><path class="visor" d="M-14 -39Q0 -49 14 -38V-26Q0 -19 -14 -27Z"/><circle cx="0" cy="-11" r="6" fill="#ffb7b8"/></g>
-    </g>
+ <div class="space"></div>
+ <!-- SCENE ONE: command capsule; real Apollo 13 air purification challenge reenactment -->
+ <section class="scene active" id="scene0" aria-label="Escena inspirada en Apollo 13: tres astronautas en una nave">
+ <svg class="illustration" viewBox="0 0 1200 650" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+  <defs><radialGradient id="cockpit"><stop stop-color="#3a6581"/><stop offset="1" stop-color="#111b37"/></radialGradient><linearGradient id="metal" x1="0" y1="0" x2="1" y2=".7"><stop stop-color="#c8dcf2"/><stop offset="1" stop-color="#536887"/></linearGradient><linearGradient id="glow" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#b7f5fa"/><stop offset="1" stop-color="#3872c1"/></linearGradient></defs>
+  <rect x="0" y="0" width="1200" height="650" fill="url(#cockpit)"/>
+  <path d="M0 520Q600 410 1200 540V650H0Z" fill="#1a2d4e" stroke="#6e8ba9" stroke-width="12"/>
+  <path d="M0 70L180 0H1020L1200 75" fill="none" stroke="#94b4d6" stroke-width="26" opacity=".35"/>
+  <path d="M50 70L230 12H940L1150 80" fill="none" stroke="#b7d2e4" stroke-width="6" opacity=".4"/>
+  <circle cx="750" cy="290" r="214" fill="#0a2440" stroke="#6b88aa" stroke-width="29"/>
+  <circle cx="750" cy="290" r="190" fill="#12223e" stroke="#96a8ba" stroke-width="5"/>
+  <circle cx="750" cy="290" r="175" fill="#1b3862"/>
+  <circle cx="815" cy="240" r="110" fill="#d2dce7"/>
+  <circle cx="852" cy="233" r="30" fill="#a9bfd8"/><circle cx="782" cy="198" r="21" fill="#a9bfd8"/><circle cx="771" cy="288" r="25" fill="#a9bfd8"/>
+  <path d="M687 400Q804 343 931 367" fill="none" stroke="#d3e6fa" stroke-width="12" opacity=".2"/>
+  <circle cx="560" cy="168" r="3" fill="#fff"/><circle cx="608" cy="119" r="4" fill="#ffdcab"/><circle cx="927" cy="146" r="3" fill="#fff"/>
+  <rect x="104" y="236" width="295" height="284" rx="32" fill="#213958" stroke="#a7bbd6" stroke-width="12"/>
+  <rect x="133" y="266" width="239" height="149" rx="24" fill="#0c2340" stroke="#5d839f" stroke-width="6"/>
+  <text x="159" y="303" font-family="Space Grotesk" font-weight="700" font-size="18" fill="#aed6ed">CABINA</text>
+  <text x="157" y="355" font-size="17" font-family="Space Grotesk" font-weight="700" fill="#91f9c7">O₂ ✓</text>
+  <text id="co2Readout" x="284" y="355" font-size="17" font-family="Space Grotesk" font-weight="700" fill="#ff9ca4">CO₂ ↑</text>
+  <rect x="156" y="375" width="180" height="8" rx="4" fill="#26415e"/>
+  <rect id="co2Meter" x="156" y="375" width="166" height="8" rx="4" fill="#ff8994" style="transition:width 1s"/>
+  <text x="159" y="448" font-size="13" font-weight="700" fill="#bbcee9">CONTROL DEL AIRE</text>
+  <circle cx="155" cy="485" r="10" fill="#ff7d7b" class="sparkle"/>
+  <circle cx="193" cy="485" r="10" fill="#ffcd68"/>
+  <circle cx="231" cy="485" r="10" fill="#6bdad4"/>
+  <g id="fogGroup" style="transition:opacity 1.2s">
+   <circle class="co2particle" cx="516" cy="284" r="12" fill="#ff9db7" opacity=".6"/><circle class="co2particle" cx="570" cy="390" r="18" fill="#ffa1b0" opacity=".35"/>
+   <circle class="co2particle" cx="920" cy="321" r="12" fill="#ffa8b2" opacity=".5"/><circle class="co2particle" cx="445" cy="455" r="15" fill="#ff969f" opacity=".5"/>
+   <text x="502" y="384" font-family="Space Grotesk" font-size="23" fill="#ffbfba" opacity=".75">CO₂</text><text x="978" y="267" font-family="Space Grotesk" font-size="25" fill="#ffbfba" opacity=".7">CO₂</text>
+  </g>
+  <g transform="translate(477 460)"><ellipse cx="59" cy="64" rx="64" ry="16" fill="#07142b" opacity=".5"/><path d="M20 61V10Q20 -10 58 -10Q98 -10 98 10V61Z" fill="#eaf6ff" stroke="#738aaa" stroke-width="7"/><circle cx="59" cy="-18" r="34" fill="#fff" stroke="#7c92b7" stroke-width="7"/><path d="M30 -24Q58 -40 89 -25V-6Q60 8 30 -6Z" fill="#27517b"/><circle cx="51" cy="-17" r="4" fill="#76fff0"/><circle cx="72" cy="-17" r="4" fill="#76fff0"/></g>
+  <g transform="translate(626 495) scale(.8)"><path d="M20 65V10Q20 -10 58 -10Q98 -10 98 10V65Z" fill="#eaf6ff" stroke="#738aaa" stroke-width="7"/><circle cx="59" cy="-18" r="34" fill="#fff" stroke="#7c92b7" stroke-width="7"/><path d="M30 -24Q58 -40 89 -25V-6Q60 8 30 -6Z" fill="#27517b"/></g>
+  <g transform="translate(764 504) scale(.7)"><path d="M20 65V10Q20 -10 58 -10Q98 -10 98 10V65Z" fill="#eaf6ff" stroke="#738aaa" stroke-width="7"/><circle cx="59" cy="-18" r="34" fill="#fff" stroke="#7c92b7" stroke-width="7"/><path d="M30 -24Q58 -40 89 -25V-6Q60 8 30 -6Z" fill="#27517b"/></g>
+  <!-- incompatible round inlet -->
+  <g transform="translate(1002 370)" id="portObject" data-interact="filter" role="button" tabindex="0" class="svg-hot" aria-label="Intentar conectar el filtro a la toma redonda">
+   <circle class="tap-ring" r="81"/><circle r="68" fill="#496380" stroke="#c9dfec" stroke-width="11"/><circle r="43" fill="#172b43" stroke="#9dddec" stroke-width="12"/><circle r="22" fill="#0b172c" stroke="#6cd6dd" stroke-width="3"/><text x="0" y="112" text-anchor="middle" class="label-svg">ENTRADA REDONDA</text>
+  </g>
+  <!-- loose cartridge icon -->
+  <g id="filterObject" data-interact="filter" role="button" tabindex="0" class="svg-hot pulse" transform="translate(930 525)" aria-label="Probar filtro cuadrado">
+   <rect class="tap-ring" x="-67" y="-44" width="134" height="88" rx="17"/>
+   <rect x="-50" y="-36" width="100" height="70" rx="8" fill="#b4d3e5" stroke="#f2f6ff" stroke-width="8"/>
+   <rect x="-31" y="-22" width="61" height="41" fill="#516983"/><path d="M-27 -22L-27 19M-10 -22V19M8 -22V19M26 -22V19" stroke="#91acb9" stroke-width="5"/>
+   <text x="0" y="68" text-anchor="middle" class="label-svg">FILTRO □</text>
+  </g>
+  <g id="tapeObject" data-interact="tape" role="button" tabindex="0" class="svg-hot pulse" transform="translate(940 518)" opacity="0" style="pointer-events:none">
+   <circle class="tap-ring" r="69"/><circle r="51" fill="#ffd070" stroke="#fff2c4" stroke-width="7"/><circle r="19" fill="#72533f" stroke="#f1d8a4" stroke-width="5"/>
+   <path d="M-10 -40L45 5" stroke="#ffe4a1" stroke-width="14"/><text x="0" y="83" text-anchor="middle" class="label-svg">CINTA</text>
+  </g>
+  <g id="cleanSpark" opacity="0" style="transition:opacity 1s"><circle cx="1011" cy="367" r="115" fill="none" stroke="#a2ffe5" stroke-width="9" stroke-dasharray="14 16"/><text x="1008" y="365" text-anchor="middle" fill="#d6ffee" font-size="37">✓</text></g>
+  <g id="oxygenObject" data-interact="oxygen" role="button" tabindex="0" class="svg-hot" transform="translate(90 540)" aria-label="Probar agregar oxígeno">
+   <rect x="-30" y="-20" width="87" height="90" rx="15" fill="#6fb9d9" stroke="#c1f8ff" stroke-width="8"/><rect x="0" y="-44" width="27" height="24" rx="5" fill="#d1e7e8"/><rect x="4" y="-51" width="19" height="8" rx="3" fill="#91b3c5"/><text x="12" y="35" text-anchor="middle" font-size="22" font-weight="800" fill="#1e4f71">O₂</text>
+  </g>
+ </svg>
+ </section>
+ <!-- SCENE TWO: ISS water cycle -->
+ <section class="scene" id="scene1" aria-label="Estación espacial: reciclar agua y fabricar oxígeno">
+  <svg class="illustration" viewBox="0 0 1200 650" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+   <defs><linearGradient id="labBg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#284e7d"/><stop offset="1" stop-color="#0a1734"/></linearGradient><linearGradient id="cleanWater" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#a5f6ff"/><stop offset="1" stop-color="#32a1dd"/></linearGradient></defs>
+   <rect width="1200" height="650" fill="url(#labBg)"/>
+   <path d="M0 0H1200V130L1080 80H120L0 130Z" fill="#849db8" opacity=".15"/>
+   <path d="M0 565Q600 510 1200 565V650H0Z" fill="#253a58" stroke="#95bbcc" stroke-width="11"/>
+   <circle cx="817" cy="246" r="175" fill="#122c4a" stroke="#a3c5dd" stroke-width="23"/>
+   <circle cx="817" cy="246" r="153" fill="#244c75"/>
+   <circle cx="844" cy="226" r="130" fill="#7ecae7"/>
+   <path d="M741 184Q810 151 848 181L873 205L842 247L800 236L791 286L752 278Z" fill="#74c4a7"/>
+   <path d="M865 274L907 258L940 290L907 335L865 320Z" fill="#74c4a7"/>
+   <path d="M699 256Q817 204 944 277" stroke="#dbffff" stroke-width="9" fill="none" opacity=".3"/>
+   <g transform="translate(92 280)">
+    <rect x="0" y="10" width="182" height="203" rx="23" fill="#6d8ca4" stroke="#d8edfa" stroke-width="9"/>
+    <rect x="22" y="28" width="136" height="139" rx="15" fill="#1a425c"/>
+    <path d="M38 44L64 105L95 84L113 146L142 58" fill="none" stroke="#8b9dae" stroke-width="17"/>
+    <circle cx="97" cy="76" r="21" fill="#a2c4d2" opacity=".6"/>
+    <text x="90" y="245" text-anchor="middle" class="label-svg">AGUA USADA</text>
+   </g>
+   <g id="dirtyWater" opacity="1" style="transition:opacity .8s"><circle cx="198" cy="381" r="12" fill="#bcf4ce" class="pulse"/><circle cx="145" cy="417" r="9" fill="#c9e8ab"/><circle cx="227" cy="444" r="10" fill="#d5dfaf"/></g>
+   <path d="M280 413H365" stroke="#416b89" stroke-width="30" stroke-linecap="round"/>
+   <path id="waterFlow0" d="M280 413H365" stroke="#88e6fb" stroke-width="11" stroke-linecap="round" class="blueflow" style="opacity:.1;transition:opacity .5s"/>
+   <g id="recyclerObject" data-interact="recycle" role="button" tabindex="0" aria-label="Encender sistema de reciclaje de agua" class="svg-hot pulse" transform="translate(470 404)">
+     <circle class="tap-ring" r="136"/><rect x="-102" y="-123" width="204" height="245" rx="34" fill="#b6d9ea" stroke="#e2f8ff" stroke-width="10"/>
+     <rect x="-78" y="-98" width="155" height="119" rx="20" fill="#163e60" stroke="#5d95aa" stroke-width="5"/>
+     <path id="recyclerWave" d="M-63 -34Q-19 -62 11 -30T67 -30V1H-63Z" fill="#70d4eb" opacity=".15" style="transition:opacity .6s"/>
+     <circle cx="0" cy="-44" r="34" fill="#1b4e6a" stroke="#b5e6f9" stroke-width="7"/><path d="M0 -72L0 -16M-29 -44H29" stroke="#6ce6dc" stroke-width="6"/>
+     <rect x="-57" y="40" width="113" height="44" rx="11" fill="#4080a2"/><circle cx="-32" cy="61" r="9" fill="#7fffd8"/><circle cx="0" cy="61" r="9" fill="#ffdc7e"/><circle cx="30" cy="61" r="9" fill="#77d6fa"/>
+     <text x="0" y="155" text-anchor="middle" class="label-svg">PURIFICADOR</text>
+   </g>
+   <path d="M572 412H671V489H774" fill="none" stroke="#315778" stroke-width="31" stroke-linecap="round" stroke-linejoin="round"/>
+   <path id="waterFlow1" d="M572 412H671V489H774" fill="none" stroke="#71d6f1" stroke-width="12" stroke-linecap="round" stroke-linejoin="round" class="blueflow" style="opacity:.1;transition:opacity .5s"/>
+   <g transform="translate(789 431)">
+     <rect x="-33" y="-5" width="116" height="150" rx="20" fill="#d7ecf4" stroke="#a6deef" stroke-width="9"/>
+     <rect id="cleanFill" x="-23" y="138" width="96" height="0" rx="9" fill="url(#cleanWater)" style="transition:height 1s,y 1s"/>
+     <text x="29" y="181" text-anchor="middle" class="label-svg">AGUA LIMPIA</text>
+   </g>
+   <path d="M846 408L1000 405" fill="none" stroke="#365b84" stroke-width="24"/>
+   <path id="airFlow" d="M846 408L1000 405" fill="none" stroke="#a4f9e7" stroke-width="9" class="blueflow" style="opacity:0;transition:opacity 1s"/>
+   <g id="electrolysisObject" data-interact="electrolysis" role="button" tabindex="0" class="svg-hot" aria-label="Fabricar oxígeno a partir del agua" transform="translate(1028 401)">
+     <circle class="tap-ring" r="88"/>
+     <rect x="-72" y="-85" width="143" height="170" rx="20" fill="#bedee8" stroke="#eaffff" stroke-width="9"/>
+     <rect x="-45" y="-60" width="90" height="95" rx="13" fill="#254f76"/>
+     <path d="M-13 -35L-28 -8H-5L-14 18L27 -16H1L14 -35Z" fill="#fce27b"/>
+     <circle cx="0" cy="60" r="11" fill="#5c79a7"/>
+     <text x="0" y="122" text-anchor="middle" class="label-svg">HACER O₂</text>
+   </g>
+   <g id="oxygenBubbles" opacity="0" style="transition:opacity 1s"><circle cx="1073" cy="227" r="15" fill="none" stroke="#a5f9ed" stroke-width="5" class="pulse"/><circle cx="1041" cy="174" r="10" fill="none" stroke="#a5f9ed" stroke-width="4" class="pulse"/><circle cx="1123" cy="196" r="18" fill="none" stroke="#a5f9ed" stroke-width="5" class="pulse"/><text x="1009" y="135" class="label-svg" fill="#a7ffe2">O₂ ✓</text></g>
+   <g id="trashObject" data-interact="discard" class="svg-hot" tabindex="0" role="button" aria-label="Probar desechar el agua" transform="translate(100 550)">
+     <rect x="-36" y="-39" width="71" height="69" rx="10" fill="#65809c" stroke="#cfdeed" stroke-width="5"/><path d="M-43 -39H42M-24 -51H21" stroke="#e1ebf6" stroke-width="8" stroke-linecap="round"/><text x="0" y="68" class="label-svg" text-anchor="middle">DESECHAR</text>
+   </g>
   </svg>
-  <div class="tap-hint" id="sceneHint">👆 Toca edificios o usa los botones de abajo</div>
-  <div class="outcome-float" id="float" hidden>💧 +2 agua</div>
- </div>
- <div class="rightpanel">
-  <div class="crew"><div class="crew-title">👩‍🚀 Tu tripulación <b id="crewCount">4 / 4</b></div><div class="crew-icons" id="crewIcons"><span>🧑‍🚀</span><span>👩‍🚀</span><span>🧑‍🚀</span><span>👩‍🚀</span></div></div>
-  <div class="resources"><div class="heading">Reservas <small>Se gastan cada día</small></div><div id="resources"></div></div>
-  <div class="food-sticker"><strong>🌱 Primera cosecha</strong><div class="farm-track" id="farmtrack"><span>🌰</span><span>🌱</span><span>🍅</span></div><small id="farmtext">Activa el huerto 2 días para obtener comida.</small></div>
-  <div class="future"><strong>📡 Próximos eventos</strong><div class="forecast" id="forecast">🌦️ ¡Cuidado con el Sol!</div></div>
- </div>
+ </section>
+ <!-- SCENE THREE: lunar outpost -->
+ <section class="scene" id="scene2" aria-label="Base lunar futura: proteger una tripulación de la radiación solar sin perder la cosecha">
+  <svg class="illustration" viewBox="0 0 1200 650" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+   <defs><linearGradient id="moonbg" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#253763"/><stop offset="1" stop-color="#a493a3"/></linearGradient><linearGradient id="greenhouse" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#b1e4fa"/><stop offset="1" stop-color="#647aab"/></linearGradient></defs>
+   <rect width="1200" height="650" fill="url(#moonbg)"/>
+   <circle cx="1072" cy="117" r="75" fill="#fff4c1" opacity=".9" style="filter:drop-shadow(0 0 32px #ffd7a8)"/>
+   <circle cx="625" cy="115" r="65" fill="#88c3f7" opacity=".7"/><path d="M581 91L615 68L642 94L635 115L600 121Z" fill="#7adab9"/>
+   <path d="M0 426L154 324L293 392L466 310L588 368L743 330L899 396L1054 335L1200 395V650H0Z" fill="#61789b"/>
+   <path d="M0 485Q270 383 490 471Q730 525 920 445Q1080 401 1200 479V650H0Z" fill="#bbc0d1"/>
+   <path d="M0 565Q200 513 420 555Q636 593 840 542Q1050 504 1200 558V650H0Z" fill="#d3d4db"/>
+   <ellipse cx="210" cy="554" rx="112" ry="19" fill="#9ba9c4"/><ellipse cx="870" cy="573" rx="79" ry="16" fill="#9ba9c4"/>
+   <g transform="translate(45 390)"><path d="M92 124V38" stroke="#435976" stroke-width="15"/><path d="M10 37L173 21L190 111L28 126Z" fill="#274d8c" stroke="#d0e7fb" stroke-width="9"/><path d="M45 33L63 124M92 28L109 116M135 25L151 112M18 79L184 64" stroke="#91c8ed" stroke-width="6"/><text x="99" y="164" text-anchor="middle" class="label-svg">PANELES SOLARES</text></g>
+   <path d="M300 519L489 519L822 520" fill="none" stroke="#3c6389" stroke-width="17"/>
+   <path d="M300 519L489 519L822 520" fill="none" stroke="#88d7f9" stroke-width="5" stroke-dasharray="11 13" class="beam"/>
+   <g transform="translate(390 410)" id="shelterArt">
+     <path d="M-12 129V89Q0 0 111 0Q224 3 233 89V129Z" fill="#d9d4ce" stroke="#8c9da4" stroke-width="13"/>
+     <path d="M6 91Q37 19 110 21Q188 19 216 91" fill="none" stroke="#beb2a4" stroke-width="30"/>
+     <rect x="74" y="64" width="82" height="65" rx="24" fill="#435c78" stroke="#d5e1e9" stroke-width="9"/>
+     <path d="M91 91L112 73L138 91V109L112 127L91 107Z" fill="#ffd379"/>
+     <text x="112" y="166" text-anchor="middle" class="label-svg">REFUGIO</text>
+   </g>
+   <path id="rayShield" d="M383 543Q362 364 503 368Q666 372 642 544" fill="none" stroke="#b6fff2" stroke-width="14" stroke-dasharray="15 15" opacity="0" style="transition:opacity 1s"/>
+   <g transform="translate(802 397)" id="farmArt">
+     <path d="M0 130V100Q0 11 104 12Q216 12 221 101V130Z" fill="url(#greenhouse)" stroke="#b4d5e4" stroke-width="13"/>
+     <path d="M13 100Q31 26 107 25Q184 27 209 100" fill="#395a87" stroke="#90cdd5" stroke-width="5"/>
+     <path d="M64 101V42M109 101V23M158 100V40" stroke="#a7e8e3" stroke-width="7"/>
+     <rect x="23" y="108" width="174" height="29" rx="10" fill="#947ba8"/>
+     <g id="growPlant" style="transform-origin:110px 105px;transition:transform 1s,opacity 1s" transform="translate(0 0)">
+       <path d="M105 112V70" stroke="#82d8a7" stroke-width="9"/>
+       <path d="M106 94Q76 63 67 84Q80 104 106 94M107 85Q123 58 149 70Q143 96 107 95" fill="#73e6ae"/>
+       <circle cx="104" cy="69" r="11" fill="#ffae78"/>
+     </g>
+     <g id="farmLight" opacity="1" style="transition:opacity .7s"><path d="M40 39L65 114M105 26L105 112M171 40L149 109" stroke="#f5aaff" stroke-width="19" opacity=".47"/></g>
+     <text x="110" y="163" text-anchor="middle" class="label-svg">HUERTO</text>
+   </g>
+   <g id="walker" data-interact="walk" role="button" tabindex="0" class="svg-hot pulse" aria-label="Llevar al astronauta al refugio" transform="translate(710 500)" style="transition:opacity 1s,transform 1s">
+     <circle class="tap-ring" cy="-45" r="76"/><path d="M-14 8L-25 48M14 8L24 48M-17 -8L-38 15M17 -8L38 15" stroke="#e3f2ff" stroke-width="14" stroke-linecap="round"/><rect x="-29" y="-27" width="58" height="69" rx="17" fill="#e1f1fc" stroke="#7794b0" stroke-width="7"/><circle cx="0" cy="-69" r="47" fill="#f7fcff" stroke="#a4bacc" stroke-width="9"/><path d="M-33 -80Q0 -111 32 -79V-54Q0 -30 -33 -52Z" fill="#345476"/><circle cx="10" cy="8" r="9" fill="#ffc572"/>
+   </g>
+   <g id="radiation" style="opacity:1;transition:opacity 1s">
+     <path d="M915 83L712 427M1023 99L800 434M1113 162L915 432M863 72L639 427" stroke="#ff9da8" stroke-width="9" opacity=".72" class="beam"/>
+     <path d="M915 83L712 427M1023 99L800 434M1113 162L915 432M863 72L639 427" stroke="#ffe3b3" stroke-width="3" opacity=".8" class="beam"/>
+   </g>
+   <g id="stormBubble" opacity="1" style="transition:opacity .6s"><rect x="747" y="139" width="306" height="67" rx="21" fill="#642c4b" stroke="#ffb4b6" stroke-width="4"/><text x="900" y="184" text-anchor="middle" font-size="21" font-family="Space Grotesk" font-weight="700" fill="#ffdfd9">⚠ RADIACIÓN SOLAR</text></g>
+   <g id="safeBubbles" opacity="0" style="transition:opacity 1s"><circle cx="514" cy="397" r="17" fill="#86f7d0" class="pulse"/><circle cx="546" cy="404" r="13" fill="#a3ffe4" class="pulse"/><text x="518" y="374" class="label-svg" text-anchor="middle">A SALVO ✓</text></g>
+  </svg>
+ </section>
+ <div class="floating-card"><div class="chapter" id="chapterLabel">ARCHIVO REAL · 1970</div><h1 id="stageTitle">Hay oxígeno.<br>¿Por qué no pueden respirar?</h1><p id="stageSubtitle">La tripulación se siente mal. Mira los indicadores: O₂ está bien, pero algo invisible se acumula...</p></div>
+ <div class="radar" id="radar"><i class="point"></i><span id="radarText">CO₂ ALTO · O₂ NORMAL</span></div>
+ <div class="discovery"><b>✦</b><span>DESCUBRIMIENTOS</span><span class="pips" id="pips"><i></i><i></i><i></i></span></div>
+ <div class="edge-fact" id="worldNote">Recreación didáctica · Inspirado en tecnología y eventos reales de NASA</div>
 </div>
-<div class="command">
-  <div class="power-pick">
-   <div class="command-title"><span>① Elige qué edificios encender</span><span class="powerchips" id="powerchips"></span></div>
-   <div class="buttons" id="buttons">
-    <button class="machinebtn" data-key="air" aria-pressed="false"><strong>🫧</strong>Aire</button>
-    <button class="machinebtn" data-key="water" aria-pressed="false"><strong>💧</strong>Agua</button>
-    <button class="machinebtn" data-key="farm" aria-pressed="false"><strong>🌱</strong>Huerto</button>
-    <button class="machinebtn" data-key="shield" aria-pressed="false"><strong>🛡️</strong>Refugio</button>
-   </div>
-  </div>
-  <div class="spend"><span style="font-size:28px">🔋</span><span class="spend-info"><b>Baterías extra</b><small id="batteryText">2 disponibles</small></span><button class="boost" id="boost" aria-pressed="false">+1 ⚡</button></div>
-  <button class="advance" id="advance">② Vivir este día ▶</button>
+<div class="bottom">
+ <div class="guide"><div class="guide-avatar"><div class="visor"><i></i><i></i></div></div><div class="guide-copy"><small>NOVA · COPILOTO</small><strong id="guideText">Prueba lo que te parezca lógico.</strong></div></div>
+ <div class="actions" id="actions"></div>
+ <div class="statusToast" id="toast" role="status" aria-live="polite" hidden></div>
 </div>
-<div class="preview" id="preview" aria-live="polite"><span>💡</span><span>Enciende edificios para ver qué producen.</span></div>
-</main>
-<div class="foot"><span>PlutoCore Lab · Demostración conceptual, no entrega oficial</span><span>Valores simplificados e inventados; conceptos inspirados en <a href="https://www.nasa.gov/reference/environmental-control-and-life-support-systems-eclss/" rel="noopener noreferrer" target="_blank">NASA ECLSS ↗</a> y <a href="https://science.nasa.gov/mission/veggie/" rel="noopener noreferrer" target="_blank">Veggie ↗</a></span></div>
 </div>
-<div class="overlay" id="intro" role="dialog" aria-modal="true" aria-labelledby="introTitle">
- <div class="modal"><div class="mini">OPERACIÓN PRIMER BROTE</div><div class="comic"><span>🌕</span><b>📡 SOS</b><span>🚀</span></div><h1 id="introTitle">¡Una base lunar te necesita!</h1>
- <p>Se dañó parte del sistema eléctrico. La nave de ayuda llega en <b>5 días</b>.</p>
- <p>Cuida a <b>4 astronautas</b> y consigue la <b>primera cosecha</b> antes del rescate.</p>
- <button class="cta" id="start">🚀 ¡Acepto la misión!</button><span class="hintchip">👆 Enciende equipos</span><span class="hintchip">☀️ Energía limitada</span><span class="hintchip">▶ Avanza un día</span>
- </div>
+<div class="hero-home" id="intro">
+ <svg class="hero-art" viewBox="0 0 1200 760" preserveAspectRatio="xMidYMid slice"><circle cx="928" cy="352" r="277" fill="#9bb6ca" opacity=".86"/><circle cx="824" cy="242" r="66" fill="#738daa"/><circle cx="1016" cy="404" r="84" fill="#718ba5"/><circle cx="921" cy="502" r="45" fill="#6f88a6"/><circle cx="158" cy="137" r="4" fill="white"/><circle cx="203" cy="300" r="3" fill="#ffc78d"/><circle cx="111" cy="610" r="4" fill="white"/><circle cx="385" cy="72" r="3" fill="white"/><path d="M686 553L735 487L789 516L813 592Z" fill="#c3e2e9" opacity=".9"/><path d="M630 608V555Q660 480 723 478Q802 484 832 558V608Z" fill="#8aaec0" stroke="#e2eff7" stroke-width="9"/><path d="M665 551Q707 500 783 547" fill="none" stroke="#416888" stroke-width="14"/></svg>
+ <div class="hero-body"><div class="over">PLUTOCORE · EXPLORACIÓN INTERACTIVA</div><h1>Lo que <em>no se ve.</em></h1><p>¿Y si pudieras probar los secretos que salvaron a astronautas reales... para construir tu propia base lunar?</p><button id="start">🚀 Empezar a descubrir</button><div class="meta">3 misterios · Sin exámenes · Tus ideas cambian lo que ves</div></div>
 </div>
-<div class="overlay" id="reportOverlay" role="dialog" aria-modal="true" aria-labelledby="reportTitle" hidden>
- <div class="modal green"><div class="mini" id="reportStep">DÍA TERMINADO</div><div class="badge" id="reportEmoji">🛰️</div><h2 id="reportTitle">¿Qué ocurrió?</h2><p id="reportStory"></p><div class="report" id="reportDeltas"></div><div class="lesson" id="lesson"></div><button class="cta" id="reportNext">Seguir misión →</button></div>
-</div>
-<div class="overlay" id="finalOverlay" role="dialog" aria-modal="true" aria-labelledby="endTitle" hidden>
- <div class="modal green"><div class="mini">INFORME DE LA BASE PLUTO-01</div><div class="badge" id="endEmoji">🏆</div><h2 id="endTitle">¡Misión cumplida!</h2><p id="endText"></p><div class="conclusion" id="endSummary"></div><button class="cta" id="again">↻ Probar otra estrategia</button><span class="hintchip">Tus decisiones cambian el resultado</span></div>
-</div>
-<div class="overlay" id="helpOverlay" role="dialog" aria-modal="true" aria-labelledby="helpTitle" hidden><div class="modal">
- <h2 id="helpTitle">¿Cómo se juega?</h2><div class="comic"><span>⚡</span><span>🏠</span><span>🌱</span></div>
- <p><b>1.</b> Elige edificios. Cada uno consume una energía.</p><p><b>2.</b> Pasa un día. Los astronautas consumen aire, agua y comida.</p><p><b>3.</b> Llega al rescate con tu tripulación y una cosecha.</p>
- <button class="cta" id="closeHelp">¡Entendido!</button>
- </div></div>
-<div class="toast" id="toast" hidden></div>
+<div class="scrim" id="reveal" hidden><div class="modal"><span class="giant" id="revealIcon">💡</span><div class="eyebrow" id="revealEyebrow">DESCUBRIMIENTO 1 / 3</div><h2 id="revealTitle">¡Ese era el secreto!</h2><p id="revealExplanation"></p><div class="real" id="revealReal"></div><div class="reward"><span id="unlocked">🔓 Sistema desbloqueado</span></div><button class="cta" id="continue">Continuar aventura →</button><div class="source" id="revealSource"></div></div></div>
+<div class="scrim" id="end" hidden><div class="modal"><span class="giant">🌙</span><div class="eyebrow">MISIÓN PLUTOCORE COMPLETADA</div><h2>Ya sabes lo que otros no ven.</h2><p>Tu base lunar ahora tiene aire limpio, agua reciclada y un refugio para la tripulación.</p><div class="end-icons"><span title="Aire limpio">🫧</span><span title="Reciclaje de agua">💧</span><span title="Protección">🛡️</span></div><p class="tiny">Todos estos descubrimientos se apoyan en tecnología espacial real. La base lunar del juego es ficticia.</p><button class="cta" id="replay">↻ Volver a experimentar</button></div></div>
 <script>
 (function(){
 'use strict';
-const $=id=>document.getElementById(id);
-const days=[
- {sun:2,weather:'☀️ Despejado',note:'Primer día: necesitamos agua y aire.',hint:'🌱 Si plantas pronto, cosecharás antes.'},
- {sun:3,weather:'☀️ Mucho Sol',note:'¡Aprovecha la energía! La comida empezará a escasear.',hint:'🌱 Una cosecha necesita 2 días de luz.'},
- {sun:3,weather:'⛅ Sol variable',note:'Mañana habrá una tormenta de radiación.',hint:'🛡️ Prepárate para dar energía al refugio.'},
- {sun:1,weather:'☄️ Tormenta solar',note:'¡Radiación peligrosa! El refugio necesita energía.',hint:'🛡️ Sin refugio, la tripulación está en peligro.'},
- {sun:2,weather:'🌤️ Sale el Sol',note:'¡Último día! La nave de ayuda está cerca.',hint:'🚀 Mantén tus reservas hasta el rescate.'}
+const by=id=>document.getElementById(id);
+let stage=0,phase=0,seenOxygen=false,triedTrash=false,seenFarm=false,unlocked=[false,false,false],finished=false,muted=false,timer=null,audioCtx=null;
+const stageTitles=[
+ ['ARCHIVO REAL · APOLLO 13 · 1970','Hay oxígeno.<br>¿Por qué se marean?','Tres astronautas respiran, pero el aire se vuelve peligroso. Mira lo que está pasando.'],
+ ['TECNOLOGÍA REAL · ESTACIÓN ESPACIAL','¿El agua usada<br>puede salvarte?','En el espacio no puedes abrir un grifo. Explora lo que pasa con el agua de la tripulación.'],
+ ['BASE LUNAR · SIMULACIÓN FUTURA','Una amenaza<br>que nadie puede ver.','Se acerca una tormenta solar. Solo hay energía suficiente para el huerto o el refugio.']
 ];
-let day=0,res={},on=new Set(),boost=false,batteries=2,growth=0,harvests=0,crew=4,history=[],done=false,played=false;
-const MAX=7;
-function reset(){
- day=0;res={air:3,water:3,food:3};on=new Set();boost=false;batteries=2;growth=0;harvests=0;crew=4;history=[];done=false;played=true;
- $('intro').hidden=true;$('finalOverlay').hidden=true;$('reportOverlay').hidden=true;$('helpOverlay').hidden=true;
- update();
-}
-function cap(n){return Math.min(MAX,Math.max(0,n));}
-function solar(){return days[day].sun;}
-function allowance(){return solar()+(boost?1:0);}
-function tell(s){$('toast').textContent=s;$('toast').hidden=false;setTimeout(()=>$('toast').hidden=true,2200);}
-function toggle(k){
- if(done||!played)return;
- if(on.has(k))on.delete(k);
- else if(on.size>=allowance()){tell('⚡ No hay más energía. Apaga otro equipo o usa una batería.');return;}
- else on.add(k);
- update();
-}
-function useBoost(){
- if(done||!played)return;
- if(boost){boost=false;}else if(batteries>0){boost=true;}else{tell('🔋 Ya no quedan baterías de reserva.');}
- if(on.size>allowance()){on.delete(Array.from(on).pop());}
- update();
-}
-function preview(){
- let waters=res.water-1+(on.has('water')?2:0);
- let canGrow=waters>0;
- let airs=res.air-1+(on.has('air')&&canGrow?2:0);
- let foods=res.food-1+((on.has('farm')&&growth>=1&&canGrow)?4:0);
- let extras=[];
- extras.push('🫧 '+(airs>res.air?'+':airs<res.air?'−':'=')+(Math.abs(airs-res.air))+' aire');
- extras.push('💧 '+(waters>res.water?'+':waters<res.water?'−':'=')+Math.abs(waters-res.water)+' agua');
- extras.push('🍞 '+(foods>res.food?'+':foods<res.food?'−':'=')+Math.abs(foods-res.food)+' comida');
- let text='Hoy: '+extras.join(' · ');
- if(day===3&&!on.has('shield'))text+=' · ⚠️ Sin refugio';
- if(on.has('farm')&&growth===0&&waters>0)text+=' · 🌱 Siembras';
- if(waters<=0&&(on.has('air')||on.has('farm')))text+=' · ⚠️ ¡Falta agua!';
- return text;
+const sources=[
+ {label:'NASA · Apollo 13',url:'https://www.nasa.gov/missions/apollo/apollo-13-mission-details/'},
+ {label:'NASA · Soporte vital ECLSS',url:'https://www.nasa.gov/reference/environmental-control-and-life-support-systems-eclss/'},
+ {label:'NASA · Protección lunar',url:'https://science.nasa.gov/science-research/heliophysics/how-nasa-will-protect-astronauts-from-space-radiation-at-the-moon/'}
+];
+const facts=[
+ {icon:'🛠️',title:'¡El problema no era el oxígeno!',exp:'Los astronautas expulsan CO₂ al respirar. Si no se filtra, el aire puede volverse peligroso aunque aún haya oxígeno.',real:'APOLLO 13, 1970 · NASA resolvió un problema real: adaptó un filtro cuadrado a una conexión redonda utilizando materiales disponibles, incluida cinta adhesiva.',reward:'🫧 Has desbloqueado aire limpio'},
+ {icon:'💧',title:'¡El agua puede volver a ser aire!',exp:'El agua usada se puede purificar. Parte del agua recuperada también puede separarse mediante electrólisis para producir oxígeno.',real:'EN LA ESTACIÓN ESPACIAL · NASA recupera agua de la humedad y de residuos tratados; el sistema de generación de oxígeno utiliza agua recuperada.',reward:'💧 Has desbloqueado reciclaje de agua'},
+ {icon:'🛡️',title:'¡Salvaste personas y plantas!',exp:'Un refugio con blindaje ayuda a proteger de una tormenta solar. La energía es limitada: a veces conviene pausar cultivos y recuperarlos después.',real:'BASE LUNAR FUTURA · Esta situación es ficticia, pero NASA estudia refugios con materiales protectores, incluso suelo lunar. Los cultivos reales usan luces LED.',reward:'🛡️ Has desbloqueado refugio lunar'}
+];
+const actionsFor=()=>{
+ if(stage===0){
+  if(phase===0)return [{id:'oxygen',icon:'🫧',title:'Añadir oxígeno',sub:'¿Será suficiente?'},{id:'filter',icon:'▣',title:'Probar el filtro',sub:'La pieza es cuadrada',primary:true}];
+  return [{id:'tape',icon:'🟨',title:'Usar cinta adhesiva',sub:'Adaptar la pieza al tubo redondo',primary:true}];
+ }
+ if(stage===1){
+  if(phase===0)return [{id:'discard',icon:'🗑️',title:'Desechar agua',sub:'¿Y después?'},{id:'recycle',icon:'💧',title:'Purificar agua',sub:'Probar la máquina',primary:true}];
+  return [{id:'electrolysis',icon:'⚡',title:'Hacer oxígeno',sub:'Con el agua recuperada',primary:true}];
+ }
+ if(phase===0)return [{id:'keepFarm',icon:'🌱',title:'Seguir cultivando',sub:'Mantener las luces'},{id:'shelter',icon:'🛡️',title:'Preparar refugio',sub:'Dar energía a su ventilación',primary:true}];
+ if(phase===1)return [{id:'walk',icon:'🧑‍🚀',title:'Llevar al refugio',sub:'Proteger a la tripulación',primary:true}];
+ return [{id:'farmBack',icon:'🌱',title:'Reactivar cultivo',sub:'La tormenta ya pasó',primary:true}];
+};
+const guides=()=>{
+ if(stage===0)return phase===0?(seenOxygen?'Hay oxígeno suficiente. ¿Y el CO₂?':'Mira: el O₂ está bien, pero el CO₂ sube.'):'El cuadrado no entra en el círculo. ¿Cómo lo adaptarías?';
+ if(stage===1)return phase===0?(triedTrash?'Si la tiras, pierdes recursos. ¿La reutilizamos?':'¿Podremos aprovechar esa agua otra vez?'):'Ya es agua limpia. ¿Sabes qué más puede producir?';
+ return phase===0?(seenFarm?'El huerto crece, pero hay radiación fuera.':'¿A quién darías la energía limitada?'):phase===1?'El refugio está preparado. Falta la tripulación.':'¡Están a salvo! La tormenta pasó. ¿Y los cultivos?';
+};
+const radarTexts=()=>{
+ if(stage===0)return phase===0?'O₂ NORMAL · CO₂ EN AUMENTO':'FILTRO □  →  TOMA ○';
+ if(stage===1)return phase===0?'AGUA USADA · RESERVAS BAJAS':'AGUA PURIFICADA ✓';
+ return phase===0?'ALERTA · TORMENTA SOLAR':phase===1?'REFUGIO PREPARADO':'TRIPULACIÓN PROTEGIDA ✓';
+};
+let oldToast=0;function notify(txt){by('toast').hidden=false;by('toast').textContent=txt;clearTimeout(timer);timer=setTimeout(()=>by('toast').hidden=true,2500);}
+function beep(freq=480,time=.10){
+ if(muted)return;
+ try{const C=window.AudioContext||window.webkitAudioContext;if(!C)return;audioCtx=audioCtx||new C();const o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type='sine';o.frequency.setValueAtTime(freq,audioCtx.currentTime);g.gain.setValueAtTime(.065,audioCtx.currentTime);g.gain.exponentialRampToValueAtTime(.001,audioCtx.currentTime+time);o.connect(g);g.connect(audioCtx.destination);o.start();o.stop(audioCtx.currentTime+time);}catch(e){}
 }
 function update(){
- $('daydots').innerHTML=days.map((d,i)=>'<span class="'+(i<day?'past':i===day?'current':'')+'">'+(i<day?'✓':i+1)+'</span>').join('');
- $('countdown').textContent='DÍA '+(5-day);
- $('eyebrow').textContent='DÍA '+(day+1)+' DE 5 · BASE PLUTO-01';
- $('headline').textContent=days[day].note;
- $('subline').textContent=day===3?'¡La tormenta ya está aquí!':'Dos objetivos: tripulación viva + primera cosecha.';
- $('weather').textContent=days[day].weather+' · '+solar()+' ⚡';
- $('world').classList.toggle('storm',day===3);
- $('sun').style.opacity=day===3?'.22':'1';
- $('forecast').innerHTML=days[day].hint;
- $('crewCount').textContent=crew+' / 4';
- $('crewIcons').innerHTML=['🧑‍🚀','👩‍🚀','🧑‍🚀','👩‍🚀'].map((x,i)=>'<span class="'+(i>=crew?'lost':'')+'">'+x+'</span>').join('');
- const names={air:'🫧 Aire',water:'💧 Agua',food:'🍞 Comida'};
- $('resources').innerHTML=['air','water','food'].map(k=>'<div class="res"><label>'+names[k]+'</label><div class="tokens">'+Array.from({length:7},(_,i)=>'<span class="'+(i>=res[k]?'spent':'')+'">'+({air:'🫧',water:'💧',food:'🍞'}[k])+'</span>').join('')+'</div></div>').join('');
- $('farmtrack').innerHTML='<span class="grown">🌰</span><span class="'+(growth>=1?'grown':'')+'">🌱</span><span class="'+(growth>=2||harvests>0?'grown':'')+'">🍅</span>';
- $('farmtext').textContent=harvests>0?'✅ ¡Cosecha conseguida! '+harvests+' cosecha(s)':growth===1?'🌱 ¡Un día más de huerto para cosechar!':'Necesitas 2 días de cultivo con energía.';
- $('plantVisual').setAttribute('class','plant g'+(harvests>0?3:growth));
- $('fruitVisual').setAttribute('class','fruit'+(harvests>0?' show':''));
- const level=cap(res.water)/7;
- $('tankFill').setAttribute('y',String(95-79*level));
- $('tankFill').setAttribute('height',String(79*level));
- $('crewCount').setAttribute('aria-label',crew+' astronautas a salvo');
- for(let i=0;i<4;i++)$('person'+i).setAttribute('class','astro'+(i>=crew?' injured':''));
- const keys=['air','water','farm','shield'];
- for(const k of keys){
-  const b=document.querySelector('.machinebtn[data-key="'+k+'"]');
-  b.classList.toggle('on',on.has(k));b.setAttribute('aria-pressed',String(on.has(k)));
-  const visual=$(k+'Scene');visual.classList.toggle('on',on.has(k));
-  visual.classList.toggle('selected',on.has(k));
+ const txt=stageTitles[stage];by('chapterLabel').textContent=txt[0];by('stageTitle').innerHTML=txt[1];by('stageSubtitle').textContent=txt[2];by('guideText').textContent=guides();by('radarText').textContent=radarTexts();
+ by('radar').classList.toggle('ok',phase>0);
+ for(let i=0;i<3;i++){by('scene'+i).classList.toggle('active',i===stage);by('track'+i).classList.toggle('active',i===stage);by('track'+i).classList.toggle('done',i<stage);by('track'+i).querySelector('.ring').textContent=i<stage?'✓':String(i+1);}
+ by('pips').innerHTML=unlocked.map(v=>'<i class="'+(v?'on':'')+'"></i>').join('');
+ by('actions').innerHTML=actionsFor().map(a=>'<button type="button" class="action '+(a.primary?'primary':'soft')+'" data-action="'+a.id+'"><span class="emoji">'+a.icon+'</span><span><strong>'+a.title+'</strong><small>'+a.sub+'</small></span></button>').join('');
+ by('filterObject').style.opacity=stage===0&&phase===0?'1':'0';by('filterObject').style.pointerEvents=stage===0&&phase===0?'auto':'none';
+ by('tapeObject').style.opacity=stage===0&&phase===1?'1':'0';by('tapeObject').style.pointerEvents=stage===0&&phase===1?'auto':'none';
+ by('fogGroup').style.opacity=stage===0&&!unlocked[0]?'1':'0';by('co2Meter').setAttribute('width',unlocked[0]?'14':'166');by('co2Readout').textContent=unlocked[0]?'CO₂ ✓':'CO₂ ↑';
+ by('cleanSpark').style.opacity=unlocked[0]?'1':'0';
+ const clean=stage===1&&phase>0;
+ by('waterFlow0').style.opacity=clean?'1':'.1';by('waterFlow1').style.opacity=clean?'1':'.1';by('recyclerWave').style.opacity=clean?'1':'.15';
+ by('cleanFill').setAttribute('y',clean?'11':'138');by('cleanFill').setAttribute('height',clean?'127':'0');
+ by('oxygenBubbles').style.opacity=unlocked[1]?'1':'0';by('airFlow').style.opacity=unlocked[1]?'1':'0';
+ by('farmLight').style.opacity=stage===2&&phase>=1&&phase<3?'0':'1';by('growPlant').style.transform=stage===2&&phase>=1&&phase<3?'scale(.65)':'scale(1)';
+ by('rayShield').style.opacity=stage===2&&phase>=1?'1':'0';by('walker').style.opacity=stage===2&&phase>=2?'0':'1';by('walker').style.pointerEvents=stage===2&&phase<2?'auto':'none';
+ by('radiation').style.opacity=stage===2&&phase>=2?'0':'1';by('stormBubble').style.opacity=stage===2&&phase>=2?'0':'1';by('safeBubbles').style.opacity=stage===2&&phase>=2?'1':'0';
+ by('worldNote').textContent=stage===2?'Base lunar del futuro: escenario ficticio, física simplificada':'Inspirado en hechos y tecnología documentados por NASA';
+}
+function reveal(){
+ unlocked[stage]=true;beep(760,.18);update();
+ const fact=facts[stage],s=sources[stage];
+ by('revealIcon').textContent=fact.icon;by('revealEyebrow').textContent='DESCUBRIMIENTO '+(stage+1)+' / 3';by('revealTitle').textContent=fact.title;by('revealExplanation').textContent=fact.exp;
+ by('revealReal').textContent=fact.real;by('unlocked').textContent=fact.reward;
+ by('revealSource').innerHTML='Fuente real: <a target="_blank" rel="noopener noreferrer" href="'+s.url+'">'+s.label+' ↗</a>';
+ by('continue').textContent=stage===2?'Ver mi base lunar →':'Continuar al siguiente misterio →';
+ by('reveal').hidden=false;
+}
+function action(which){
+ if(finished||!by('intro').hidden||!by('reveal').hidden)return;
+ if(stage===0){
+  if(phase===0){
+   if(which==='oxygen'){seenOxygen=true;beep(250);notify('🫧 Subió el oxígeno... ¡pero el CO₂ sigue ahí!');update();}
+   if(which==='filter'){phase=1;beep(330);notify('▣ No encaja: filtro cuadrado, entrada redonda.');update();}
+  }else if(which==='tape'){reveal();}
+  return;
  }
- $('flowAir').classList.toggle('on',on.has('air'));$('flowWater').classList.toggle('on',on.has('water'));$('flowGrow').classList.toggle('on',on.has('farm'));
- $('shieldfield').setAttribute('class','shieldfield'+(on.has('shield')?' on':''));
- $('powerchips').innerHTML=Array.from({length:allowance()},(_,i)=>'<span>'+(i<on.size?'⚡':'○')+'</span>').join('');
- $('batteryText').textContent=batteries+' disponibles';
- $('boost').classList.toggle('on',boost);$('boost').textContent=boost?'✓ +1 ⚡':'+1 ⚡';$('boost').setAttribute('aria-pressed',String(boost));
- $('boost').disabled=batteries===0&&!boost;
- $('preview').innerHTML='<span>🔎</span><b>'+preview()+'</b>';
- $('advance').disabled=on.size===0||done;
- $('sceneHint').textContent=day===3?'☄️ Radiación: protege a tus astronautas':'👆 Toca edificios: la energía es limitada';
-}
-const lessons=[
- {text:'Las bases necesitan electricidad para reciclar agua y mantener aire respirable.',url:'https://www.nasa.gov/reference/environmental-control-and-life-support-systems-eclss/'},
- {text:'Las plantas en el espacio necesitan luz y agua. Cultivar comida requiere tiempo.',url:'https://science.nasa.gov/mission/veggie/'},
- {text:'Un sistema de soporte vital conecta necesidades: aire, agua, energía y alimentos.',url:'https://www.nasa.gov/reference/environmental-control-and-life-support-systems-eclss/'},
- {text:'La radiación solar es invisible. Un refugio bien protegido reduce la exposición.',url:'https://www.nasa.gov/humans-in-space/space-radiation/'},
- {text:'La energía almacenada ayuda a mantener equipos cuando llega poca luz solar.',url:'https://science.nasa.gov/moon/'}
-];
-function resolve(){
- if(done||on.size===0)return;
- const old={...res};
- let events=[],what=[];
- const powerSpent=boost?1:0;
- // Consumos diarios: la tripulación respira, bebe y come. Las máquinas producen/reponen.
- res.water=cap(res.water-1+(on.has('water')?2:0));
- const waterAvailable=res.water>0;
- res.air=cap(res.air-1+(on.has('air')&&waterAvailable?2:0));
- res.food=cap(res.food-1);
- if(on.has('air'))events.push(waterAvailable?'🫧 El generador de oxígeno funcionó gracias al agua disponible.':'⚠️ Sin agua, el generador de oxígeno no pudo funcionar.');
- if(on.has('water'))events.push('💧 El reciclador devolvió agua limpia a los depósitos.');
- if(on.has('farm')&&waterAvailable){
-  growth++;
-  if(growth>=2){
-   growth=0;harvests++;res.food=cap(res.food+4);events.push('🍅 ¡Las plantas dieron una cosecha! Ahora hay comida fresca.');
-  }else events.push('🌱 Los cultivos están creciendo. Necesitan otro día de energía.');
- }else if(on.has('farm')&&!waterAvailable){events.push('⚠️ Las plantas no crecieron: necesitaban agua.');}
- else if(growth>0)events.push('🌱 El huerto sigue esperando luz para completar la cosecha.');
- if(day===3){
-  if(on.has('shield'))events.unshift('🛡️ ¡El refugio protegió a la tripulación de la tormenta solar!');
-  else{crew=Math.max(0,crew-2);events.unshift('☄️ ¡Radiación! Dos astronautas quedaron incapacitados sin el refugio.');}
+ if(stage===1){
+  if(phase===0){
+   if(which==='discard'){triedTrash=true;beep(240);notify('🗑️ Si tiramos agua, no podemos recuperarla.');update();}
+   if(which==='recycle'){phase=1;beep(590);notify('💧 ¡El agua vuelve limpia al depósito!');update();}
+  }else if(which==='electrolysis'){reveal();}
+  return;
  }
- if(powerSpent){batteries--;events.push('🔋 Gastaste una batería de emergencia.');}
- if(res.air===0){crew=Math.max(0,crew-1);events.push('🫧 Faltó aire: un astronauta necesita atención.');}
- if(res.water===0){crew=Math.max(0,crew-1);events.push('💧 Faltó agua: un astronauta necesita atención.');}
- if(res.food===0){crew=Math.max(0,crew-1);events.push('🍞 Se acabaron las raciones: un astronauta necesita atención.');}
- const changes=['air','water','food'].filter(k=>old[k]!==res[k]).map(k=>'<span>'+({air:'🫧',water:'💧',food:'🍞'}[k])+' '+(res[k]-old[k]>0?'+':'')+(res[k]-old[k])+'</span>');
- history.push({day:day+1,changes,crew,harvests});
- $('reportStep').textContent='DÍA '+(day+1)+' COMPLETADO';
- $('reportEmoji').textContent=crew===0?'🚨':day===3?'☄️':harvests>0?'🍅':'🌙';
- $('reportTitle').textContent=crew===0?'¡Emergencia en la base!':day===3?'¡Pasó la tormenta!':harvests>0?'¡Tu base progresa!':'¡Un día menos para el rescate!';
- const important=events.filter(e=>/¡|⚠️|cosecha|tormenta|faltó|acabaron|incapacitados/i.test(e));
- $('reportStory').textContent=(important.length?important:events).slice(0,2).join(' ')||'Los astronautas consumieron sus reservas de hoy.';
- $('reportDeltas').innerHTML=changes.join('')+(crew<4?'<span>🧑‍🚀 '+crew+'/4</span>':'');
- const lesson=lessons[day];
- $('lesson').innerHTML='<strong>💡 ¿Sabías que...?</strong> '+lesson.text+'<div><a href="'+lesson.url+'" target="_blank" rel="noopener noreferrer">Ver explicación de NASA ↗</a></div>';
- $('reportNext').textContent=day===4||crew===0?'Ver resultado →':'Ir al día '+(day+2)+' →';
- $('reportOverlay').hidden=false;
- boost=false;on.clear();
- // Si terminamos o todos fuera, mostramos el resultado tras informe.
- if(day===4||crew===0){done=true;return;}
- day++;
- update();
+ if(phase===0){
+  if(which==='keepFarm'){seenFarm=true;beep(230);notify('🌱 El huerto sigue... pero la tripulación necesita refugio.');update();}
+  if(which==='shelter'){phase=1;beep(580);notify('⚡ Las luces del huerto se apagan. Refugio preparado.');update();}
+ }else if(phase===1){
+  if(which==='walk'){phase=2;beep(730);notify('🛡️ ¡La tripulación está detrás del blindaje!');update();}
+ }else if(phase===2){
+  if(which==='farmBack'){phase=3;reveal();}
+ }
 }
-function finish(){
- $('reportOverlay').hidden=true;$('finalOverlay').hidden=false;
- const success=crew===4&&harvests>0;const partial=crew>=3&&harvests>0;
- $('endEmoji').textContent=success?'🏆':partial?'🌗':'🚨';
- $('endTitle').textContent=success?'¡Misión perfecta!':partial?'¡Misión sobrevivida!':'¡Puedes hacerlo mejor!';
- $('endText').textContent=success?'Rescataste a los 4 astronautas y cosechaste alimento fresco antes de la llegada de la nave.':partial?'La ayuda llegó y lograste cultivar, aunque algunos astronautas tuvieron dificultades.':'¿Qué faltó? Gestiona mejor los recursos, planifica la cosecha y prepárate para la tormenta.';
- $('endSummary').textContent='👩‍🚀 Tripulación: '+crew+'/4    ·    🍅 Cosechas: '+harvests+'    ·    🔋 Baterías restantes: '+batteries;
+by('actions').addEventListener('click',e=>{const b=e.target.closest('[data-action]');if(b)action(b.dataset.action);});
+for(const b of document.querySelectorAll('[data-interact]')){
+ b.addEventListener('click',()=>action(b.dataset.interact));
+ b.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();action(b.dataset.interact);}});
 }
-document.querySelectorAll('.machinebtn').forEach(b=>b.addEventListener('click',()=>toggle(b.dataset.key)));
-document.querySelectorAll('.machine').forEach(b=>{
- b.addEventListener('click',()=>toggle(b.dataset.key));
- b.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();toggle(b.dataset.key);}});
+function begin(){stage=0;phase=0;seenOxygen=false;triedTrash=false;seenFarm=false;unlocked=[false,false,false];finished=false;by('end').hidden=true;by('reveal').hidden=true;by('intro').hidden=true;by('toast').hidden=true;update();}
+by('start').addEventListener('click',begin);
+by('continue').addEventListener('click',()=>{
+ by('reveal').hidden=true;
+ if(stage===2){finished=true;by('end').hidden=false;return;}
+ stage++;phase=0;update();
 });
-$('boost').addEventListener('click',useBoost);
-$('advance').addEventListener('click',resolve);
-$('reportNext').addEventListener('click',()=>{if(done)finish();else{$('reportOverlay').hidden=true;update();}});
-$('again').addEventListener('click',reset);
-$('start').addEventListener('click',reset);
-$('helpBtn').addEventListener('click',()=>{$('helpOverlay').hidden=false;});
-$('closeHelp').addEventListener('click',()=>{$('helpOverlay').hidden=true;});
+by('replay').addEventListener('click',begin);
+by('sound').addEventListener('click',()=>{muted=!muted;by('sound').textContent=muted?'🔇':'🔊';by('sound').setAttribute('aria-label',muted?'Activar sonido':'Desactivar sonido');});
 update();
 })();
-</script></body></html>
+</script>
+</body></html>
