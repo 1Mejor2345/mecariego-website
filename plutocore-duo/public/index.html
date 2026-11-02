@@ -96,7 +96,9 @@ for(let i=0;i<6;i++)el('p'+i).className='step '+(phase>i?'done':phase===i?'curre
 el('oxygenLevel').textContent='96 %';el('co2Level').textContent=phase===0?'???':phase===1?'ALTO':phase===2?'PELIGRO':Math.max(2,Math.round(83-(lastState.air||0)*.8))+' %';
 const progress=[Math.round((lastState.hold||0)/250*100)+'%','Sensores '+(Number(lastState.scans?.oxygen)+Number(lastState.scans?.carbon))+'/2','Válvula + filtro','Bomba + tuberías',`LED ${lastState.garden?.lightBy?'✓':'…'} · Agua ${lastState.garden?.waterBy?'✓':'…'}`,`Refugio ${Math.round((lastState.shieldHold||0)/260*100)}%`,'¡Rescate conseguido!'];
 el('progressText').textContent=progress[phase]||progress[6];if(puzzleOpen)updatePuzzle();}
-function resize(){const rect=canvas.getBoundingClientRect();const dpr=Math.min(devicePixelRatio||1,2);canvas.width=Math.max(1,Math.round(rect.width*dpr));canvas.height=Math.max(1,Math.round(rect.height*dpr));viewport.w=rect.width;viewport.h=rect.height;viewport.dpr=dpr;const s=Math.min(rect.width/WORLD.w,rect.height/WORLD.h);viewport.scale=s;viewport.ox=(rect.width-WORLD.w*s)/2;viewport.oy=(rect.height-WORLD.h*s)/2;}window.addEventListener('resize',resize);resize();
+function resize(){const rect=canvas.getBoundingClientRect();const dpr=Math.min(devicePixelRatio||1,2);canvas.width=Math.max(1,Math.round(rect.width*dpr));canvas.height=Math.max(1,Math.round(rect.height*dpr));viewport.w=rect.width;viewport.h=rect.height;viewport.dpr=dpr;const s=Math.min(rect.width/WORLD.w,rect.height/WORLD.h);viewport.scale=rect.width<650?Math.min(1.15,Math.max(rect.width/620,rect.height/WORLD.h)):s;
+if(rect.width<650){const focus=self||{x:690,y:400};viewport.ox=clip(rect.width/2-focus.x*viewport.scale,rect.width-WORLD.w*viewport.scale,0);viewport.oy=clip(rect.height/2-focus.y*viewport.scale,rect.height-WORLD.h*viewport.scale,0);}
+else{viewport.ox=(rect.width-WORLD.w*s)/2;viewport.oy=(rect.height-WORLD.h*s)/2;}}window.addEventListener('resize',resize);resize();
 function roundedRect(x,y,w,h,r,fill,stroke,lw=2){ctx.beginPath();ctx.roundRect(x,y,w,h,r);if(fill){ctx.fillStyle=fill;ctx.fill();}if(stroke){ctx.lineWidth=lw;ctx.strokeStyle=stroke;ctx.stroke();}}
 function circ(x,y,r,fill,stroke,lw=2){ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);if(fill){ctx.fillStyle=fill;ctx.fill();}if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=lw;ctx.stroke();}}
 function text(str,x,y,size=16,col='#eefbff',align='center',weight=800){ctx.font=weight+' '+size+'px Nunito,system-ui';ctx.textAlign=align;ctx.fillStyle=col;ctx.fillText(str,x,y);}
@@ -166,7 +168,9 @@ if(phase>=3){for(let i=0;i<11;i++){const xx=1040+i*19,yy=575+Math.sin(t*.002+i)*
 drawPlayers(t,dt);
 if(pointerGoal&&self){circ(pointerGoal.x,pointerGoal.y,10,null,'#ffdf93',3);}
 }
-function draw(t){const dt=Math.min(40,t-lastFrame);lastFrame=t;const dpr=viewport.dpr||1;ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,viewport.w,viewport.h);ctx.fillStyle='#070e20';ctx.fillRect(0,0,viewport.w,viewport.h);
+function draw(t){const dt=Math.min(40,t-lastFrame);lastFrame=t;
+if(viewport.w<650){const focus=self||{x:690,y:400};const tx=clip(viewport.w/2-focus.x*viewport.scale,viewport.w-WORLD.w*viewport.scale,0);const ty=clip(viewport.h/2-focus.y*viewport.scale,viewport.h-WORLD.h*viewport.scale,0);const alpha=window.matchMedia('(prefers-reduced-motion: reduce)').matches?1:.11;viewport.ox+=(tx-viewport.ox)*alpha;viewport.oy+=(ty-viewport.oy)*alpha;}
+const dpr=viewport.dpr||1;ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,viewport.w,viewport.h);ctx.fillStyle='#070e20';ctx.fillRect(0,0,viewport.w,viewport.h);
 ctx.save();ctx.translate(viewport.ox,viewport.oy);ctx.scale(viewport.scale,viewport.scale);drawWorld(t,dt);ctx.restore();requestAnimationFrame(draw);}requestAnimationFrame(draw);
 function detectNear(){if(!self)return null;let best=null,md=82;const targets=phase===0?[]:phase===1?['oxygen','carbon']:phase===2?['valve','filter']:phase===3?['pump','pipe']:phase===4?['lamp','irrigation']:[];for(const key of targets){const d=dist(self,target[key]);if(d<md){md=d;best=key;}}return best;}
 function interact(){if(!online)return;let k=detectNear();if(!k)return;if(phase===1){send({t:'scan',which:k});return;}if(phase===2&&k==='filter'){send({t:'open_puzzle'});return;}if(phase===3&&k==='pipe'){send({t:'open_water_puzzle'});return;}if(phase===4&&(k==='lamp'||k==='irrigation')){openGarden(k);return;}}
