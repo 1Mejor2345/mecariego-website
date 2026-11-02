@@ -1,0 +1,1 @@
+{"name":"plutocore-duo","version":"1.0.0","private":true,"description":"Cooperative lunar mystery game for two browsers","scripts":{"start":"node server.js"},"engines":{"node":">=20"},"license":"MIT"}
