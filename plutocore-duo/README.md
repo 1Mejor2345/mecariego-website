@@ -1,53 +1,66 @@
-# PlutoCore — Rescate Aurora 4.0
+# PlutoCore: Archivo de lo imposible — 5.0
 
-Aventura de ciencia para 7–12 años. Una base lunar, seis etapas: energía solar, diagnóstico del aire, filtración de CO₂, reciclaje de agua, cultivo y protección contra una tormenta solar.
+Reconstrucción del juego: nuevas escenas, reglas, controles, navegación, audio y protocolo cooperativo. La versión anterior permanece en el historial de Git.
 
-## Ejecutar
+## Experiencia
 
-Requiere Node.js 22 o posterior. Sin dependencias ni instalación.
+Cinco misiones abiertas desde el comienzo. Cada una empieza con un contexto breve, permite experimentar, muestra consecuencias y termina con una explicación histórica y su fuente. No hay cuestionarios. Los errores dan una pista y permiten repetir.
+
+1. **El suelo equivocado — Apollo 11 (1969).** Desviar el Eagle de las rocas y aterrizar con velocidad baja y combustible restante. Cooperativo: dirección / impulso.
+2. **Lo que no encajaba — Apollo 13 (1970).** Construir el adaptador del filtro con cartón, filtro, bolsa, manguera y cinta. Un filtro sin adaptador no encaja; sin sellar, pierde aire. Cooperativo: montaje / conducción y sellado.
+3. **Un abrazo en órbita — STS-7 (1983).** Capturar SPAS-01 con el brazo robótico, estabilizar la pinza y volver a la bodega. Cooperativo: posición horizontal / altura.
+4. **El agua que no cae — ISS (2013).** Exprimir una toalla y recoger gotas con movimientos suaves. Comparar con la Tierra. Las gotas cercanas se unen conservando su cantidad de agua en la representación. Cooperativo: toalla / experimento.
+5. **Tu propia pequeña Luna — Aurora ficticia.** Repartir seis baterías entre aire, huerto y refugio. La tormenta cambia la demanda; dejar la distribución inicial no permite completar la misión. Cooperativo: aire y huerto / refugio.
+
+Los cascos de astronautas son ilustraciones generadas con IA. El personaje de Mae en Aurora es un homenaje visual dentro de una historia ficticia, no una misión histórica suya. La misión Apollo 13 identifica correctamente a Lovell, Swigert y Haise.
+
+## Ejecutar y probar
+
+Node.js 22 o posterior; sin dependencias.
 
 ```sh
-node server.js
+npm start
 ```
 
-Abrir http://localhost:3000. Para probar el servidor, dejarlo encendido y ejecutar en otra terminal:
+Abrir http://127.0.0.1:3000. El modo individual ejecuta las reglas dentro del navegador; una vez cargados los archivos no depende de un servidor de partidas. No hay una caché offline instalada: el primer acceso necesita conexión o un servidor local.
 
 ```sh
 npm test
 ```
 
-Las pruebas conectan tres clientes WebSocket reales en dos salas independientes; completan individual y cooperativo, comprueban validación de distancia, tuberías y orden del agua, el presupuesto energético y el reinicio. TEST_ORIGIN permite apuntar a otro servidor de pruebas.
+Simula las cinco misiones en individual y con roles separados. Comprueba aterrizaje, orden funcional del adaptador, fugas, captura, agua, reparto de recursos y consecuencias de no cambiarlo.
 
-## Cómo jugar
+Con el servidor en otra terminal:
 
-- Individual: orienta ambos paneles. Fija válvula y bomba antes de resolver sus reparaciones. Los ajustes permanecen. Sella las dos entradas del refugio.
-- Dos personas: una crea la sala, copia la invitación y la comparte. Cada persona usa su propio navegador o dispositivo. Cada una controla un panel y una estación de cultivo; válvula/filtro, bomba/agua y refugio requieren cooperación.
-- Muévete con WASD, flechas o clic sobre el mapa. Acércate a las estaciones y usa E. En pantallas pequeñas hay joystick y botón USAR. Pulsar una estación también permite caminar hasta ella e interactuar.
-- Música ambiental original y efectos sintetizados: activar con el botón musical. Apagados inicialmente para respetar las preferencias del jugador y las restricciones de audio del navegador.
-- Descubrimientos: fichas opcionales con fotografías y enlaces a fuentes oficiales, sin interrumpir la siguiente tarea.
+```sh
+npm run test:online
+```
 
-## Relación con el reto
+Conecta dos clientes WebSocket reales, comprueba funciones distintas, resuelve Apollo 13 entre ambos y verifica victoria, pausa y avance compartidos. TEST_ORIGIN permite apuntar a otro servidor de prueba.
 
-Reto: Build a Junior Astronaut Mission Trainer (NASA Space Apps 2026).
-https://www.spaceappschallenge.org/2026/challenges/junior-astronaut-mission-trainer/
+## Audio
 
-El resumen oficial pide operar una base lunar o marciana y experimentar decisiones entre soporte vital, radiación, energía y alimentos. Esta versión conecta los sistemas en una aventura y añade un presupuesto compartido de energía para luz y riego. Superarlo detiene el crecimiento; el jugador debe experimentar y reducir el consumo. No basta con subir ambos controles.
+orbital-theme.wav contiene una composición original de 24 segundos en bucle: acordes suaves y arpegios. Se reproduce mediante un elemento HTMLAudioElement, activado en el mismo gesto de pulsar Jugar. El botón muestra si está sonando y permite silenciarlo; el control de volumen afecta música y efectos. Si el navegador impide reproducir, muestra Activar audio. Los efectos de interacción y éxito usan Web Audio. No se usan grabaciones históricas ni canciones comerciales.
 
-El resumen oficial se verificó mediante su resultado indexado; el acceso directo al texto completo devolvió 502. No se afirma cumplimiento integral de las bases ni aceptación del concurso. Esta es una evolución de un prototipo previo: hay que declarar el trabajo y las herramientas anteriores al evento según las reglas que correspondan.
+## Fuentes históricas
 
-## Ciencia, simplificaciones y créditos
+- Apollo 11 Lunar Surface Journal, misión y elección de terreno: https://www.nasa.gov/wp-content/uploads/static/history/alsj/a11/a11.summary.html
+- Apollo 13, filtros incompatibles y adaptación: https://www.nasa.gov/missions/apollo/apollo-13-mission-details/
+- Sally Ride y despliegue/recuperación de SPAS-01: https://www.nasa.gov/history/sally-ride-first-american-woman-in-space/
+- Experimento de Chris Hadfield propuesto por Kendra Lemke y Meredith Faulkner: https://www.csa-asc.gc.ca/eng/multimedia/search/video/17862
+- NASA APOD, descripción del experimento y tensión superficial: https://science.nasa.gov/image-article/apod-2013-april-24-wringing-a-wet-towel-in-orbit/
+- Reto de referencia, Build a Junior Astronaut Mission Trainer: https://www.spaceappschallenge.org/2026/challenges/junior-astronaut-mission-trainer/
 
-Aurora y sus fallos son ficticios. Parámetros, porcentajes de progreso, unidades de energía y valores ideales son reglas didácticas; no son mediciones ni una simulación física validada. El sensor de O₂ se expresa como nivel adecuado, sin el 96% de oxígeno ficticio de la versión anterior. La historia del filtro de Apollo 13 se distingue de los personajes jugables.
+## Qué es histórico y qué es una regla del juego
 
-- Apollo 13 y filtros incompatibles: https://www.nasa.gov/missions/apollo/apollo-13-mission-details/
-- ECLSS, soporte vital y recuperación de agua: https://www.nasa.gov/reference/environmental-control-and-life-support-systems-eclss/
-- Cultivos: https://science.nasa.gov/mission/veggie/
-- Radiación: https://www.nasa.gov/humans-in-space/space-radiation/
+Los hechos y participantes se basan en las fuentes anteriores. La pista de aterrizaje, tiempos, combustible, velocidad, espacio de trabajo del brazo, cantidad de gotas y baterías son valores didácticos. El adaptador representa la función de los materiales, no instrucciones de fabricación ni una réplica del diseño original. La recogida de gotas con la toalla es una ampliación jugable del experimento de Hadfield, no una reproducción exacta de cada acción del video. Las gotas se dibujan en dos dimensiones y no constituyen una simulación de fluidos validada.
 
-Neil Armstrong, Sally Ride, Mae Jemison y Chris Hadfield son homenajes ilustrados. No se sugiere que participaron juntos en Apollo 13 ni que NASA avala el juego. Los cuatro cascos de helmets.png son ilustraciones generadas con IA mediante la herramienta integrada ImageGen; las caras no son fotografías. Brazos, piernas, botas y animaciones se dibujan mediante código para conservar su integridad y proporciones. Hay poses de espera, caminata continua y reparación, interpolación de posiciones recibidas del servidor y respeto a la preferencia de movimiento reducido.
+Aurora traslada el aprendizaje al reto de operar una base lunar, con demandas simultáneas y recursos limitados. No se presenta como hecho histórico ni como una entrega aceptada del concurso. La revisión de bases completas y la declaración del trabajo anterior al evento deben hacerse antes de una presentación oficial.
 
-Prompt utilizado para helmets.png: retratos de cascos de Neil Armstrong, Sally Ride, Mae Jemison y Chris Hadfield, caricaturas semirrealistas amables; cuadrícula 2×2 con celdas iguales, ángulo frontal y escala uniforme, fondo transparente, sin cuerpos, textos ni logotipos. El atlas se usa sin recortar ni alterar la imagen generada.
+## Implementación y límites
 
-## Limitaciones
+model.js comparte reglas entre navegador individual y servidor cooperativo. El servidor controla el estado, valida funciones y comparte resultados; no confía en una señal de victoria enviada por el cliente. Los mandos de teclado, botones y destino por toque se explican al comenzar. Apollo 13 acepta selección + toque y arrastre. Los textos no dependen solo del color.
 
-Las salas viven en memoria y se pierden con reinicios o suspensión de Render. No hay recuperación de sesión tras desconexión; se informa al jugador y puede crear otra sala. Las fichas dependen de imágenes externas y se ocultan si no cargan. La experiencia requiere conexión, incluso en individual. El prototipo necesita pruebas de comprensión y comodidad con niños de la edad objetivo antes de presentarlo como producto validado.
+El pasaporte de sellos se guarda localmente en el navegador. No hay cuentas ni mensajería. Las salas cooperativas viven en memoria y se pierden si Render reinicia; al desconectarse alguien se detiene la simulación hasta reunir de nuevo dos personas. Los personajes tienen animación de flotación, movimiento de brazos y pasos en Aurora. La preferencia del sistema de movimiento reducido elimina las animaciones decorativas principales.
+
+Hace falta una prueba de comprensión y comodidad con niños de 7–12 años para validar la experiencia educativa; las pruebas automáticas no la sustituyen.

@@ -1,38 +1,16 @@
 'use strict';
-const assert=require('node:assert/strict');
-const Pipes=require('../public/pipes');
-const origin=process.env.TEST_ORIGIN||'http://127.0.0.1:3000';
-const wait=ms=>new Promise(r=>setTimeout(r,ms));
-async function until(test,label,timeout=18000){const start=Date.now();while(!test()){if(Date.now()-start>timeout)throw Error('Timeout: '+label);await wait(40);}}
-async function client(){const c={ws:new WebSocket(origin.replace(/^http/,'ws')+'/ws'),state:null,id:null,events:[]};c.send=v=>c.ws.send(JSON.stringify(v));c.ws.onmessage=e=>{const m=JSON.parse(e.data);if(m.t==='state')c.state=m;if(m.t==='joined'){c.id=m.id;c.room=m.room;}c.events.push(m);};await until(()=>c.ws.readyState===1,'socket');return c;}
-async function move(c,x,y,use=false){await until(()=>c.state,'first state');const start=Date.now();while(true){const p=c.state.players.find(p=>p.id===c.id),dx=x-p.x,dy=y-p.y,d=Math.hypot(dx,dy);if(d<17)break;if(Date.now()-start>15000)throw Error('Movement timeout');c.send({t:'input',x:dx/d,y:dy/d,use:false});await wait(65);}c.send({t:'input',x:0,y:0,use});await wait(120);}
-async function phase(c,n){await until(()=>c.state.phase===n,'phase '+n,14000);}
-async function run(mode){const a=await client();let b=a;const all=[a];try{
- a.send({t:'create',mode,name:'Test A',character:2});await until(()=>a.id,'join A');
- if(mode==='duo'){b=await client();all.push(b);b.send({t:'join',room:a.room,name:'Test B',character:3});await until(()=>b.id,'join B');}
- await phase(a,0);assert.equal(a.state.mode,mode);
- // Range checks reject setting stations remotely.
- a.send({t:'solar_set',panel:'A',angle:45});await wait(150);assert.equal(a.state.solarAngles[0],12);
- await move(a,1050,247);a.send({t:'solar_set',panel:'A',angle:45});
- await move(b,1250,247);b.send({t:'solar_set',panel:'B',angle:135});await phase(a,1);
- await move(a,272,249);a.send({t:'scan',which:'oxygen'});await wait(150);assert.equal(a.state.phase,1);
- await move(b,1096,585);b.send({t:'scan',which:'carbon'});await phase(a,2);
- await move(a,600,406,mode==='duo');if(mode==='solo')a.send({t:'latch',station:'valve'});
- await move(b,813,406);b.send({t:'open_puzzle'});await wait(200);
- b.send({t:'repair',rotations:[1,1,2,1,2,1,2,3,1]});await wait(200);assert.equal(a.state.phase,2,'reject disconnected pipe route');
- b.send({t:'repair',rotations:Array(9).fill(0)});await phase(a,3);
- await move(a,192,603,mode==='duo');if(mode==='solo')a.send({t:'latch',station:'pump'});
- await move(b,364,606);b.send({t:'open_water_puzzle'});await wait(200);
- b.send({t:'water_repair',order:['verify','filter','oxidize']});await wait(200);assert.equal(a.state.phase,3);
- b.send({t:'water_repair',order:['filter','oxidize','verify']});await phase(a,4);
- await move(a,1096,616);a.send({t:'garden_setting',part:'light',value:100});
- await move(b,1265,616);b.send({t:'garden_setting',part:'water',value:100});await wait(1000);assert.equal(a.state.growth,0,'over-budget garden cannot grow');
- await move(a,1096,616);a.send({t:'garden_setting',part:'light',value:70});
- await move(b,1265,616);b.send({t:'garden_setting',part:'water',value:52});await phase(a,5);
- await move(a,580,625,mode==='duo');if(mode==='solo')a.send({t:'latch',station:'shelterA'});
- await move(b,824,625,mode==='duo');if(mode==='solo')b.send({t:'latch',station:'shelterB'});
- await phase(a,6);assert(a.state.complete);a.send({t:'restart'});await phase(a,0);assert.deepEqual(a.state.latches,{});
- console.log('PASS '+mode+': complete mission, invalid solutions rejected, energy budget and restart');
- }finally{all.forEach(c=>c.ws.close());}}
-assert(Pipes.connected(Array(9).fill(0)));assert(!Pipes.connected([1,1,2,1,2,1,2,3,1]));assert(!Pipes.connected([]));assert(!Pipes.connected(Array(9).fill(-1)));
-Promise.all([run('solo'),run('duo')]).catch(e=>{console.error(e);process.exitCode=1;}).finally(()=>setTimeout(()=>process.exit(process.exitCode||0),300));
+const assert=require('node:assert/strict'),origin=process.env.TEST_ORIGIN||'http://127.0.0.1:3000';
+const sleep=ms=>new Promise(r=>setTimeout(r,ms));
+async function until(fn,label){const start=Date.now();while(!fn()){if(Date.now()-start>12000)throw Error('Timeout: '+label);await sleep(30);}}
+async function client(){const p={ws:new WebSocket(origin.replace(/^http/,'ws')+'/ws')};p.send=x=>p.ws.send(JSON.stringify(x));p.cmd=x=>p.send({type:'command',command:x});p.ws.onmessage=e=>{const m=JSON.parse(e.data);if(m.type==='state')p.state=m;if(m.type==='joined'){p.id=m.id;p.role=m.role;p.code=m.code;}if(m.type==='error')p.error=m.message;};await until(()=>p.ws.readyState===1,'connect');return p;}
+(async()=>{const a=await client(),b=await client();try{
+ a.send({type:'create',name:'Pilot'});await until(()=>a.code,'create');b.send({type:'join',code:a.code,name:'Engineer'});await until(()=>b.state?.ready&&a.state?.ready,'two players');assert.equal(a.role,0);assert.equal(b.role,1);assert.equal(a.state.game.version,5);
+ b.cmd({type:'select',mission:3});await sleep(100);assert.equal(a.state.game.mission,0,'role 1 cannot change mission');
+ a.cmd({type:'select',mission:1});await until(()=>a.state.game.mission===1,'select Apollo13');a.cmd({type:'start'});await until(()=>a.state.game.status==='playing','start');
+ b.cmd({type:'place',item:'cardboard',x:590,y:315});await sleep(100);assert.equal(a.state.game.scene.placed.length,0,'wrong role rejected');
+ for(const item of ['cardboard','filter'])a.cmd({type:'place',item,x:590,y:315});for(const item of ['bag','hose'])b.cmd({type:'place',item,x:590,y:315});await until(()=>a.state.game.scene.placed.length===4,'build together');
+ a.cmd({type:'test'});await sleep(100);assert.equal(b.state.game.scene.air,0,'unsealed adapter leaks');
+ for(let i=0;i<20;i++)b.cmd({type:'tape',amount:.06});a.cmd({type:'test'});await until(()=>a.state.game.status==='won'&&b.state.game.status==='won','shared win');
+ a.cmd({type:'next'});await until(()=>a.state.game.mission===2,'next mission');b.cmd({type:'start'});await until(()=>a.state.game.status==='playing','partner starts');a.cmd({type:'pause'});await until(()=>b.state.game.status==='paused','shared pause');const clock=b.state.game.clock;await sleep(200);assert.equal(b.state.game.clock,clock);a.cmd({type:'resume'});await until(()=>b.state.game.status==='playing','resume');
+ console.log('PASS: two real WebSocket clients, distinct roles, adapter solved cooperatively, shared victory, pause and next mission');
+ }finally{a.ws.close();b.ws.close();}})().catch(e=>{console.error(e);process.exitCode=1;});
