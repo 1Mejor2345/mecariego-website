@@ -4,7 +4,7 @@ const sleep=ms=>new Promise(r=>setTimeout(r,ms));
 async function until(fn,label){const start=Date.now();while(!fn()){if(Date.now()-start>12000)throw Error('Timeout: '+label);await sleep(30);}}
 async function client(){const p={ws:new WebSocket(origin.replace(/^http/,'ws')+'/ws')};p.send=x=>p.ws.send(JSON.stringify(x));p.cmd=x=>p.send({type:'command',command:x});p.ws.onmessage=e=>{const m=JSON.parse(e.data);if(m.type==='state')p.state=m;if(m.type==='joined'){p.id=m.id;p.role=m.role;p.code=m.code;}if(m.type==='error')p.error=m.message;};await until(()=>p.ws.readyState===1,'connect');return p;}
 (async()=>{const a=await client(),b=await client();try{
- a.send({type:'create',name:'Pilot'});await until(()=>a.code,'create');b.send({type:'join',code:a.code,name:'Engineer'});await until(()=>b.state?.ready&&a.state?.ready,'two players');assert.equal(a.role,0);assert.equal(b.role,1);assert.equal(a.state.game.version,5);
+ a.send({type:'create',name:'Pilot'});await until(()=>a.code,'create');b.send({type:'join',code:a.code,name:'Engineer'});await until(()=>b.state?.ready&&a.state?.ready,'two players');assert.equal(a.role,0);assert.equal(b.role,1);assert.equal(a.state.game.version,7);
  b.cmd({type:'select',mission:3});await sleep(100);assert.equal(a.state.game.mission,0,'role 1 cannot change mission');
  a.cmd({type:'select',mission:1});await until(()=>a.state.game.mission===1,'select Apollo13');a.cmd({type:'start'});await until(()=>a.state.game.status==='playing','start');
  b.cmd({type:'place',item:'cardboard',x:590,y:315});await sleep(100);assert.equal(a.state.game.scene.placed.length,0,'wrong role rejected');

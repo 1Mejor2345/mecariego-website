@@ -1,11 +1,11 @@
-# Validación de Archivo de lo imposible 5.0
+# Verificación de Volvamos a casa 7.0
 
-- Sintaxis de servidor, reglas compartidas y JavaScript del navegador.
-- Las cinco misiones completadas en simulación con controles individuales y con los dos roles separados.
-- Casos negativos: filtro incompatible, adaptador sin sellar, material lejos de la unión, papel incorrecto y reparto de energía sin adaptar a la tormenta.
-- Dos clientes WebSocket reales: cooperación en Apollo 13, victoria compartida, cambio de misión y pausa sincronizada.
-- En navegador: montaje de Apollo 13 completo, incluida prueba fallida por fuga, cinta y prueba correcta; captura y retorno de SPAS-01 completos; comparación de gotas entre Tierra y órbita.
-- Audio del navegador: elemento de audio listo, no pausado y tiempo de reproducción avanzando.
-- Inspección de interfaz en escritorio y vista de 390 × 844.
+- Sintaxis de servidor, escenas, modelo, guías y mapas de voz.
+- Historia de Apollo 13 y bonus completados en simulación individual y con roles cooperativos.
+- Filtro incompatible y sin sellar rechazados; puerta necesaria para pasar al refugio; paracaídas bloqueados hasta la señal; permisos de cada puesto.
+- Todos los textos de ayuda probados son breves y tienen archivo de audio español existente y válido.
+- Dos conexiones WebSocket reales: construcción compartida, victoria, cambio de capítulo, pausa y reanudación.
+- Navegador: prólogo de Laika y salto a la tripulación; voz española con reproducción y tiempo avanzando; controles del capítulo de rumbo completados en una vista de 390 px.
+- Ayudas visibles: mano, siguiente destino, pieza siguiente y botón principal.
 
-Estas pruebas verifican funcionamiento; no prueban que el juego sea entretenido o comprensible para todos los niños. Falta una sesión de usabilidad con la edad objetivo.
+Las pruebas no sustituyen una evaluación con niños de 7–12 años. El producto aún requiere pruebas de comprensión, ritmo narrativo y comodidad con la edad objetivo.

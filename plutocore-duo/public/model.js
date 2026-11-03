@@ -13,7 +13,7 @@ function scene(i){if(i===0)return{x:235,y:120,vx:0,vy:18,targetX:235,fuel:100,th
  if(i===2)return{x:365,y:280,tx:365,ty:280,vx:0,vy:0,sx:610,sy:235,captured:false,hold:0,battery:100};
  if(i===3)return{squeezed:false,gravity:false,earthSeen:false,x:500,y:390,tx:500,ty:390,drops:[],collected:0,burst:0};
  return{allocation:[2,2,2],air:75,food:70,shield:75,battery:100,elapsed:0,storm:false};}
-function create(mode='solo'){return{version:5,mode,mission:0,status:'brief',clock:0,attempt:1,notice:'',event:0,completed:[],scene:scene(0),inputs:[{},{}]};}
+function create(mode='solo'){return{version:6,mode,mission:0,status:'brief',clock:0,attempt:1,notice:'',event:0,completed:[],scene:scene(0),inputs:[{},{}]};}
 function notify(s,msg){s.notice=msg;s.event++;}
 function reset(s,i=s.mission){s.mission=i;s.scene=scene(i);s.status='brief';s.inputs=[{},{}];notify(s,'');}
 function allowed(s,role,owner){return s.mode==='solo'||role===owner;}
@@ -24,8 +24,8 @@ function command(s,c,role=0){if(!c||typeof c!=='object')return;const k=c.type;
  if(k==='retry'){if(s.status==='retry'){s.attempt++;reset(s);s.status='playing';}return;}
  if(k==='select'&&role===0&&Number.isInteger(c.mission)&&c.mission>=0&&c.mission<5){reset(s,c.mission);return;}
  if(k==='next'&&role===0&&s.status==='won'){reset(s,(s.mission+1)%5);return;}
- if(k==='pause'&&role===0&&s.status==='playing'){s.status='paused';s.inputs=[{},{}];return;}
- if(k==='resume'&&role===0&&s.status==='paused'){s.status='playing';return;}
+ if(k==='pause'&&s.status==='playing'){s.status='paused';s.inputs=[{},{}];return;}
+ if(k==='resume'&&s.status==='paused'){s.status='playing';return;}
  if(s.status!=='playing')return;const m=s.mission,g=s.scene;
  if(k==='input'){s.inputs[role]={x:num(c.x??0,-1,1),y:num(c.y??0,-1,1),thrust:c.thrust===true};return;}
  if(m===0&&k==='target'&&allowed(s,role,0))g.targetX=num(c.x,60,940);

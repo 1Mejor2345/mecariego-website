@@ -1,11 +1,11 @@
 {
   "name": "plutocore-duo",
-  "version": "5.0.0",
+  "version": "7.0.0",
   "private": true,
-  "description": "Historical space adventures for children: Apollo 11, Apollo 13, STS-7, ISS and a lunar outpost",
+  "description": "A guided Apollo 13 story for children, with a historically honest Laika prologue and a lunar-base bonus",
   "scripts": {
     "start": "node server.js",
-    "test": "node test/model.test.js",
+    "test": "node test/model.test.js && node test/kid-ui.test.js",
     "test:online": "node test/mission.js"
   },
   "engines": {
