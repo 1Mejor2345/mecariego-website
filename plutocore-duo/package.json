@@ -1,11 +1,11 @@
 {
   "name": "plutocore-duo",
-  "version": "7.0.0",
+  "version": "8.0.0",
   "private": true,
-  "description": "A guided Apollo 13 story for children, with a historically honest Laika prologue and a lunar-base bonus",
+  "description": "A cooperative time academy: walk through rooms, solve space-history tasks and discover why",
   "scripts": {
     "start": "node server.js",
-    "test": "node test/model.test.js && node test/kid-ui.test.js",
+    "test": "node test/academy.test.js && node test/academy-voices.test.js",
     "test:online": "node test/mission.js"
   },
   "engines": {

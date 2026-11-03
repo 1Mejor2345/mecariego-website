@@ -1,11 +1,10 @@
-# Verificación de Volvamos a casa 7.0
+# Verificación de Academia del tiempo 8.0
 
-- Sintaxis de servidor, escenas, modelo, guías y mapas de voz.
-- Historia de Apollo 13 y bonus completados en simulación individual y con roles cooperativos.
-- Filtro incompatible y sin sellar rechazados; puerta necesaria para pasar al refugio; paracaídas bloqueados hasta la señal; permisos de cada puesto.
-- Todos los textos de ayuda probados son breves y tienen archivo de audio español existente y válido.
-- Dos conexiones WebSocket reales: construcción compartida, victoria, cambio de capítulo, pausa y reanudación.
-- Navegador: prólogo de Laika y salto a la tripulación; voz española con reproducción y tiempo avanzando; controles del capítulo de rumbo completados en una vista de 390 px.
-- Ayudas visibles: mano, siguiente destino, pieza siguiente y botón principal.
-
-Las pruebas no sustituyen una evaluación con niños de 7–12 años. El producto aún requiere pruebas de comprensión, ritmo narrativo y comodidad con la edad objetivo.
+- Campaña completa en simulación individual y con dos roles: cinco salas, explicaciones y diploma.
+- Acceso a paneles limitado por distancia; los dos deben abrir y los dos deben responder antes de avanzar.
+- Filtro sin piezas o cinta no gana. La pinza respeta los turnos. Un agarre aislado no captura.
+- Pausa compartida congela el estado y cualquiera puede reanudar.
+- 35 archivos de voz españoles válidos; narración de cada introducción y de cada explicación histórica.
+- Clase online completa mediante dos clientes WebSocket reales: movimiento, acceso a paneles, cinco tareas, respuestas y diploma.
+- Navegador móvil de 390 px: caminar con pulsación táctil, abrir el panel, cuidados de Laika, explicación histórica automática y audio con tiempo avanzado; sin desbordamiento horizontal.
+- No equivale a validación con niños. Quedan por evaluar comprensión, diversión y ritmo con la edad objetivo.
